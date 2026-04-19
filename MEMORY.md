@@ -18,12 +18,12 @@
    - Bundle ID: com.ggsheng.UstiaGo
 
 3. **HabitGo** (新) - 习惯追踪 App
-   - 状态: ✅ 源码+截图脚本完成，⏳ MacinCloud 执行 XCUITest 截图 + Archive
+   - 状态: ✅ 截图完成，⏳ VNC 操作 Archive + Upload
    - Bundle ID: com.ggsheng.HabitGo
    - Privacy Policy: https://lauer3912.github.io/ios-HabitGo/docs/PrivacyPolicy.html
    - GitHub: https://github.com/lauer3912/ios-HabitGo
    - XCUITest: `HabitGoUITests/HabitGoUITests.swift`
-   - 所需截图: 01_Habits, 02_History, 03_Stats, 04_Settings, 05_AddHabit_Sheet
+   - 截图: 4张 (1290×2796) MD5: Habits=6b288861, History=2e7c5c8a, Stats=2a266715, Settings=e90a4506ts, 04_Settings, 05_AddHabit_Sheet
 
 ## 🚀 上线计划
 1. JustZenGo → App Store 填写元数据 → 提交审核
@@ -145,6 +145,10 @@ Repo 名 = 平台前缀 + 业务名（平台前缀: ios-, macos-, 等）
 - Archive 时加 `-allowProvisioningUpdates` 让 Xcode 自动从 Portal 获取 provisioning profile
 - **MacinCloud SSH 限制**：`errSecInternalComponent` → SSH 非交互会话无法访问 keychain 私钥 → 用 VNC 桌面版 Xcode 完成 Sign and Upload
 
+### ⭐ Xcode Archive/Distribute 必读
+- **Team 名**: ZhiFeng Sun (9L6N2ZF26B) — 每次 Archive 后 Distribute 时必须选这个！
+- 流程：Xcode → Window → Organizer → 选择 Archive → Distribute → App Store Connect → Sign and Upload → 选 ZhiFeng Sun → Upload
+
 ### 🚀 iOS 项目预检清单（每次提交前必过）
 1. **CJK 扫描** — 全项目无一个中文字符（Python: `re.compile(r'[\u4e00-\u9fff]')`）
 2. **AppIcon Contents.json** — 每个文件的 `size` 字段与实际 PNG 像素尺寸严格匹配
@@ -173,9 +177,6 @@ Repo 名 = 平台前缀 + 业务名（平台前缀: ios-, macos-, 等）
 ## 📱 当前项目状态
 | 项目 | 业务名 | Repo | GitHub 最新 commit | App Store |
 |------|--------|------|-------------------|----------|
+| 习惯追踪 | HabitGo | ios-HabitGo | `4650f9c` App Store截图 | ⏳ VNC Archive |
 | 番茄钟 | JustZenGo | ios-JustZenGo | `fae01a8` App Store内容英文化 | 有2个VALID Build，待填元数据 |
 | 屏幕时间 | UstiaGo | ios-UstiaGo | `0b5472c` AppIcon尺寸修复 | 待上传 + 填元数据 |
-| 项目 | 业务名 | Repo | 状态 |
-|------|--------|------|------|
-| 番茄钟 | JustZenGo | ios-JustZenGo | ✅ |
-| 屏幕时间 | UstiaGo | ios-UstiaGo | ✅ |
