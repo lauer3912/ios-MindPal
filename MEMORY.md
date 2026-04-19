@@ -38,6 +38,12 @@
 - **【强制】一次性处理完整**：任何改动不做半吊子，发现问题要系统性检查所有相关项，不只改表面。每次提交前必过「预检清单」（见下方）
 - App 源码必须 Cmd+B 能直接编译，验证通过后立刻 commit + push
 
+## 📝 GitHub 仓库可见性策略
+- **全部保持 Public**（App Store 上架的 App 源码迟早公开）
+- Private repo 的 GitHub Pages 也是私密的 → 苹果审核员看不到隐私政策 URL → 直接被拒
+- 如果必须 private：把隐私政策部署到 Netlify/Vercel/Cloudflare Pages（公开 URL）
+- 结论：Public + GitHub Pages 免费托管最有利，代码保护主要靠商标注册
+
 ## 📝 关键知识
 - XcodeGen: 需要 macOS 运行，Linux 环境无法执行（只有 macOS 二进制）
   - 下载地址: https://github.com/yonaskolb/XcodeGen/releases
@@ -49,6 +55,7 @@
 ## 📱 App Store 截图
 - **JustZenGo**: 8张不同截图，UITests MD5验证通过，commit `ca7a209`
 - **UstiaGo**: 5张不同截图，UITests MD5验证通过，commit `ee16a4c`
+- **HabitGo**: 待XCUITest截图，commit `4ca78a8`
 - XCUITest 可用于截 App Store 图（详见 AGENTS.md）
 
 ## 🛡️ App Store Connect — App 隐私（必填，被拒重灾区）
@@ -155,6 +162,13 @@ Repo 名 = 平台前缀 + 业务名（平台前缀: ios-, macos-, 等）
 ### 3. Xcode Organizer Sign and Upload 是最优解
 - 不走命令行 `altool`/`xcrun altool`（JWT 限制多、证书创建 scope 被拒）
 - 让用户在 VNC 桌面里手动点：Xcode → Window → Organizer → Distribute → Sign and Upload
+
+## 📸 HabitGo 截图（已完成）
+- 4张 App Store 截图：iPhone 6.7" (1290×2796)
+- 截图 MD5：`iPhone_6_7_Habits=6b288861`, `History=2e7c5c8a`, `Stats=2a266715`, `Settings=e90a4506`
+- XCUITest 成功运行：`testAppStoreScreenshots` passed (48s)
+- 截图命令：`xcodebuild test -only-testing:HabitGoUITests/HabitGoUITests/testAppStoreScreenshots`
+- 注意事项：XCUITest 运行时会触发 URL scheme 弹窗（habitgo://），需等待 interruption handler 自动处理
 
 ## 📱 当前项目状态
 | 项目 | 业务名 | Repo | GitHub 最新 commit | App Store |
