@@ -94,17 +94,22 @@
 
 **【强制】所有 App 图标必须严格遵守 Apple HIG：** https://developer.apple.com/design/human-interface-guidelines/app-icons
 
-**⚠️ 1024x1024 App Store 图标（Apple 强制要求）：**
-- **必须正方形，无圆角** — Apple 系统自动添加圆角，禁止自己画圆角
-- **必须无 Alpha 通道/透明** — 不能有任何透明像素，背景必须是实心不透明
-- **纯色或渐变背景** — 禁止使用照片作为背景
-- **72 DPI 以上高分辨率** — 确保清晰度
+**Apple HIG 原文关键规则（来自官方 PDF）：**
+- iOS 图标是分层设计（Background layer + Foreground layers）
+- **透明度是故意的** — specular highlights, frostiness, translucency 响应光照和设备运动
+- 小尺寸图标可以有透明区域（iOS 自动裁切圆角）
+- 纯色或渐变背景
 
-**所有尺寸图标（Apple 强制要求）：**
+**App Store Connect 强制要求：**
+- **1024x1024 App Store 预览图：不能有 alpha 通道，必须完全不透明**
+- 错误：`Invalid large app icon...can't be transparent or contain an alpha channel`
+- 原因：App Store Connect 需要 1024x1024 的 flattened opaque 版本
+
+**所有尺寸设计规范：**
 - 尺寸系列：20, 29, 40, 60, 76, 83.5, 87, 120, 180, 1024 (pt × scale)
-- 小尺寸图标：圆角外的四角可以是透明（iOS 会自动裁切）
-- 大尺寸（83.5@2x=167px, 1024@1x）：建议保留透明角落
-- **1024x1024 必须完全不透明、无透明 alpha**
+- 小图标（20-180px）：可以有透明角落（HIG 明确允许）
+- **1024x1024：必须是完全不透明的 flattened 图像**
+- 所有尺寸必须是正方形，不自行绘制圆角
 
 **Apple HIG 设计原则：**
 1. 简洁可辨 — 小尺寸时也能一眼认出
@@ -112,11 +117,7 @@
 3. 留白/负空间 — 内容不要太挤
 4. 不要文字 — 图标不带文字
 5. 原创不侵权 — 元素必须原创，禁止抄袭
-
-**佛罗多老爷额外要求：**
-- 3D 质感、立体感、 premium feel
-- 有高光/辉光效果
-- 暖色调/活力优先
+6. 3D 层次感 — 用透明度创造纵深（老爷子额外要求）
 
 **⚠️ 死规矩：任何 App 产品上线前，图标必须经过佛罗多老爷审核确认后才能继续。**
 
