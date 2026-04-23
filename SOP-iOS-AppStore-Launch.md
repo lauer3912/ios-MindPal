@@ -394,38 +394,62 @@ settings:
 </plist>
 ```
 
-### 4.5 AppIcon Contents.json
+### 4.5 AppIcon Contents.json（标准 19 项格式）
+
+> ⚠️ **重要：文件名使用 `@1x`/`@2x`/`@3x` 后缀表示 scale，Contents.json 的 `scale` 字段同步标注。**
+> 这不是重复 — `@` 后缀是文件名规范，`scale` 字段是 asset catalog 元数据。两者一致才能被 Spotlight 正确索引。
+> 旧格式（idiom=iphone/ipad、无 filename 字段）会导致 "4 unassigned children" 警告。
 
 ```json
 {
   "images" : [
-    { "idiom" : "iphone", "scale" : "2x", "size" : "20x20" },
-    { "idiom" : "iphone", "scale" : "3x", "size" : "20x20" },
-    { "idiom" : "iphone", "scale" : "2x", "size" : "29x29" },
-    { "idiom" : "iphone", "scale" : "3x", "size" : "29x29" },
-    { "idiom" : "iphone", "scale" : "2x", "size" : "40x40" },
-    { "idiom" : "iphone", "scale" : "3x", "size" : "40x40" },
-    { "idiom" : "iphone", "scale" : "2x", "size" : "60x60" },
-    { "idiom" : "iphone", "scale" : "3x", "size" : "60x60" },
-    { "idiom" : "ipad", "scale" : "1x", "size" : "20x20" },
-    { "idiom" : "ipad", "scale" : "2x", "size" : "20x20" },
-    { "idiom" : "ipad", "scale" : "1x", "size" : "29x29" },
-    { "idiom" : "ipad", "scale" : "2x", "size" : "29x29" },
-    { "idiom" : "ipad", "scale" : "1x", "size" : "40x40" },
-    { "idiom" : "ipad", "scale" : "2x", "size" : "40x40" },
-    { "idiom" : "ipad", "scale" : "1x", "size" : "76x76" },
-    { "idiom" : "ipad", "scale" : "2x", "size" : "76x76" },
-    { "idiom" : "ipad", "scale" : "2x", "size" : "83.5x83.5" },
-    { "idiom" : "ios-marketing", "scale" : "1x", "size" : "1024x1024" }
+    { "filename" : "Icon-20@1x.png", "idiom" : "universal", "platform" : "ios", "scale" : "1x", "size" : "20x20" },
+    { "filename" : "Icon-20@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "20x20" },
+    { "filename" : "Icon-20@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "20x20" },
+    { "filename" : "Icon-29@1x.png", "idiom" : "universal", "platform" : "ios", "scale" : "1x", "size" : "29x29" },
+    { "filename" : "Icon-29@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "29x29" },
+    { "filename" : "Icon-29@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "29x29" },
+    { "filename" : "Icon-40@1x.png", "idiom" : "universal", "platform" : "ios", "scale" : "1x", "size" : "40x40" },
+    { "filename" : "Icon-40@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "40x40" },
+    { "filename" : "Icon-40@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "40x40" },
+    { "filename" : "Icon-58@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "29x29" },
+    { "filename" : "Icon-58@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "29x29" },
+    { "filename" : "Icon-76@1x.png", "idiom" : "universal", "platform" : "ios", "scale" : "1x", "size" : "76x76" },
+    { "filename" : "Icon-76@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "76x76" },
+    { "filename" : "Icon-80@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "40x40" },
+    { "filename" : "Icon-80@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "40x40" },
+    { "filename" : "Icon-83.5@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "83.5x83.5" },
+    { "filename" : "Icon-120@2x.png", "idiom" : "universal", "platform" : "ios", "scale" : "2x", "size" : "60x60" },
+    { "filename" : "Icon-120@3x.png", "idiom" : "universal", "platform" : "ios", "scale" : "3x", "size" : "60x60" },
+    { "filename" : "Icon-1024@1x.png", "idiom" : "universal", "platform" : "ios", "size" : "1024x1024" }
   ],
   "info" : { "author" : "xcode", "version" : 1 }
 }
 ```
 
-**⚠️ Contents.json 的 `size` 字段含义：**
-- `"size"` 是 **point size**，不是像素！
-- `"20x20"` @2x = 实际 40×40 像素
-- `"1024x1024"` @1x = 实际 1024×1024 像素（App Store 用）
+
+**尺寸对照表：**
+
+| Filename | Nominal PT | @Scale | Actual Px | Device |
+|---|---|---|---|---|
+| Icon-20@1x/2x/3x | 20pt | @1x/@2x/@3x | 20/40/60px | iPhone |
+| Icon-29@1x/2x/3x | 29pt | @1x/@2x/@3x | 29/58/87px | Settings |
+| Icon-40@1x/2x/3x | 40pt | @1x/@2x/@3x | 40/80/120px | Spotlight |
+| Icon-58@2x/3x | 29pt | @2x/@3x | 116/174px | Spotlight |
+| Icon-76@1x/2x | 76pt | @1x/@2x | 76/152px | iPad |
+| Icon-80@2x/3x | 40pt | @2x/@3x | 160/240px | Spotlight |
+| Icon-83.5@2x | 83.5pt | @2x | 167px | iPad Pro |
+| Icon-120@2x/3x | 60pt | @2x/@3x | 120/180px | iPhone |
+| Icon-1024@1x | 1024pt | @1x | 1024px | App Store |
+
+
+**⚠️ 关键规则：**
+- `size` 字段是 **point size**，不是像素！`"20x20"` @2x = 实际 40×40 像素
+- 所有文件名必须与 Contents.json 中的 `filename` 字段完全一致（区分大小写）
+- 每次新增 App 或修复图标，使用 `ios-app-icon-generator` skill 从 1024×1024 源图生成全部 19 个尺寸
+- 图标文件必须为 **PNG 格式**，不能是 JPEG
+- 删除旧格式文件（如 `Icon-1024.png`、`Icon-76.png`、`Icon-76-2x.png`），确保恰好 19 个文件
+
 
 ### 4.6 AccentColor Contents.json
 
@@ -631,7 +655,7 @@ let data = sharedDefaults?.data(forKey: "habits")
 |---------|------|------|
 | `Use the Signing & Capabilities editor` | signing 配置错误 | 确认 Release CODE_SIGNING_ALLOWED=YES |
 | `Assign a team to the targets` | base level 没有 TEAM | 加 `DEVELOPMENT_TEAM: 9L6N2ZF26B` |
-| `Invalid large app icon...alpha` | 1024 图标有透明 | PIL 转为 RGB 模式保存 |
+| `Invalid large app icon...alpha` | 1024 图标有透明通道 | 用 PIL 转为 RGB 模式: `Image.open(f).convert('RGB').save(f)` |
 | `Embedded binary not signed` | Widget Release 没开签名 | Widget configs Release 加 YES |
 | `App Record Creation failed: name in use` | App Store 名称被占 | 换名称或删旧 Record 重建 |
 | `errSecInternalComponent` | keychain 访问被拒 | 用 VNC 桌面操作 Sign and Upload |
@@ -739,7 +763,7 @@ schemes:
 
 #### 文件 3：`AppIcon.appiconset/Contents.json`
 
-**无需修改**（`size` 字段是 point size，和 App 名称无关）
+更新 Contents.json 为 §4.5 标准 19 项格式，确保 filename 字段与实际文件名一致。使用 `ios-app-icon-generator` skill 从 1024×1024 源图重新生成全部尺寸。
 
 #### 文件 4：所有 `.swift` 源码
 
