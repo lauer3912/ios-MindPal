@@ -558,6 +558,10 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 | iPad 12.9" | 2048×2732 或 2732×2048 | 竖 / 横 | 3 张 |
 
 > ⚠️ **必须覆盖全部 4 个设备尺寸，每个至少 3 张。** App Store Connect 对每个设备都要求至少 3 张截图，少一个设备都会被拒。
+>
+> ⚠️ **严禁 resize / upscale / 拉伸 截图。** 截图必须从对应尺寸的模拟器或真机实截。resize 会导致 UI 元素变形、模糊，Apple 审核人员会识别并拒绝。
+>
+> 提交前以 App Store Connect 页面上显示的要求尺寸为准。
 
 **模拟器截图命令：**
 ```bash
@@ -1213,7 +1217,7 @@ focus timer, productivity, focus, concentration, study, work
 | "必须提供 App 隐私信息" | App 隐私未点"存储" | 返回 App 隐私页面，点"存储" |
 | "必须选择主要类别" | 类别未选 | App Store 信息 → 类别 → 选 Productivity |
 | "名称已被使用" | App Store 名称被占 | 换名称，或用策略一处理 |
-| "截图尺寸不对" | 尺寸不符合要求 | 按 6.1 节尺寸要求重新截图 |
+| "截图尺寸不对" | 尺寸不符合要求，或使用了 resize/拉伸 | 用对应尺寸的模拟器或真机重新实截，不得 resize |
 | "描述包含禁止词汇" | 用了 Pomodoro 等词 | 移除并替换为替代词 |
 
 ### 9.5 提交后
