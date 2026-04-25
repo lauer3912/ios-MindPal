@@ -16,23 +16,25 @@
 - 修复内容: 移除 HealthKit（Guideline 2.5.1 拒绝）
 
 ### UstiaGo — 屏幕时间管理
-- 状态: ⚠️ Profile 与 Bundle ID 不匹配，需要重建 Profile
+- 状态: ⏳ Archive 成功，待 VNC 上传 + App Store Connect 创建记录
 - Bundle ID: `com.ggsheng.UstiaGo`
-- Profile 问题: 现有 Profile 的 App ID 是 `com.ggsheng.Ustia`（不匹配）
+- Profile: `UstiaGo_App_Store.mobileprovision` (com.ggsheng.UstiaGo) ✅ Bundle ID 正确
 - Privacy Policy: `https://lauer3912.github.io/ios-UstiaGo/docs/PrivacyPolicy.html`
 - 最新 commit: `ef553de` ✅ 已同步 MacinCloud
-- **需要**: 在 Apple Developer 重建 Profile，选择正确 Bundle ID `com.ggsheng.UstiaGo`
+- **已修复**: Widget AppIcon Contents.json（缺少 filename 字段和 Icon-60@2x.png）
+- **待办**: 通过 VNC Xcode GUI Distribute Upload + 在 App Store Connect 创建 App
 
 ### HabitArcFlow — 习惯追踪
-- 状态: ⏳ 待检查
+- 状态: ⏳ 需解决视频 + 检查审核状态
 - Bundle ID: `com.ggsheng.HabitGo`
 - Privacy Policy: `https://lauer3912.github.io/ios-HabitGo/docs/PrivacyPolicy.html`
 - 最新 commit: `c3c5ee9` ✅ 已同步 MacinCloud
-- **需要**: 检查项目状态，可能需要类似修复
+- **已完成**: 合成视频 `HabitArcFlow_Demo.mp4`（60秒/1290x2796）已上传 MacinCloud
+- **待办**: 检查 App Store Connect 审核回复
 
 ## 🚀 上线计划
 1. JustZenGo → ✅ v3 已提交审核（2026-04-21）
-2. UstiaGo → ❌ Profile Bundle ID 不匹配 → 重建 Profile → VNC Archive + Upload
+2. UstiaGo →→ 检查并修复 → VNC Archive + Upload → 填元数据 → 提交审核
 3. HabitArcFlow → 检查并修复 → VNC Archive + Upload → 填元数据 → 提交审核
 4. 继续创建更多 App 快速变现
 
@@ -68,8 +70,12 @@
 
 ### MacinCloud
 - Host: LA690.macincloud.com / user291981 / idt52924irh
-- VNC 端口: 5900
-- SSH 非交互会话无法访问 keychain → Sign and Upload 必须用 VNC
+- VNC 端口: 6000
+- SSH 登录信息：
+    - hostname: LA690.macincloud.com
+    - username: user291981
+    - password: idt52924irh
+    - IP: 74.80.242.90
 
 ### 团队
 - Team: ZhiFeng Sun (9L6N2ZF26B)
@@ -77,12 +83,12 @@
 ### Provisioning Profile UUID（当前有效的）
 - JustZenGo App Store: `0da5433a-ef90-408f-a377-e16f4bc0ff54`
 - JustZenGoWidget App Store: `c746576e-97bd-4ac7-a8ee-a0efadc55c1c`
-- UstiaGo App Store: `a63fe3f6-2d86-4d67-8ce8-9a982b0dcfd0` ⚠️ Bundle ID 不匹配，需重建
+- UstiaGo App Store: `a63fe3f6-2d86-4d67-8ce8-9a982b0dcfd0` (Bundle ID 正确: com.ggsheng.UstiaGo)
 
 ## 🛡️ iOS 项目预检清单（每次提交前必过）
 1. CJK 扫描 — 全项目无一个中文字符
 2. AppIcon Contents.json — idioms 正确（ipad 图标用 `"ipad"`，1024 用 `"ios-marketing"`）
-3. Signing 配置 — `CODE_SIGN_STYLE: Automatic` + `DEVELOPMENT_TEAM: 9L6N2ZF26B`
+3. Signing 配置 — 默认使用：Automatically manage signing，备选方案：`CODE_SIGN_STYLE: Automatic` + `DEVELOPMENT_TEAM: 9L6N2ZF26B`
 4. 所有图标文件 — PNG 格式（非 JPEG）
 5. entitlements — 没有Widget使用无 App Groups（空 dict），有Widget使用有 App Groups（非空 dict）
 6. Privacy Policy — HTML 存在且为英文，`lang="en"`
@@ -96,18 +102,4 @@
     - iPad 12.9" (2064 × 2752px、2752 × 2064px、2048 × 2732px 或 2732 × 2048px)
 11. 录操作视频及编写操作说明文档 - 选择 iPhone 6.9/iPhone 6.5 录制一段不少于60秒的操作视频, 及操作步骤说明文档
 
-## 📸 App Store 截图状态
-- JustZenGo: 8张 ✅
-- UstiaGo: 5+5张 ✅（iPhone+iPad）
-- HabitArcFlow: 4+4张 ✅（iPhone+iPad）
 
-## 🟡 UstiaGo Profile 重建步骤
-1. Apple Developer → Profiles → 删除旧的 `UstiaGo App Store`
-2. 点 **+** 创建新 Profile：
-   - Type: **iOS App Store**
-   - App ID: 选择 `com.ggsheng.UstiaGo`（不要选 UstiaGo 或 Ustia）
-   - Certificate: 选择 `iPhone Distribution: ZhiFeng Sun (9L6N2ZF26B)`
-   - Name: `UstiaGo App Store`
-3. 下载并发送给我
-4. 我上传到 MacinCloud 替换旧 Profile
-5. 重新 VNC Archive + Upload
