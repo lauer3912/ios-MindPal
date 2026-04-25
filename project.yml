@@ -1,0 +1,59 @@
+name: MindPal
+options:
+  bundleIdPrefix: com.ggsheng
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "9L6N2ZF26B"
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.9"
+    ENABLE_PREVIEWS: YES
+
+packages:
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    from: "5.6.0"
+  SQLite:
+    url: https://github.com/stephencelis/SQLite.swift
+    from: "0.14.1"
+
+targets:
+  MindPal:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    resources:
+      - path: Sources/Resources/Assets.xcassets
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.MindPal
+        PRODUCT_NAME: MindPal
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: Sources/App/MindPal.entitlements
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+        CODE_SIGNING_ALLOWED: NO
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+    dependencies:
+      - package: SnapKit
+      - package: SQLite
+
+schemes:
+  MindPal:
+    build:
+      targets:
+        MindPal: all
+    run:
+      config: Debug
+    archive:
+      config: Release
