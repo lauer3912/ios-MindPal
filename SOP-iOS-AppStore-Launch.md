@@ -544,73 +544,223 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 ## 第六阶段：App Store 截图制作
 
+### 6.0 截图工作流概述
+
+1. **创建专用 XCUITest 文件**（如 `iPadScreenshotTests.swift`），专门用于截图
+2. **选择正确尺寸的模拟器**（必须与 App Store 要求匹配）
+3. **运行测试并截图**（保存到 `/tmp/` 目录）
+4. **验证截图尺寸**（使用 Python 检查 PNG 实际尺寸）
+5. **下载截图到本地**（从 MacinCloud 通过 scp 下载）
+
 ### 6.1 App Store 截图尺寸要求（必须符合最新 Apple 规范）
 
 > Apple 随时可能更新要求，提交前以 App Store Connect 页面显示的尺寸为准。
 
-**必需尺寸（4 个设备，每个至少 3 张，共最少 12 张）：**
+**必需尺寸（5 个设备，每个至少 3 张，共最少 15 张）：**
 
-| 设备 | 尺寸（像素）| 方向 | 最少数量 |
-|------|-----------|------|---------|
-| iPhone 6.7" | 1290×2796 或 2796×1290 | 竖 / 横 | 3 张 |
-| iPhone 6.5" | 1284×2778 或 2778×1284 | 竖 / 横 | 3 张 |
-| iPhone 6.1" | 1170×2532 或 2532×1170 | 竖 / 横 | 3 张 |
-| iPad 12.9" | 2048×2732 或 2732×2048 | 竖 / 横 | 3 张 |
+| 设备 | 尺寸（像素）| 方向 | 最少数量 | 推荐模拟器 |
+|------|-----------|------|---------|------------|
+| iPhone 6.9" (16 Pro Max) | 1320×2868 或 2868×1320 | 竖 / 横 | 3 张 | iPhone 16 Pro Max |
+| iPhone 6.7" (15 Pro Max) | 1290×2796 或 2796×1290 | 竖 / 横 | 3 张 | iPhone 15 Pro Max |
+| iPhone 6.5" (16 Plus) | 1290×2796 或 2796×1290 | 竖 / 横 | 3 张 | iPhone 16 Plus |
+| iPhone 6.1" (16/15/14) | 1170×2532 或 2532×1170 | 竖 / 横 | 3 张 | iPhone 16 |
+| iPad 12.9" | 2048×2732 或 2732×2048 | 竖 / 横 | 3 张 | iPad Pro 13" (M4) |
 
-> ⚠️ **必须覆盖全部 4 个设备尺寸，每个至少 3 张。** App Store Connect 对每个设备都要求至少 3 张截图，少一个设备都会被拒。
+> ⚠️ **必须覆盖全部 5 个设备尺寸，每个至少 3 张。** App Store Connect 对每个设备都要求至少 3 张截图，少一个设备都会被拒。
 >
 > ⚠️ **严禁 resize / upscale / 拉伸 截图。** 截图必须从对应尺寸的模拟器或真机实截。resize 会导致 UI 元素变形、模糊，Apple 审核人员会识别并拒绝。
 >
+> ⚠️ **模拟器截图尺寸取决于设备本身，与 App Store 要求可能有微小差异（如 iPad 截图 2064×2752 vs 要求 2048×2732）。以实际运行结果为准。**
+>
 > 提交前以 App Store Connect 页面上显示的要求尺寸为准。
 
-**模拟器截图命令：**
+### 6.2 XCUITest 截图完整流程
+
+#### Step 1: 查看可用模拟器
 ```bash
-# iPhone 6.7" (1290×2796)
-xcrun simctl io {UDID} screenshot /tmp/screenshot.png
-
-# iPhone 6.5" (1284×2778)
-xcrun simctl io {UDID} screenshot /tmp/screenshot.png
-
-# iPhone 6.1" (1170×2532)
-xcrun simctl io {UDID} screenshot /tmp/screenshot.png
-
-# iPad 12.9" (2048×2732)
-xcrun simctl io {UDID} screenshot /tmp/screenshot.png
+xcrun simctl list devices available | grep -E 'iPhone|iPad'
 ```
 
-**XCUITest 截图方法（推荐）：**
+#### Step 2: 创建专用截图测试文件
 ```swift
-func ss(_ name: String) {
-    let data = app.windows.firstMatch.screenshot().pngRepresentation
-    try? data.write(to: URL(fileURLWithPath: "/tmp/\(name).png"))
+import XCTest
+
+final class ScreenshotTests: XCTestCase {
+
+    var app: XCUIApplication!
+
+    override func setUpWithError() throws {
+        continueAfterFailure = true
+        app = XCUIApplication()
+        app.launch()
+    }
+
+    override func tearDownWithError() throws {
+        app = nil
+    }
+
+    func ss(_ name: String) {
+        let data = app.windows.firstMatch.screenshot().pngRepresentation
+        try? data.write(to: URL(fileURLWithPath: "/tmp/\(name).png"))
+    }
+
+    func testDashboard() throws {
+        ss("01_dashboard")
+    }
+
+    func testTransactions() throws {
+        if app.tabBars.buttons["Transactions"].exists {
+            app.tabBars.buttons["Transactions"].tap()
+        }
+        ss("02_transactions")
+    }
+
+    func testBudget() throws {
+        if app.tabBars.buttons["Budget"].exists {
+            app.tabBars.buttons["Budget"].tap()
+        }
+        ss("03_budget")
+    }
+
+    func testGoals() throws {
+        if app.tabBars.buttons["Goals"].exists {
+            app.tabBars.buttons["Goals"].tap()
+        }
+        ss("04_goals")
+    }
+
+    func testSettings() throws {
+        if app.tabBars.buttons["Settings"].exists {
+            app.tabBars.buttons["Settings"].tap()
+        }
+        ss("05_settings")
+    }
 }
 ```
 
-### 6.2 截图文件名规范
+#### Step 3: 同步到 MacinCloud 并生成项目
+```bash
+# 本地提交
+git add -A && git commit -m "Add screenshot tests" && git push origin master
 
-```
-iPhone_67_portrait_01_Home.png   # 6.7" (1290×2796)
-iPhone_67_portrait_02_Features.png
-iPhone_67_portrait_03_Settings.png
-iPhone_65_portrait_01_Home.png   # 6.5" (1284×2778)
-iPhone_65_portrait_02_Features.png
-iPhone_65_portrait_03_Settings.png
-iPhone_61_portrait_01_Home.png   # 6.1" (1170×2532)
-iPhone_61_portrait_02_Features.png
-iPhone_61_portrait_03_Settings.png
-iPad_129_portrait_01_Home.png   # 12.9" (2048×2732)
-iPad_129_portrait_02_Features.png
-iPad_129_portrait_03_Settings.png
+# MacinCloud 同步
+sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "cd Desktop/ios-{AppName} && git fetch origin && git reset --hard origin/master && ~/tools/xcodegen/bin/xcodegen generate"
 ```
 
-### 6.3 验证截图尺寸
+#### Step 4: 清除旧截图并运行测试
+```bash
+# 清除旧截图
+rm -f /tmp/{AppName}_*.png
+rm -f /tmp/iPad_*.png
+
+# iPhone 16 Pro Max 截图 (1320x2868)
+xcodebuild -project {AppName}.xcodeproj -scheme {AppName}UITests \
+  -configuration Debug \
+  -destination 'platform=iOS Simulator,id=2D92BBA4-DDDE-4306-A1CB-2F5B14DAE732' \
+  test
+
+# iPhone 16 Plus 截图 (1290x2796)
+xcodebuild -project {AppName}.xcodeproj -scheme {AppName}UITests \
+  -configuration Debug \
+  -destination 'platform=iOS Simulator,id=8803D765-2D04-47B5-901E-D87A072E0BA1' \
+  test
+
+# iPad Pro 13" 截图 (2048x2732)
+xcodebuild -project {AppName}.xcodeproj -scheme {AppName}UITests \
+  -configuration Debug \
+  -destination 'platform=iOS Simulator,id=81D5F4D6-6566-450C-9937-F4648824BE60' \
+  test
+```
+
+#### Step 5: 验证截图尺寸
+```bash
+python3 -c "
+import struct, os
+for f in sorted(os.listdir('/tmp/')):
+    if f.endswith('.png') and ('{AppName}' in f or 'iPad_' in f):
+        path = '/tmp/' + f
+        with open(path, 'rb') as fh:
+            data = fh.read()
+            if len(data) > 24:
+                w = struct.unpack('>I', data[16:20])[0]
+                h = struct.unpack('>I', data[20:24])[0]
+                print(f'{f}: {w}x{h}')
+"
+```
+
+### 6.3 iPad 特殊注意事项
+
+**问题：** iPad 模拟器的 TabBar 元素查询与 iPhone 不同，可能导致普通 UITest 在 iPad 上失败。
+
+**解决方案：**
+1. 创建**独立的 iPad 截图测试文件**（如 `iPadScreenshotTests.swift`），不要与 iPhone 测试混用
+2. iPad 测试中**不进行 TabBar 断言**，只截图
+3. 测试文件只包含截图逻辑，不做 UI 交互验证
+
+```swift
+// iPad 专用截图测试示例
+func testDashboard() throws {
+    ss("01_dashboard")  // 不检查 TabBar 是否存在，直接截图
+}
+```
+
+### 6.4 截图文件名规范
+
+```
+iPhone_69_portrait_01_Home.png   # 6.9" (1320×2868) - iPhone 16 Pro Max
+iPhone_69_portrait_02_Trans.png
+iPhone_69_portrait_03_Budget.png
+
+iPhone_67_portrait_01_Home.png   # 6.7" (1290×2796) - iPhone 15 Pro Max
+iPhone_67_portrait_02_Trans.png
+iPhone_67_portrait_03_Budget.png
+
+iPhone_65_portrait_01_Home.png   # 6.5" (1290×2796) - iPhone 16 Plus
+iPhone_65_portrait_02_Trans.png
+iPhone_65_portrait_03_Budget.png
+
+iPhone_61_portrait_01_Home.png   # 6.1" (1170×2532) - iPhone 16
+iPhone_61_portrait_02_Trans.png
+iPhone_61_portrait_03_Budget.png
+
+iPad_129_portrait_01_Home.png    # 12.9" (2048×2732)
+iPad_129_portrait_02_Trans.png
+iPad_129_portrait_03_Budget.png
+```
+
+### 6.5 下载截图
+
+```bash
+# 下载所有截图到本地
+sshpass -p 'idt52924irh' scp user291981@LA690.macincloud.com:/tmp/*.png ./
+
+# 按设备分类
+mkdir -p Screenshots/iPhone_69 Screenshots/iPhone_67 Screenshots/iPhone_65 Screenshots/iPhone_61 Screenshots/iPad_129
+```
+
+### 6.6 验证截图尺寸（完整脚本）
+
 ```python
 import struct, os
-for f in os.listdir('/tmp/Screenshots/'):
-    with open(f'/tmp/Screenshots/{f}','rb') as fh:
-        w = struct.unpack('>I', fh.read(16)[12:16])[0]
-        h = struct.unpack('>I', fh.read(16)[12:16])[0]
-    print(f'{w}x{h}  {f}')
+
+target_sizes = {
+    'iPhone_69': (1320, 2868),
+    'iPhone_67': (1290, 2796),
+    'iPhone_65': (1290, 2796),
+    'iPhone_61': (1170, 2532),
+    'iPad_129': (2048, 2732),
+}
+
+for f in sorted(os.listdir('./Screenshots/')):
+    if not f.endswith('.png'):
+        continue
+    path = f'./Screenshots/{f}'
+    with open(path, 'rb') as fh:
+        data = fh.read()
+        if len(data) > 24:
+            w = struct.unpack('>I', data[16:20])[0]
+            h = struct.unpack('>I', data[20:24])[0]
+            print(f'{f}: {w}x{h}')
 ```
 
 ## 第七阶段：Widget 数据共享
