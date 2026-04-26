@@ -25,12 +25,13 @@
 - **待办**: 通过 VNC Xcode GUI Distribute Upload + 在 App Store Connect 创建 App
 
 ### FakeChat — 假聊天截图生成器
-- 状态: ✅ 新UI设计完成(Build成功)，等待用户确认效果
+- 状态: ✅ UITest 11/11 测试通过（Home/Templates/History/Settings/ChatEditor）
 - Bundle ID: `com.ggsheng.FakeChat`
-- 最新commit: `ad9a6d3`
+- 最新commit: `8d222b6`
 - UI设计: 2026获奖风格(深黑背景，左侧渐变条，彩色光效)
-- UITest截图脚本: `FakeChatUITests/FakeChatScreenshotTests.swift`
-- 签名问题: 需先在App Store Connect创建应用记录
+- UITest脚本: `FakeChatUITests/FakeChatScreenshotTests.swift` ✅ 可自动截图
+- 截图问题: xcresult 格式需 macOS 权限提取，暂无法自动导出
+- 解决方式: 需要用户在 VNC 手动操作，或在 App Store Connect 创建应用后完成签名
 
 ### HabitArcFlow — 习惯追踪
 - 状态: ⏳ 需解决视频 + 检查审核状态
