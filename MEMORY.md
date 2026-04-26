@@ -24,14 +24,18 @@
 - **已修复**: Widget AppIcon Contents.json（缺少 filename 字段和 Icon-60@2x.png）
 - **待办**: 通过 VNC Xcode GUI Distribute Upload + 在 App Store Connect 创建 App
 
-### FakeChat — 假聊天截图生成器
-- 状态: ✅ UITest 11/11 测试通过（Home/Templates/History/Settings/ChatEditor）
-- Bundle ID: `com.ggsheng.FakeChat`
-- 最新commit: `8d222b6`
-- UI设计: 2026获奖风格(深黑背景，左侧渐变条，彩色光效)
-- UITest脚本: `FakeChatUITests/FakeChatScreenshotTests.swift` ✅ 可自动截图
-- 截图问题: xcresult 格式需 macOS 权限提取，暂无法自动导出
-- 解决方式: 需要用户在 VNC 手动操作，或在 App Store Connect 创建应用后完成签名
+### FakeChat — 假聊天截图生成器（已更名ChatFaker）
+- 状态: ✅ 图标审核通过，名称ChatFaker可用，SOP重建完成
+- Bundle ID: `com.ggsheng.FakeChat`（不变）
+- App Store显示名: ChatFaker ✅
+- 最新commit: `ad3dfb5` ✅ 已同步GitHub
+- 图标方案: AppStore/Assets/Icon/Icon-1024.png ✅
+- SOP合规: project.yml/Info.plist/AppIcon Contents.json 全部修复
+- 功能清单: Docs/FeatureList.md ✅（62个功能）
+- 文档: Listing.md + HOW-TO.md ✅
+- 清理: 30+张debug截图已删除
+- 状态: 等待UI设计审核（当前代码需要重构匹配SOP UI规范）
+- 下一步: UI设计审核 → 代码开发 → 截图 → App Store Connect
 
 ### HabitArcFlow — 习惯追踪
 - 状态: ⏳ 需解决视频 + 检查审核状态
