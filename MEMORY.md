@@ -24,6 +24,14 @@
 - **已修复**: Widget AppIcon Contents.json（缺少 filename 字段和 Icon-60@2x.png）
 - **待办**: 通过 VNC Xcode GUI Distribute Upload + 在 App Store Connect 创建 App
 
+### FakeChat — 假聊天截图生成器
+- 状态: ✅ Build成功，模拟器运行正常，待App Store Connect创建记录
+- Bundle ID: `com.ggsheng.FakeChat`
+- Privacy Policy: `https://lauer3912.github.io/ios-FakeChat/docs/PrivacyPolicy.html`
+- GitHub: https://github.com/lauer3912/ios-FakeChat
+- 最新commit: `e8419a5` ✅ 已同步 MacinCloud
+- 签名问题: 需要先在App Store Connect创建应用才能生成provisioning profile
+
 ### HabitArcFlow — 习惯追踪
 - 状态: ⏳ 需解决视频 + 检查审核状态
 - Bundle ID: `com.ggsheng.HabitGo`

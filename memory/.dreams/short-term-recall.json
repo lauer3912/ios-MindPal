@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-23T00:11:33.793Z",
+  "updatedAt": "2026-04-26T00:08:09.906Z",
   "entries": {
     "memory:memory/2026-04-10.md:1:35": {
       "key": "memory:memory/2026-04-10.md:1:35",
@@ -387,20 +387,22 @@
       "endLine": 257,
       "source": "memory",
       "snippet": "- App Store Connect API Key: PP57R568AX (Issuer: b2a00f88-3a8d-40d0-b148-1f1db92e10b7) - API 只有读取权限，无法创建新 App 记录 ## 待完成 - [ ] 用户在 MacinCloud Xcode GUI 中完成 Apple ID 认证（一次性） - [ ] 在 App Store Connect 创建 UstiaGo App 记录 (Bundle ID: com.ggsheng.Ustia) - [ ] 构建并上传 JustZenGo 到 App Store - [ ] 构建并上传 UstiaGo 到 App Store ## 财务目标 (紧急) - 债务: $50,000 - 期限: 4个月 - 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecI",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-21T12:42:48.675Z",
-      "lastRecalledAt": "2026-04-23T00:11:33.793Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
       "queryHashes": [
         "2c9e4dc9537a",
-        "50d59062963c"
+        "50d59062963c",
+        "351e0a023459"
       ],
       "recallDays": [
         "2026-04-21",
-        "2026-04-23"
+        "2026-04-23",
+        "2026-04-26"
       ],
       "conceptTags": [
         "com.ggsheng.ustia",
@@ -420,20 +422,22 @@
       "endLine": 202,
       "source": "memory",
       "snippet": "- [ ] 在 App Store Connect 创建 UstiaGo App 记录 (Bundle ID: com.ggsheng.Ustia) - [ ] 构建并上传 JustZenGo 到 App Store - [ ] 构建并上传 UstiaGo 到 App Store ## 财务目标 (紧急) - 债务: $50,000 - 期限: 4个月 - 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecInternalComponent - 私钥访问被拒绝 - 原因: macOS 安全机制阻止 SSH 远程会话访问 keychain - 表现: Xcode 使用 Apple Development 开发证书而不是 Apple Distribution 分发证书 - 表现: Xcode 使用免费的 iOS Team Provisioning Pr",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-21T12:42:48.675Z",
-      "lastRecalledAt": "2026-04-23T00:11:33.793Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
       "queryHashes": [
         "2c9e4dc9537a",
-        "50d59062963c"
+        "50d59062963c",
+        "351e0a023459"
       ],
       "recallDays": [
         "2026-04-21",
-        "2026-04-23"
+        "2026-04-23",
+        "2026-04-26"
       ],
       "conceptTags": [
         "com.ggsheng.ustia",
@@ -453,20 +457,22 @@
       "endLine": 148,
       "source": "memory",
       "snippet": "- 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecInternalComponent - 私钥访问被拒绝 - 原因: macOS 安全机制阻止 SSH 远程会话访问 keychain - 表现: Xcode 使用 Apple Development 开发证书而不是 Apple Distribution 分发证书 - 表现: Xcode 使用免费的 iOS Team Provisioning Profile 而不是我们的 App Store Profile - 解决: 用户需在 VNC 中打开 Xcode，手动选择 ZhiFeng Sun (9L6N2ZF26B) Team 并完成签名认证 # 2026-04-17 Daily Log ## 项目状态 ### JustZenGo (原 FocusTimer) - App 名称: JustZenG",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-21T12:42:48.675Z",
-      "lastRecalledAt": "2026-04-23T00:11:33.793Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
       "queryHashes": [
         "2c9e4dc9537a",
-        "50d59062963c"
+        "50d59062963c",
+        "351e0a023459"
       ],
       "recallDays": [
         "2026-04-21",
-        "2026-04-23"
+        "2026-04-23",
+        "2026-04-26"
       ],
       "conceptTags": [
         "techidaily.com",
@@ -543,6 +549,99 @@
         "等待",
         "xcode",
         "签名"
+      ]
+    },
+    "memory:memory/2026-04-17.md:251:288": {
+      "key": "memory:memory/2026-04-17.md:251:288",
+      "path": "memory/2026-04-17.md",
+      "startLine": 251,
+      "endLine": 288,
+      "source": "memory",
+      "snippet": "- 表现: Xcode 使用免费的 iOS Team Provisioning Profile 而不是我们的 App Store Profile - 解决: 用户需在 VNC 中打开 Xcode，手动选择 ZhiFeng Sun (9L6N2ZF26B) Team 并完成签名认证 # 2026-04-17 继续 ## 最新进展 (22:00+) ### JustZenGo - 已上传成功! 🎉 - ✅ 手动 Xcode GUI 签名成功 - ✅ Archive 并上传到 App Store Connect - ✅ Delivery UUID: a11bd1e8-525d-42f3-bdb6-785a391eaf1a - ✅ App Store Connect App ID: 6762428992 - ⏳ 等待 Apple 审核 (1-3个工作日) ### UstiaGo - ✅ 构建成功 - ✅ 签名成功 - ❌ 上传被拒绝: Cannot determine the Apple ID from Bundle ID 'com.ggsheng.Ustia' - ⏳ **需要用户在 App Store Connect 创建 App Record** ### UstiaGo App Record 创建步骤 1. 打开 https://appstoreconnect.apple.com 2. 登录 → My Apps → + New App 3. 填写: - Platforms: iOS ✓ - Name: UstiaGo - Primary Languag",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-26T00:08:09.906Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
+      "queryHashes": [
+        "351e0a023459"
+      ],
+      "recallDays": [
+        "2026-04-26"
+      ],
+      "conceptTags": [
+        "1-3个工作日",
+        "com.ggsheng.ustia",
+        "appstoreconnect.apple.com",
+        "表现",
+        "xcode",
+        "使用",
+        "免费",
+        "ios"
+      ]
+    },
+    "memory:memory/2026-04-19.md:77:119": {
+      "key": "memory:memory/2026-04-19.md:77:119",
+      "path": "memory/2026-04-19.md",
+      "startLine": 77,
+      "endLine": 119,
+      "source": "memory",
+      "snippet": "- 老爷对旧图标不满意，要求3D专业图标 - 已生成2个方案，方案B（3D金属奖杯+翡翠宝石）被选中 - 15个尺寸全部重新生成并推送 commit `87b4331` - **老爷强调：Apple HIG规范、背景必须有3D效果** - 待老爷 VNC Archive + Upload ## Apple AppIcon HIG 关键规范 - 必须是直角正方形（Apple自动加圆角） - 安全区：内容不能太贴边 - 纯色/渐变背景（不用照片） - 3D纵深感：阴影+高光+深度 - 参考：https://developer.apple.com/design/human-interface-guidelines/foundations/app-icons/ ## Xcode Signing Error: \"Assign a team to the targets\" — 解决方案 ### 错误信息 ``` Use the Signing & Capabilities editor to assign a team to the targets and build a new archive. ``` ### 根本原因 `project.yml` 的 signing 配置和 Archive/Release 构建不兼容，导致 Xcode 无法在 Archive 时正确读取团队信息。 ### 完整解决方案 **原则：Debug 跳过签名（simulator），Release 开启签名（archive）** 每个 target 都需要在 `project.yml` 中配置：",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-26T00:08:09.906Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
+      "queryHashes": [
+        "351e0a023459"
+      ],
+      "recallDays": [
+        "2026-04-26"
+      ],
+      "conceptTags": [
+        "纯色/渐变背景",
+        "project.yml",
+        "archive/release",
+        "老爷",
+        "满意",
+        "要求",
+        "专业",
+        "生成"
+      ]
+    },
+    "memory:memory/2026-04-19.md:269:311": {
+      "key": "memory:memory/2026-04-19.md:269:311",
+      "path": "memory/2026-04-19.md",
+      "startLine": 269,
+      "endLine": 311,
+      "source": "memory",
+      "snippet": "- 老爷对旧图标不满意，要求3D专业图标 - 已生成2个方案，方案B（3D金属奖杯+翡翠宝石）被选中 - 15个尺寸全部重新生成并推送 commit `87b4331` - **老爷强调：Apple HIG规范、背景必须有3D效果** - 待老爷 VNC Archive + Upload ## Apple AppIcon HIG 关键规范 - 必须是直角正方形（Apple自动加圆角） - 安全区：内容不能太贴边 - 纯色/渐变背景（不用照片） - 3D纵深感：阴影+高光+深度 - 参考：https://developer.apple.com/design/human-interface-guidelines/foundations/app-icons/ ## Xcode Signing Error: \"Assign a team to the targets\" — 解决方案 ### 错误信息 ``` Use the Signing & Capabilities editor to assign a team to the targets and build a new archive. ``` ### 根本原因 `project.yml` 的 signing 配置和 Archive/Release 构建不兼容，导致 Xcode 无法在 Archive 时正确读取团队信息。 ### 完整解决方案 **原则：Debug 跳过签名（simulator），Release 开启签名（archive）** 每个 target 都需要在 `project.yml` 中配置：",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-26T00:08:09.906Z",
+      "lastRecalledAt": "2026-04-26T00:08:09.906Z",
+      "queryHashes": [
+        "351e0a023459"
+      ],
+      "recallDays": [
+        "2026-04-26"
+      ],
+      "conceptTags": [
+        "纯色/渐变背景",
+        "project.yml",
+        "archive/release",
+        "老爷",
+        "满意",
+        "要求",
+        "专业",
+        "生成"
       ]
     }
   }
