@@ -27,7 +27,8 @@ struct Task: Identifiable, Codable {
         dueDate: Date? = nil,
         recurring: RecurringRule? = nil,
         status: TaskStatus = .pending,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        completedAt: Date? = nil
     ) {
         self.id = id
         self.title = title
@@ -40,7 +41,7 @@ struct Task: Identifiable, Codable {
         self.recurring = recurring
         self.status = status
         self.createdAt = createdAt
-        self.completedAt = nil
+        self.completedAt = completedAt
     }
 }
 
