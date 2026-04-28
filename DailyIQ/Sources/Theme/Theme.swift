@@ -211,18 +211,12 @@ extension UIColor {
     }
 }
 
-// MARK: - UIView Animation Parameters
+// MARK: - Animation Helpers
 
-struct AnimationParameters {
+struct AnimationConfig {
     let damping: CGFloat
     let velocity: CGFloat
 
-    static let `default` = AnimationParameters(damping: 1.0, velocity: 0.0)
-    static let spring = AnimationParameters(damping: 0.8, velocity: 0.5)
-}
-
-extension UIView.AnimationParameters {
-    static var spring: UIView.AnimationParameters {
-        AnimationParameters(damping: 0.8, velocity: 0.5)
-    }
+    static let `default` = AnimationConfig(damping: 1.0, velocity: 0.0)
+    static let spring = AnimationConfig(damping: 0.8, velocity: 0.5)
 }
