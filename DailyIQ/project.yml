@@ -47,6 +47,7 @@ targets:
     dependencies:
       - package: SnapKit
       - package: SQLite.swift
+        product: SQLite
       - target: DailyIQWidget
         embed: true
 
