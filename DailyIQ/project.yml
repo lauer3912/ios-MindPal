@@ -27,7 +27,7 @@ targets:
       base:
         INFOPLIST_FILE: Sources/App/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.DailyIQ
-        PRODUCT_NAME: DailyIQ
+        PRODUCT_NAME: DailyIQAI
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: Sources/App/DailyIQ.entitlements

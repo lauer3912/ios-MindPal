@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-26T00:08:09.906Z",
+  "updatedAt": "2026-04-27T23:40:14.143Z",
   "entries": {
     "memory:memory/2026-04-10.md:1:35": {
       "key": "memory:memory/2026-04-10.md:1:35",
@@ -42,18 +42,20 @@
       "endLine": 290,
       "source": "memory",
       "snippet": "- JustZenGo/FocusTimerWidget/FocusTimerWidget.entitlements 已添加 com.apple.security.application-groups - UstiaGo 无需特殊 entitlements (无 widget) ## 关键教训 - App Store Connect API 无法创建新 App Record (只有读取权限) - 用户必须手动在网页上创建 UstiaGo App Record - 高优先级: 审核通过后添加 SwiftUI ReviewPrompt 请求用户评价",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.6374092895091282,
+      "totalScore": 1.274818576092892,
       "maxScore": 0.6374092895091282,
       "firstRecalledAt": "2026-04-18T21:23:50.959Z",
-      "lastRecalledAt": "2026-04-18T21:23:50.959Z",
+      "lastRecalledAt": "2026-04-27T02:10:16.443Z",
       "queryHashes": [
-        "8decfc4390a1"
+        "8decfc4390a1",
+        "b0777dbfd586"
       ],
       "recallDays": [
-        "2026-04-19"
+        "2026-04-19",
+        "2026-04-27"
       ],
       "conceptTags": [
         "justzengo",
@@ -73,18 +75,20 @@
       "endLine": 162,
       "source": "memory",
       "snippet": "- `AppStore/HOW-TO-AppStoreConnect.md` — 新建，全英文 - `AppStore/PrivacyPolicy.html` — `lang=\"zh-CN\"` → `lang=\"en\"` - `AppStoreListing.md` — 中文 → 英文版 - **扫描结果**: 两个项目 0 个 CJK 字符文件 ✅ - **GitHub 推送**: - JustZenGo: `96a606b` - UstiaGo: `3fef54b` ## 关键提醒 - Swift 源代码本身一直英文（变量名/字符串），问题只出在文档和 App Store 资源文件 - 以后新建任何 App Store 相关文件，必须全英文",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.635001704182175,
+      "totalScore": 1.270003403464973,
       "maxScore": 0.635001704182175,
       "firstRecalledAt": "2026-04-18T21:23:50.959Z",
-      "lastRecalledAt": "2026-04-18T21:23:50.959Z",
+      "lastRecalledAt": "2026-04-27T02:10:16.443Z",
       "queryHashes": [
-        "8decfc4390a1"
+        "8decfc4390a1",
+        "b0777dbfd586"
       ],
       "recallDays": [
-        "2026-04-19"
+        "2026-04-19",
+        "2026-04-27"
       ],
       "conceptTags": [
         "appstore/privacypolicy.html",
@@ -323,18 +327,20 @@
       "endLine": 159,
       "source": "memory",
       "snippet": "- JustZenGo test: `cd ~/Desktop/ios-JustZenGo && xcodegen generate && xcodebuild -project JustZenGo.xcodeproj -scheme JustZenGo -only-testing:JustZenGoUITests -configuration Debug -destination 'id=2E45F44F-5538-44AC-84BA-6B384ED4F711' test` - Archive (unsigned): `xcodebuild archive ... CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO DEVELOPMENT_TEAM=9L6N2ZF26B` ## altool JWT Auth（确认有效） - exp 必须 ≤ 300 秒，exp=3600 会返回 401 - 私钥路径: `~/private_keys/AuthKey_H3973L93M5.p8` - API Key: `H3973L93M5`, Issuer: `b2a00f88-3a8d-40d0-b148-1f1db92e10b7` --- ## 晚上段新增 ## App Store 内容全部英文化 - **原因**: 用户明确要求面向欧美客户，所有 App 内容/配置/资源文件以英文为主 - **JustZenGo 修复**: - `AppStore/Listing.md` — 描述/关键词/副标题全英文 - `AppSto",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-21T09:39:33.965Z",
-      "lastRecalledAt": "2026-04-21T09:39:33.965Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
       "queryHashes": [
-        "0d49e9d7afe2"
+        "0d49e9d7afe2",
+        "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-21"
+        "2026-04-21",
+        "2026-04-28"
       ],
       "conceptTags": [
         "desktop/ios-justzengo",
@@ -642,6 +648,161 @@
         "要求",
         "专业",
         "生成"
+      ]
+    },
+    "memory:memory/2026-04-22.md:160:209": {
+      "key": "memory:memory/2026-04-22.md:160:209",
+      "path": "memory/2026-04-22.md",
+      "startLine": 160,
+      "endLine": 209,
+      "source": "memory",
+      "snippet": "- Feature Access Instructions（6步操作指南） - External Services 声明（无） - Regional Differences（无） - Regulated Industry（N/A） **截图：** `~/Desktop/ios-HabitGo/AppStore/HabitArcFlow_screenshot.png` Git 已同步到 GitHub。 ### 用户下一步操作 1. App Store Connect → HabitArcFlow → App Review Information 2. 在 Notes 字段粘贴 AppStoreReviewResponse.md 内容 3. 附上截图 4. 重新提交审核 ### 云 Mac 录屏限制总结 - QuickTime：无法启动（权限错误 -10810） - screencapture -v：崩溃（dispatch_source_create 错误） - simctl recordVideo：生成 0 bytes 文件 - osascript：权限被拒绝 - 所有自动化录屏方法在云 Mac 上均不可行 ### 决策 用户选择方案：提交截图 + 文字说明给 Apple，不强行录制视频 --- ## 更新（18:13） ### MacinCloud 支持工单 已创建录屏权限申请工单模板：`/tmp/macincloud_support_ticket.md` 工单内容： - 问题描述：4种录屏方法全部失败 - 技术环境：macOS 15.7.3, MacinCl",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T23:40:14.143Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
+      "queryHashes": [
+        "1d2397899dcb"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "n/a",
+        "appstorereviewresponse.md",
+        "dispatch-source-create",
+        "tmp/macincloud-support-ticket.md",
+        "15.7.3",
+        "feature",
+        "access",
+        "instructions"
+      ]
+    },
+    "memory:memory/2026-04-22.md:1:38": {
+      "key": "memory:memory/2026-04-22.md:1:38",
+      "path": "memory/2026-04-22.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# 2026-04-22 Daily Memory ## UstiaGo 项目状态 ### 问题：App Store 图标验证失败 - 错误：`Missing required icon file` — 152x152 iPad 图标 - 根本原因：Xcode 缓存旧构建，导致 Archive 使用旧图标 - 尝试方案：Clean Build Folder、删除 DerivedData、重新生成项目 - **最新方案**：重新设计图标（时钟主题，深蓝紫色背景），commit `8e0a909` ### 项目重建完成 (commit `8e0a909`) - 重新组织项目结构，与 JustZenGo 保持一致 - XcodeGen 重新生成 .xcodeproj - 签名：Manual + iPhone Distribution: ZhiFeng Sun (9L6N2ZF26B) + Profile: UstiaGo App Store - 同步到 MacinCloud ### 图标设计（generate_icons.py） - 深蓝紫色渐变背景 - 白色时钟表盘 + 蓝色分钟指针 - 时钟主题，契合屏幕时间管理 App ### 待办 - [ ] VNC Archive + Upload（用户操作） - [ ] 验证图标问题是否彻底解决 - [ ] 如果仍失败，考虑从 App Store Connect 手动上传 ## 财务目标 - 总债务: $50,000 人民币 - 月均需赚: $12,500 - 当前紧急状态：全力 App 开发变现 # 2026-04-22 D",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T23:40:14.143Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
+      "queryHashes": [
+        "1d2397899dcb"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "generate-icons.py",
+        "ustiago",
+        "项目",
+        "状态",
+        "问题",
+        "app",
+        "store",
+        "验证"
+      ]
+    },
+    "memory:memory/2026-04-19.md:439:471": {
+      "key": "memory:memory/2026-04-19.md:439:471",
+      "path": "memory/2026-04-19.md",
+      "startLine": 439,
+      "endLine": 471,
+      "source": "memory",
+      "snippet": "## 截图文件合并方案 - iPhone + iPad 截图合并到 AppStore/Screenshots/ 目录 - 文件名规范： - iPhone 6.9\": `iphone_69_*` - iPad 12.9\": `ipad_129_*` - 同一 tab 的 MD5 必须不同（验证是不同的图） ## 晚间进展（21:00-22:17 GMT+8） ### HabitArcFlow 审核资料已提供 - App Name: `HabitArcFlow`，Bundle ID: `com.ggsheng.HabitGo` - 价格: $9.99，Category: Productivity，Age Rating: 4+ - 隐私政策: https://lauer3912.github.io/ios-HabitGo/docs/PrivacyPolicy.html - 截图: 4张 iPhone (1320×2868) + 4张 iPad (2064×2752) ### 代码同步校验规则（死规矩） - 已写入 MEMORY.md + TOOLS.md - **每次 pull 后必须比对 `git rev-parse HEAD` 与 `origin/main`** - 不一致 = 同步失败，必须查原因 ### UstiaGo 问题排查 - **根本原因**：MacinCloud Xcode 打开的是旧缓存的 xcodeproj，Contents.json 修改后没有Clean缓存 - Contents.json idiom 修复：`iPad 图标用 \"ipad\"`",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T23:40:14.143Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
+      "queryHashes": [
+        "1d2397899dcb"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "appstore/screenshots",
+        "6.9",
+        "iphone-69",
+        "12.9",
+        "ipad-129",
+        "00-22",
+        "com.ggsheng.habitgo",
+        "9.99"
+      ]
+    },
+    "memory:memory/2026-04-18.md:1:39": {
+      "key": "memory:memory/2026-04-18.md:1:39",
+      "path": "memory/2026-04-18.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# 2026-04-18 Daily Memory ## XCUITest Screenshot — Final Status ### JustZenGo ✅ - 8 screenshots ALL unique (confirmed via MD5 + byte sizes) - Last run: `ca7a209` — \"Fix settings_btn and project_btn overflow\" - All Done buttons tap at same coordinate (338, 86) — consistent toolbar layout - Fix: Changed stats buttons from HStack with text+icon to icon-only; reduced spacing ### UstiaGo ✅ - 5 screenshots ALL unique (confirmed via MD5) - Last run: `ee16a4c` — \"Add UITests + clean App Store screenshots\" - Tab navigation works perfectly (no sheet/dismiss issues) ## JustZenGo ContentView Fix - **Problem**: `settings_btn` at x=425.7 and `project_btn` at x=474.7 both exceeded screen width 393pt -",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T23:40:14.143Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
+      "queryHashes": [
+        "1d2397899dcb"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "settings-btn",
+        "project-btn",
+        "icon-only",
+        "sheet/dismiss",
+        "425.7",
+        "474.7",
+        "xcuitest",
+        "screenshot"
+      ]
+    },
+    "memory:memory/2026-04-22.md:31:71": {
+      "key": "memory:memory/2026-04-22.md:31:71",
+      "path": "memory/2026-04-22.md",
+      "startLine": 31,
+      "endLine": 71,
+      "source": "memory",
+      "snippet": "# 2026-04-22 Daily Memory ## UstiaGo 项目状态 ### 问题：App Store 图标验证失败 - 错误：`Missing required icon file` — 152x152 iPad 图标 - 根本原因：Xcode 缓存旧构建，导致 Archive 使用旧图标 - 尝试方案：Clean Build Folder、删除 DerivedData、重新生成项目 - **最新方案**：重新设计图标（时钟主题，深蓝紫色背景），commit `8e0a909` ### 项目重建完成 (commit `8e0a909`) - 重新组织项目结构，与 JustZenGo 保持一致 - XcodeGen 重新生成 .xcodeproj - 签名：Manual + iPhone Distribution: ZhiFeng Sun (9L6N2ZF26B) + Profile: UstiaGo App Store - 同步到 MacinCloud ### 图标设计（generate_icons.py） - 深蓝紫色渐变背景 - 白色时钟表盘 + 蓝色分钟指针 - 时钟主题，契合屏幕时间管理 App ### 待办 - [ ] VNC Archive + Upload（用户操作） - [ ] 验证图标问题是否彻底解决 - [ ] 如果仍失败，考虑从 App Store Connect 手动上传 ## 财务目标 - 总债务: $50,000 人民币 - 月均需赚: $12,500 - 当前紧急状态：全力 App 开发变现 --- ## Habit",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T23:40:14.143Z",
+      "lastRecalledAt": "2026-04-27T23:40:14.143Z",
+      "queryHashes": [
+        "1d2397899dcb"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "generate-icons.py",
+        "ustiago",
+        "项目",
+        "状态",
+        "问题",
+        "app",
+        "store",
+        "验证"
       ]
     }
   }

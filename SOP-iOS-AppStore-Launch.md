@@ -1,11 +1,259 @@
 # 从零创建 iOS App 项目完整指南
 
-> ⚠️ **强制规则**：
-> - 所有源码变更必须经过 Claude Code 审查并修复后才能提交
-> - **所有产物必须纳入 Git 管理**：源代码、设计方案（Sketch/Figma）、App 说明文档、图标方案（源文件 + 生成的所有尺寸）必须及时 commit 和 push
-> - 禁止在本地留存未提交的产物
-> - **开发前必须审核**：图标方案和 App UI 设计方案必须先审核通过，才能开始编写代码
-> - **目标用户**：所有 App 主要面向欧美客户，设计必须符合西方审美和文化习惯
+> ⚠️ **【强制】AI Agent 必须永远以最新的 SOP 文档为准**
+>
+> - 本文档是 iOS App 创建和上架的唯一权威指南
+> - AI Agent 在执行任何步骤前，**必须先读取并理解最新版本的 SOP-iOS-AppStore-Launch.md**
+> - 如果发现本文档与实际执行有差异，**以本文档为准**，不要自行其是
+> - 所有规则和要求一旦更新，AI Agent 必须立即遵循，**禁止用旧经验或记忆中的规则**
+>
+> ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
+> - SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
+>
+> ⚠️ **【强制】必须使用 Claude Code 审查+修复所有源码**，未经 Claude Code 审查+修复的代码禁止提交
+>
+> ⚠️ **【强制】目标用户**：所有 App 主要面向**欧美客户**，设计必须符合西方审美和文化习惯，**禁止中式审美元素**
+>
+> ⚠️ **【强制】必须按流程执行**：
+> - 图标方案和 App UI 设计方案**必须先审核通过**，才能开始编写代码
+> - 禁止跳过设计审核直接开发
+>
+> ⚠️ **【强制】涉及 AI 技术的 App**：必须使用设备端 ML（推荐）或在隐私政策中明确说明云端 AI 处理，详见 §8.5
+>
+> ⚠️ **【重要】录屏是可选的，不是必选项**。如果 App 功能无法通过截图展示清楚，再考虑录屏。
+
+## 👤 角色分工总览
+
+> ⚠️ **重要**：本 SOP 由 AI Agent 和人类配合完成。以下明确标注每个步骤的执行主体，**严格遵守**。
+
+### 角色定义
+
+| 角色 | 说明 |
+|------|------|
+| 🤖 **AI Agent（Claude Code）** | **审查 + 修复**，运行在 AI Agent 服务器（不是 MacinCloud），每次代码变更后必须执行审查和修复 |
+| 👨 **Human（人类）** | 真实用户，负责审核、审批、VNC 桌面操作、最终提交等 |
+
+> ⚠️ **【重要】Claude Code 配置**：
+> - AI Agent 可以为 Claude Code 配置 MiniMax 中国 APIKey
+> - 配置内容：
+>   ```json
+>   {
+>     "baseUrl": "https://api.minimaxi.com/v1",
+>     "apiKey": "sk-cp-JrsXMfjYj9mexu5NAr9Eevedk7IBFoCZFi4azaPEColz-bU0LH0NPA-Z-gxMlM505CKP1Cq-zaAP0OF2bQ0k6y44J1TP0XNodYCxY9oiQAmeGb0RPIivl6A"
+>   }
+>   ```
+> - Claude Code 的职责是"审查 + 修复"，不是"编写"
+
+> ⚠️ **【重要】Claude Code 的职责是"审查 + 修复"，不是"编写"**：
+> - **审查**：分析代码发现问题（bug、风格、安全等）
+> - **修复**：根据审查结果修复问题
+> - **每次代码变更后必须执行**：所有 commit 前都必须经过 Claude Code 审查和修复
+> - Claude Code 在 AI Agent 服务器执行，**不在 MacinCloud 上运行**
+
+### 核心原则
+
+| 原则 | 说明 |
+|------|------|
+| **Claude Code 审查 + 修复** | **每次代码变更后必须执行**。所有 commit 前必须先 Claude Code 审查，发现问题立即修复 |
+| **必须人类审核的** | AI 输出 → 人类审核 → 通过后继续 |
+| **必须人类操作的** | AI 无法完成（如 VNC 桌面操作、App Store Connect 审核点击）|
+| **禁止 AI 擅自提交的** | 未经 Claude Code 审查和修复的代码禁止 commit |
+
+---
+
+### 📋 任务分工表
+
+#### 第零阶段：设计审核
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 0.1.1 | 生成图标方案（1024×1024 PNG） | 🤖 AI Agent | 使用 §4.5 prompt 模板生成 |
+| 0.1.2 | **展示图标方案图片给 Human** | 🤖 AI Agent | **直接展示 PNG 图片**（不是描述或链接），让 Human 肉眼审核 |
+| 0.1.3 | 提交 Git 等待审核 | 🤖 AI Agent | commit 到 `AppStore/Assets/Icon/` |
+| 0.1.4 | 审核图标方案 | 👨 Human | **看图后**给出至少 1 个 approved 意见 |
+| 0.1.5 | 生成 19 个尺寸 | 🤖 AI Agent | 审核通过后使用 `ios-app-icon-generator` skill |
+| 0.2.1 | **展示 UI 设计稿图片给 Human** | 🤖 AI Agent | **直接展示设计稿图片**（Sketch/Figma/PDF 导出截图，不是描述或链接）|
+| 0.2.2 | 提交 Git 等待审核 | 🤖 AI Agent | commit 到 `AppStore/Assets/UI/` |
+| 0.2.3 | 审核 UI 方案 | 👨 Human | **看图后**给出至少 1 个 approved 意见 |
+
+> ⚠️ **【强制】AI Agent 必须直接展示图片给 Human 审核**：
+> - 图标方案：直接展示 PNG 图片文件
+> - UI 设计稿：直接展示设计稿截图（不是文件链接或文字描述）
+> - 禁止只发送描述性文字或文件路径而不展示实际图片
+> - Human 必须用肉眼审核图片后才能给出 approved 意见
+
+#### 第一阶段：概念与命名
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 1.1 | 核查 App Store 名称是否被占用 | 🤖 AI Agent | 执行 curl 命令查询 |
+| 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定 |
+| 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md` |
+| 1.4 | 审核功能清单 | 👨 Human | 确认功能数量达标 |
+
+#### 第二阶段：创建项目目录结构
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 2.1 | 创建目录结构 | 🤖 AI Agent | 执行 mkdir 命令 |
+| 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | git init, add, commit |
+
+#### 第三阶段：project.yml 配置
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 3.1 | 编写 project.yml | 🤖 AI Agent | 配置 4 个 targets |
+| 3.2 | 审查 project.yml | 🤖 AI Agent | **Claude Code 审查 + 修复**（在 AI Agent 服务器）|
+
+#### 第四阶段：必需的文件
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 4.1 | 编写 Info.plist、Entitlements | 🤖 AI Agent | 按模板生成 |
+| 4.2 | 审查配置文件 | 🤖 AI Agent | **Claude Code 审查 + 修复**（在 AI Agent 服务器）|
+| 4.5 | 编写 AppIcon 图标设计规范 | 🤖 AI Agent | 从 ggsheng-app-icon-design-SKILL.md 同步 |
+
+#### 第五阶段：XcodeGen 生成项目
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 5.1 | 执行 XcodeGen 生成项目 | 🤖 AI Agent | **SSH 到 MacinCloud** 执行 `~/tools/xcodegen/bin/xcodegen generate` |
+| 5.2 | 验证生成结果 | 🤖 AI Agent | 检查文件是否完整 |
+| 5.3 | Git 提交 + 同步到 MacinCloud | 🤖 AI Agent | git push + SSH 到 MacinCloud 执行 git pull + xcodegen |
+
+#### 第六阶段：App Store 截图制作
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 6.2 | 编写 XCUITest 截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift` |
+| 6.2 | 审查截图代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
+| 6.3 | 添加 Tab accessibilityIdentifier | 🤖 AI Agent | 修改 App 源码添加 identifier |
+| 6.3 | 审查源码修改 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
+| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载 |
+| 6.6 | 验证截图尺寸 | 🤖 AI Agent | 执行 MD5 + sips 命令 |
+| 6.6 | **肉眼检查截图** | 👨 Human | 确认每张截图是不同的页面 |
+
+#### 第六阶段附加：测试
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 6.7 | 编写 Unit Tests | 🤖 AI Agent | 编写功能测试代码 |
+| 6.7 | 审查测试代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
+| 6.8 | 编写 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码 |
+| 6.8 | 审查测试代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
+| 6.9 | 录屏制作 | 👨 Human | **可选**，如需要则手动录制 |
+| 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果 |
+
+#### 第七阶段：Widget / Beta 测试
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 7.1 | 配置 App Groups | 🤖 AI Agent | 修改 entitlements |
+| 7.2 | **Archive 上传 TestFlight** | 👨 Human | **必须通过 VNC 桌面操作** |
+| 7.2 | Beta 测试 | 👨 Human | 人类测试员执行 |
+| 7.2 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码 |
+
+#### 第八阶段：App Store Connect 上传
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 8.1 | **Archive + Sign and Upload** | 👨 Human | **必须通过 VNC 桌面操作** |
+| 8.2 | 填写 App Store Connect 信息 | 👨 Human | 人类在网页上填写 |
+| 8.3 | 配置 App 隐私 | 👨 Human | 根据 App 实际功能选择"是"或"否"（参考 §8.3 配置表）|
+| 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html` |
+| 8.4 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | AI Agent 服务器 git push 后自动部署 |
+| 8.5 | AI 相关配置 | 🤖 AI Agent + 👨 Human | AI 写隐私政策条款，人类审核 |
+
+#### 第九阶段：提交审核
+
+| 步骤 | 任务 | 执行主体 | 说明 |
+|------|------|---------|------|
+| 9.1 | 提交前最终检查 | 🤖 AI Agent | 输出检查清单 |
+| 9.2 | 填写清单核查 | 👨 Human | 人类逐项确认 |
+| 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 👨 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
+| 9.4 | **点击提交审核** | 👨 Human | 人类在 App Store Connect 点击 |
+
+---
+
+### 🚫 AI 禁止单独执行的操作
+
+| 禁止操作 | 原因 | 正确做法 |
+|---------|------|---------|
+| 直接 commit 不经 Claude Code 审查 + 修复 | 代码质量无法保证 | Claude Code **审查 + 修复 → commit** |
+| 通过 SSH signing 上传 | keychain locked 导致失败 | **必须走 VNC 桌面操作** |
+| 跳过设计审核直接开发 | 会导致返工 | 图标+UI 审核通过后才能开发 |
+| 跳过截图 MD5 验证 | 可能所有截图都是首页 | 必须 MD5 + 肉眼检查 |
+| 人类才能操作的步骤自称 AI 完成 | AI 无法操作 VNC 和网页 | 如实说明是 Human 操作 |
+
+---
+
+### ✅ Claude Code 审查 + 修复（每次必须执行）
+
+| 步骤 | 说明 |
+|------|------|
+| 1. **审查** | 分析代码发现问题（bug、风格、安全、无障碍等） |
+| 2. **修复** | 根据审查结果修复所有发现的问题 |
+| 3. **再次审查** | 确认修复完成，确保没有问题后才能 commit |
+| 4. **执行地点** | 在 AI Agent 服务器执行，**不在 MacinCloud** |
+
+| 审查项 | 说明 |
+|------|------|
+| 所有源码变更 | `git diff` 后必须 Claude Code 审查 + 修复 |
+| project.yml 配置 | 确认 signing、entitlements 配置正确 |
+| XCUITest 代码 | 确认 Tab 切换、截图逻辑正确 |
+| 功能测试代码 | 确认测试覆盖核心功能 |
+| 配置文件 | Info.plist、Entitlements 完整正确 |
+
+> ⚠️ **【强制】每次代码变更后都必须执行 Claude Code 审查 + 修复**：禁止只审查不修复，或修复后不再次审查就提交。
+
+---
+
+### 📍 操作地点明确说明
+
+| 操作 | 执行地点 | 说明 |
+|------|---------|------|
+| **Claude Code 审查 + 修复** | 🤖 AI Agent 服务器 | 审查代码发现问题并修复 |
+| **git add/commit** | 🤖 AI Agent 服务器 | 本地提交 |
+| **git push** | 🤖 AI Agent 服务器 | 推送到 GitHub |
+| **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main` |
+| **XcodeGen 生成** | MacinCloud | 在 MacinCloud 执行 `~/tools/xcodegen/bin/xcodegen generate` |
+| **xcodebuild build/test** | MacinCloud | 在 MacinCloud 执行构建和测试 |
+| **截图（XCUITest）** | MacinCloud | XCUITest 执行截图，scp 下载到 AI Agent |
+| **录屏（XCUITest + ffmpeg）** | MacinCloud | 视频帧采集，传输到 AI Agent 合成 |
+| **模拟器管理** | MacinCloud | xcrun simctl list/boot/install 等 |
+| **Archive + Sign and Upload** | MacinCloud VNC | **必须通过 VNC 桌面手动操作** |
+| **App Store Connect 填写** | 👨 Human 浏览器 | 人类在网页上操作 |
+| **截图/录屏下载到本地** | 🤖 AI Agent 服务器 | scp 从 MacinCloud 下载 |
+
+> ⚠️ **MacinCloud 的核心作用**：编译（build）、构建（xcodebuild）、打包（Archive）、截图（XCUITest）、录屏（XCUITest + ffmpeg）、模拟器管理（xcrun simctl）
+>
+> ⚠️ **【强制】MacinCloud 桌面必须保持整洁**：
+> - MacinCloud VNC 桌面上**只存放 App 项目文件夹**（如 `ios-{AppName}`）
+> - **禁止**在桌面存放其他文件（截图文件、临时文件、个人文件等）
+> - 所有截图/录屏文件必须通过 `scp` 下载到 AI Agent 本地，**不要留在 MacinCloud 桌面**
+> - 定期清理 `/tmp/` 目录下的临时文件
+>
+> **【常见错误】部分 AI Agent 会混淆执行地点：**
+> - "在 MacinCloud 上执行 Claude Code 审查" ❌ → Claude Code 在 AI Agent 服务器，不在 MacinCloud
+> - "AI Agent 直接操作 VNC 桌面" ❌ → AI Agent 无法操作 VNC，必须人类操作
+> - "SSH signing 可以替代 VNC" ❌ → SSH signing 会失败，必须 VNC
+
+---
+
+> ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
+> - SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
+>
+> ⚠️ **【强制】必须使用 Claude Code 审查+修复所有源码**，未经 Claude Code 审查+修复的代码禁止提交
+>
+> ⚠️ **【强制】目标用户**：所有 App 主要面向**欧美客户**，设计必须符合西方审美和文化习惯，**禁止中式审美元素**
+>
+> ⚠️ **【强制】必须按流程执行**：
+> - 图标方案和 App UI 设计方案**必须先审核通过**，才能开始编写代码
+> - 禁止跳过设计审核直接开发
+>
+> ⚠️ **【强制】涉及 AI 技术的 App**：必须使用设备端 ML（推荐）或在隐私政策中明确说明云端 AI 处理，详见 §8.5
+>
+> ⚠️ **【重要】录屏是可选的，不是必选项**。如果 App 功能无法通过截图展示清楚，再考虑录屏。
 
 ## 第零阶段：设计审核（必须先完成）
 
@@ -14,19 +262,19 @@
 ### 0.1 图标方案审核
 
 1. **生成图标方案**：使用 §4.5 的 prompt 模板生成 1024×1024 PNG 源图
-2. **提交审核**：将源图存入 `AppStore/Assets/Icon/` 并 commit，通知审核人员
+2. **直接展示图片给 Human 审核**：将 PNG 图片**直接展示**（不是文件路径或描述），让 Human 肉眼审核
 3. **审核内容**：
    - 设计风格是否符合目标用户（欧美）审美
    - 是否符合 Apple Design Awards 质量标准
    - 是否符合 §4.5 趋势要求
    - 是否符合配色规范
 4. **审核通过标准**：至少获得 1 个明确 approved 意见
-5. **通过后**：使用 `ios-app-icon-generator` skill 生成全部 19 个尺寸
+5. **通过后**：提交 Git + 使用 `ios-app-icon-generator` skill 生成全部 19 个尺寸
 
 ### 0.2 App UI 设计方案审核
 
 1. **输出设计方案**：使用 Sketch/Figma/PDF 输出主要页面设计稿（至少包含：首页、详情页、设置页）
-2. **提交审核**：将设计稿存入 `AppStore/Assets/UI/` 并 commit
+2. **直接展示设计稿图片给 Human 审核**：**直接展示截图**（不是文件链接或描述），让 Human 肉眼审核
 3. **审核内容**：
    - 界面设计风格是否与图标风格统一
    - 是否符合 §1.3 Apple Design Awards 级别要求
@@ -259,6 +507,38 @@ Text("Focus Session")
 - 标记 P0（核心功能）和 P1（辅助功能）
 - 提交前必须审核确认功能数量 ≥60
 - 开发过程中新增功能必须同步更新此文档
+
+### 1.5 App 审核准备（需要登录的 App）
+
+**如果 App 需要登录才能使用完整功能，必须准备测试账号和 Demo 数据**：
+
+| 准备项 | 说明 |
+|--------|------|
+| 测试账号 | 格式：`test@example.com` 或 `testuser` |
+| 密码 | 简单密码，不含特殊字符：`Test123456` |
+| Demo 数据 | 账号里预置真实数据，方便审核人员快速验证 |
+
+**Demo 数据插入代码示例**：
+```swift
+// AppDelegate.swift 或 ContentView.swift
+func insertDemoDataIfNeeded() {
+    // 只有在 UserDefaults 为空时才插入 Demo 数据
+    if UserDefaults.standard.object(forKey: "hasInsertedDemo") == nil {
+        let demoHabits = [
+            Habit(name: "Morning Exercise", icon: "figure.walk", streak: 7),
+            Habit(name: "Read 30min", icon: "book", streak: 3),
+            Habit(name: "Drink Water", icon: "drop", streak: 14)
+        ]
+        // ... 保存 demo 数据 ...
+        UserDefaults.standard.set(true, forKey: "hasInsertedDemo")
+    }
+}
+```
+
+**Demo 数据要求**：
+- 必须真实可信，不能是明显的占位符（如"测试123"）
+- 涵盖 App 主要功能，让审核人员快速理解
+- 数据量适中（3-10 条记录即可）
 
 ---
 
@@ -843,7 +1123,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
-│  Claude Code 审查：分析源码，修复所有问题           │
+│  Claude Code **审查 + 修复**：分析源码，修复所有问题  │
 │  必须重复执行直到无问题为止                        │
 │  检查项：语法错误、逻辑问题、API 误用、内存泄漏   │
 └─────────────────┬───────────────────────────────────┘
@@ -863,7 +1143,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
-│  Claude Code 再次审查 MacinCloud 构建输出           │
+│  Claude Code **再次审查** MacinCloud 构建输出         │
 │  如有错误：修复后重新 push → pull → build           │
 └─────────────────┬───────────────────────────────────┘
                   ▼
@@ -928,10 +1208,12 @@ xcrun simctl list devices booted | grep -E 'iPhone|iPad'
 **⚠️ 模板说明**：以下模板假设 App 有 5 个 Tab（Home/History/Stats/Achievements/Settings）。根据实际 App 的 Tab 数量调整测试函数数量和命名。
 
 **关键规则：**
-- **iPhone**：使用 `app.tabBars.buttons.element(boundBy: N).tap()` 切换标签页
-- **iPad**：使用 `app.buttons["History"].firstMatch.tap()` 按标签名称切换（**不要用坐标点击，在 iPad 上无效**）
+- **必须给每个 Tab 添加 `accessibilityIdentifier`**（App 源码要求），XCUITest 用 `NSPredicate` + `firstMatch` 精确匹配
+- **必须等待 App 完全稳定**：`Thread.sleep(forTimeInterval: 2.0)` 在 `setup()` 里
 - 每个标签页切换后等待 `usleep(1500000)`（1.5秒）确保页面渲染完成
 - 必须使用 `--uitesting` launch argument 启动 App
+- **不要用坐标点击**，在 iPad 上无效且会导致所有截图都是首页
+- **详细排查方案见 §6.3**
 
 > ⚠️ **警告：Tab 切换失败 = 所有截图都是首页** — 测试运行通过不等于截图正确！必须用 §Step 5 的 MD5 + 肉眼检查验证每张截图真的是不同页面。
 
@@ -947,7 +1229,7 @@ final class ScreenshotTests: XCTestCase {
         app = XCUIApplication()
         app.launchArguments = ["--uitesting"]  // 关键：启用 UI 测试模式
         app.launch()
-        usleep(1000000)  // 等待 App 完全启动
+        Thread.sleep(forTimeInterval: 2.0)  // ✅ 等待 App 完全稳定再操作
     }
 
     override func tearDownWithError() throws {
@@ -962,6 +1244,19 @@ final class ScreenshotTests: XCTestCase {
         try? data.write(to: URL(fileURLWithPath: path))
     }
 
+    // MARK: - Tab 切换辅助函数（必须使用 accessibilityIdentifier）
+
+    func tapTab(identifier: String) {
+        let predicate = NSPredicate(format: "identifier == %@", identifier)
+        let button = app.buttons.matching(predicate).firstMatch
+        if button.exists {
+            button.tap()
+            Thread.sleep(forTimeInterval: 2.0)
+        } else {
+            print("WARNING: Could not find tab button: \(identifier)")
+        }
+    }
+
     // MARK: - iPhone 截图（6.9" - 1320×2868）
     // 模拟器：iPhone 16 Pro Max
 
@@ -970,34 +1265,22 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testiPhone_69_02_History() {
-        if app.tabBars.buttons.count > 1 {
-            app.tabBars.buttons.element(boundBy: 1).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_history")  // ✅ 使用 accessibilityIdentifier
         capture("iPhone_69_portrait_02_History")
     }
 
     func testiPhone_69_03_Stats() {
-        if app.tabBars.buttons.count > 2 {
-            app.tabBars.buttons.element(boundBy: 2).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_stats")
         capture("iPhone_69_portrait_03_Stats")
     }
 
     func testiPhone_69_04_Achievements() {
-        if app.tabBars.buttons.count > 3 {
-            app.tabBars.buttons.element(boundBy: 3).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_achievements")
         capture("iPhone_69_portrait_04_Achievements")
     }
 
     func testiPhone_69_05_Settings() {
-        if app.tabBars.buttons.count > 4 {
-            app.tabBars.buttons.element(boundBy: 4).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_settings")
         capture("iPhone_69_portrait_05_Settings")
     }
 
@@ -1009,34 +1292,22 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testiPhone_65_02_History() {
-        if app.tabBars.buttons.count > 1 {
-            app.tabBars.buttons.element(boundBy: 1).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_history")
         capture("iPhone_65_portrait_02_History")
     }
 
     func testiPhone_65_03_Stats() {
-        if app.tabBars.buttons.count > 2 {
-            app.tabBars.buttons.element(boundBy: 2).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_stats")
         capture("iPhone_65_portrait_03_Stats")
     }
 
     func testiPhone_65_04_Achievements() {
-        if app.tabBars.buttons.count > 3 {
-            app.tabBars.buttons.element(boundBy: 3).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_achievements")
         capture("iPhone_65_portrait_04_Achievements")
     }
 
     func testiPhone_65_05_Settings() {
-        if app.tabBars.buttons.count > 4 {
-            app.tabBars.buttons.element(boundBy: 4).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_settings")
         capture("iPhone_65_portrait_05_Settings")
     }
 
@@ -1048,34 +1319,22 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testiPhone_63_02_History() {
-        if app.tabBars.buttons.count > 1 {
-            app.tabBars.buttons.element(boundBy: 1).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_history")
         capture("iPhone_63_portrait_02_History")
     }
 
     func testiPhone_63_03_Stats() {
-        if app.tabBars.buttons.count > 2 {
-            app.tabBars.buttons.element(boundBy: 2).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_stats")
         capture("iPhone_63_portrait_03_Stats")
     }
 
     func testiPhone_63_04_Achievements() {
-        if app.tabBars.buttons.count > 3 {
-            app.tabBars.buttons.element(boundBy: 3).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_achievements")
         capture("iPhone_63_portrait_04_Achievements")
     }
 
     func testiPhone_63_05_Settings() {
-        if app.tabBars.buttons.count > 4 {
-            app.tabBars.buttons.element(boundBy: 4).tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_settings")
         capture("iPhone_63_portrait_05_Settings")
     }
 
@@ -1087,50 +1346,22 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testiPad_13_02_History() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 1 {
-            tabBar.buttons.element(boundBy: 1).tap()
-            usleep(1500000)
-        } else if app.buttons["History"].exists {
-            app.buttons["History"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_history")
         capture("iPad_13_portrait_02_History")
     }
 
     func testiPad_13_03_Stats() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 2 {
-            tabBar.buttons.element(boundBy: 2).tap()
-            usleep(1500000)
-        } else if app.buttons["Stats"].exists {
-            app.buttons["Stats"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_stats")
         capture("iPad_13_portrait_03_Stats")
     }
 
     func testiPad_13_04_Achievements() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 3 {
-            tabBar.buttons.element(boundBy: 3).tap()
-            usleep(1500000)
-        } else if app.buttons["Badges"].exists {
-            app.buttons["Badges"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_achievements")
         capture("iPad_13_portrait_04_Achievements")
     }
 
     func testiPad_13_05_Settings() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 4 {
-            tabBar.buttons.element(boundBy: 4).tap()
-            usleep(1500000)
-        } else if app.buttons["Settings"].exists {
-            app.buttons["Settings"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_settings")
         capture("iPad_13_portrait_05_Settings")
     }
 
@@ -1142,50 +1373,22 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testiPad_11_02_History() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 1 {
-            tabBar.buttons.element(boundBy: 1).tap()
-            usleep(1500000)
-        } else if app.buttons["History"].exists {
-            app.buttons["History"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_history")
         capture("iPad_11_portrait_02_History")
     }
 
     func testiPad_11_03_Stats() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 2 {
-            tabBar.buttons.element(boundBy: 2).tap()
-            usleep(1500000)
-        } else if app.buttons["Stats"].exists {
-            app.buttons["Stats"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_stats")
         capture("iPad_11_portrait_03_Stats")
     }
 
     func testiPad_11_04_Achievements() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 3 {
-            tabBar.buttons.element(boundBy: 3).tap()
-            usleep(1500000)
-        } else if app.buttons["Badges"].exists {
-            app.buttons["Badges"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_achievements")
         capture("iPad_11_portrait_04_Achievements")
     }
 
     func testiPad_11_05_Settings() {
-        let tabBar = app.tabBars.firstMatch
-        if tabBar.exists && tabBar.buttons.count > 4 {
-            tabBar.buttons.element(boundBy: 4).tap()
-            usleep(1500000)
-        } else if app.buttons["Settings"].exists {
-            app.buttons["Settings"].firstMatch.tap()
-            usleep(1500000)
-        }
+        tapTab(identifier: "tab_settings")
         capture("iPad_11_portrait_05_Settings")
     }
 }
@@ -1292,49 +1495,124 @@ sips -g pixelHeight -g pixelWidth /tmp/iPad_11_portrait_01_Home.png
 > 2. **常见错误**：所有截图都是首页 → Tab 切换代码失败（参考 §6.3 排查）
 > 3. **不要跳过这一步**，否则提交后 App Store 会因截图不符合要求被拒
 
-### 6.3 iPad Tab 导航问题排查
+### 6.3 Tab 切换失败问题排查（所有截图都是首页）
 
-**问题症状：** iPad 上所有截图都是首页内容，Tab 切换无效。
+**问题症状：** 所有截图都是首页，Tab 切换完全无效，测试却显示通过。
 
-**根本原因：** SwiftUI TabView 在 iPad 上使用不同的布局方式：
-- iPhone：`TabView` 显示标准底部 TabBar，`tabBars.buttons.element(boundBy: N)` 可用
-- iPad：`TabView` 可能将 TabBar 隐藏在 Toolbar 中，或使用不同元素结构
+**根本原因（常见错误）：**
 
-**排查步骤：**
+| 错误原因 | 说明 | 解决 |
+|---------|------|------|
+| `app.tabBar` 单数 | SwiftUI 用 `app.tabBars`（复数）不是 `app.tabBar`（单数）| 用 `app.tabBars` |
+| iPad floating tab bar | iPad 上每个 Tab 创建多个重叠元素（`_UIFloatingTabBarItemCell` + `_UIFloatingTabBarItemView`），匹配到多个元素导致 tap 拒绝执行 | 用 `accessibilityIdentifier` + `NSPredicate` + `firstMatch` |
+| App 未完全加载 | App 启动后 viewController 尚未完全加载，tap 事件被内部消费但没有触发 Tab 切换 | `Thread.sleep(2.0)` 等待 App 稳定 |
+| accessibilityIdentifier 缺失 | 没有明确的 identifier，定位不稳定 | **App 源码必须给 TabBarItem 添加 `accessibilityIdentifier`** |
 
-1. **检查 TabBar 存在性：**
+#### ❌ 常见错误写法
+
 ```swift
-let tabBar = app.tabBars.firstMatch
-print("TabBar exists: \(tabBar.exists)")
-print("TabBar buttons count: \(tabBar.buttons.count)")
+// 错误1：tabBar 单数（不存在这个成员）
+app.tabBar.buttons.element(boundBy: 1).tap()
+
+// 错误2：直接用按钮名称（iPad floating tab bar 有多个重叠元素）
+app.buttons["Insights"].tap()
+// 报错：Multiple matching elements found
+
+// 错误3：坐标点击（tap 完全无效，MD5 验证所有截图相同）
+xcrun simctl io booted tap 452 2539
 ```
 
-2. **尝试多种定位方式：**
+#### ✅ 正确解决方案（两步：源码修改 + XCUITest 修改）
+
+**第一步：App 源码必须给每个 TabBarItem 添加 `accessibilityIdentifier`**
+
 ```swift
-// 方式1：tabBars.buttons（iPhone 方式）
-app.tabBars.buttons.element(boundBy: 1).tap()
+// SwiftUI App 的 TabView（或 UIKit 的 UITabBarController）
+TabView {
+    HomeView()
+        .tabItem {
+            Label("Home", systemImage: "house")
+        }
+        .accessibilityIdentifier("tab_home")  // ✅ 必须添加
 
-// 方式2：按标签名称查找（iPad 主要方式）
-app.buttons["History"].firstMatch.tap()
+    HistoryView()
+        .tabItem {
+            Label("History", systemImage: "clock")
+        }
+        .accessibilityIdentifier("tab_history")  // ✅ 必须添加
 
-// 方式3：staticTexts（某些 iPad 版本）
-app.staticTexts["History"].tap()
+    StatsView()
+        .tabItem {
+            Label("Stats", systemImage: "chart.bar")
+        }
+        .accessibilityIdentifier("tab_stats")  // ✅ 必须添加
+
+    SettingsView()
+        .tabItem {
+            Label("Settings", systemImage: "gearshape")
+        }
+        .accessibilityIdentifier("tab_settings")  // ✅ 必须添加
+}
 ```
 
-3. **如果仍然失败：** 创建 Debug 测试 Dump UI 元素层级：
+**第二步：XCUITest 使用 NSPredicate + firstMatch 精确匹配**
+
+```swift
+override func setUpWithError() throws {
+    continueAfterFailure = false
+    app = XCUIApplication()
+    app.launchArguments = ["--uitesting"]
+    app.launch()
+    Thread.sleep(forTimeInterval: 2.0)  // ✅ 等待 App 完全稳定再操作
+}
+
+// ✅ 用 accessibilityIdentifier + predicate 精确匹配 firstMatch
+func tapTab(identifier: String) {
+    let predicate = NSPredicate(format: "identifier == %@", identifier)
+    let button = app.buttons.matching(predicate).firstMatch
+
+    if button.exists {
+        button.tap()
+        Thread.sleep(forTimeInterval: 2.0)  // 等待页面渲染
+        return
+    }
+    print("WARNING: Could not find tab button: \(identifier)")
+}
+
+func testiPhone_69_02_History() {
+    tapTab(identifier: "tab_history")  // ✅ 使用 accessibilityIdentifier
+    capture("iPhone_69_portrait_02_History")
+}
+```
+
+#### Debug Dump 排查代码
+
+如果仍然失败，创建 Debug 测试 Dump 所有 UI 元素层级：
+
 ```swift
 func testDebug() {
+    print("=== UI Hierarchy Dump ===")
     print("Windows: \(app.windows.count)")
     print("TabBars: \(app.tabBars.count)")
     print("All buttons: \(app.buttons.count)")
+
     for i in 0..<min(app.buttons.count, 20) {
         let btn = app.buttons.element(boundBy: i)
-        print("Button \(i): '\(btn.label)' at \(btn.frame)")
+        print("Button[\(i)]: identifier='\(btn.identifier)' label='\(btn.label)' exists=\(btn.exists)")
     }
 }
 ```
 
-**最佳实践：** 使用 `app.buttons["TabLabel"].firstMatch.tap()` 作为 iPad 主要方式，保留 `tabBars.buttons` 作为 iPhone 的回退方案。
+#### 关键教训总结
+
+1. **App 源码必须给 TabBarItem 添加 `accessibilityIdentifier`**：`tab_home`、`tab_history`、`tab_stats`、`tab_settings`
+2. **XCUITest 必须在 `setup()` 里等 2 秒**：`Thread.sleep(forTimeInterval: 2.0)` 等 App 完全稳定
+3. **iPad 有 floating tab bar 重复元素问题**：不能用 `app.tabBars.buttons["identifier"]` 直接访问，必须用 `NSPredicate` + `firstMatch`
+4. **`app.tabBars`（复数）不是 `app.tabBar`（单数）**
+5. **截图不要用 XCTAttachment**：直接 `screenshot().pngRepresentation` 写文件到 `/tmp/`
+6. **每次测试前要 `xcrun simctl install`**：App 更新后必须重新安装
+7. **用 UDID 管理多设备 boot 状态**：避免设备名冲突
+8. **MD5 + 肉眼检查双重验证**：确保每张截图真的是不同页面，不要跳过这一步
 
 ### 6.4 截图文件名规范
 
@@ -1734,22 +2012,27 @@ func generateVideoFromFrames(framePaths: [String], outputURL: URL, fps: Int = 2)
 
 ### 6.10 测试执行
 
-#### 本地快速验证
+#### 在 MacinCloud 执行测试
 ```bash
-# Unit Tests
-xcodebuild test -project {AppName}.xcodeproj \
-  -scheme {AppName}Tests \
-  -destination 'platform=iOS Simulator,id={UDID}'
+# SSH 到 MacinCloud 执行
+sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "\
+  cd Desktop/ios-{AppName} && \
+  xcodebuild test -project {AppName}.xcodeproj \
+    -scheme {AppName}Tests \
+    -destination 'platform=iOS Simulator,id={UDID}'"
 
 # UI Tests（含 E2E）
-xcodebuild test -project {AppName}.xcodeproj \
-  -scheme {AppName} \
-  -destination 'platform=iOS Simulator,id={UDID}' \
-  -only-testing:{AppName}UITests/E2ETests
+sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "\
+  cd Desktop/ios-{AppName} && \
+  xcodebuild test -project {AppName}.xcodeproj \
+    -scheme {AppName} \
+    -destination 'platform=iOS Simulator,id={UDID}' \
+    -only-testing:{AppName}UITests/E2ETests"
 ```
 
+> ⚠️ **测试在 MacinCloud 上执行**。但测试代码必须先经过 Claude Code **审查 + 修复**（AI Agent 服务器），确保测试逻辑正确、coverage 足够后再推送到 MacinCloud 执行。
+>
 > ⚠️ **必须验证项**：每次提交前确保 `xcodebuild test` 全部通过，否则 App Store 审核可能因功能缺陷被拒。
-> ⚠️ **测试前必须 Claude Code 审查**：运行测试前，先用 Claude Code 对测试代码进行审查，确保测试逻辑正确、coverage 足够。
 
 
 ## 第七阶段：Widget 数据共享 / Beta 测试
@@ -1798,15 +2081,22 @@ let data = sharedDefaults?.data(forKey: "habits")
 
 ## 第八阶段：App Store Connect 上传
 
+> ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
+>
+> **【强制】签名/上传模式**：SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
+>
+> 所有 App 都走 VNC 模式，不用再浪费时间在 SSH signing 上！
+
 ### 8.1 Archive 操作（VNC 桌面）
 
-1. Xcode 打开 `{AppName}.xcodeproj`
-2. 顶部 scheme 选择 `{AppName}`
-3. **Product → Archive**（通过菜单操作，Xcode 无默认快捷键）
-4. Archive 完成 → **Window → Organizer** 打开
-5. 选中 archive → **Distribute → App Store Connect → Sign and Upload**
-6. Team 选择 **ZhiFeng Sun (9L6N2ZF26B)**
-7. 等待上传完成 → **Validate App** 验证
+1. 通过 VNC 连接 MacinCloud 桌面
+2. Xcode 打开 `{AppName}.xcodeproj`
+3. 顶部 scheme 选择 `{AppName}`
+4. **Product → Archive**（通过菜单操作，Xcode 无默认快捷键）
+5. Archive 完成 → **Window → Organizer** 打开
+6. 选中 archive → **Distribute → App Store Connect → Sign and Upload**
+7. Team 选择 **ZhiFeng Sun (9L6N2ZF26B)**
+8. 等待上传完成 → **Validate App** 验证
 
 ### 8.2 App Store Connect 填写
 
@@ -1838,14 +2128,51 @@ let data = sharedDefaults?.data(forKey: "habits")
 | 抉择器/随机选择 | **Utilities** | 工具类 |
 | AI 日记/情绪追踪 | **Health & Fitness** 或 **Lifestyle** | 健康/生活方式 |
 | AI 日程/自动驾驶 | **Productivity** | 效率工具 |
+| AI 营养/膳食追踪 | **Health & Fitness** | 健康与健身 |
+| AI 睡眠追踪/改善 | **Health & Fitness** | 健康与健身 |
 | 游戏类 | **Games** | 游戏 |
 
 > ⚠️ **类别选择影响 App Store 搜索曝光率**。选错类别会导致目标用户搜不到你的 App。
 
-### 8.3 App 隐私（全部"否"）
+### 8.3 App 隐私配置
 
-- 健康/健身 ❌ | 位置 ❌ | 联系信息 ❌ | 标识用户 ❌
-- 浏览历史 ❌ | 购买行为 ❌ | 崩溃日志 ❌ | 性能数据 ❌ | 广告 ❌
+> ⚠️ **【强制】App 隐私配置必须根据 App 实际功能来配置**，不是全部选"否"，也不是全部选"是"。
+
+#### 配置原则
+
+| 原则 | 说明 |
+|------|------|
+| **根据实际功能选择** | 如果 App 收集某种数据，该选项必须选"是"；如果不收集，选"否" |
+| **健康类 App** | 如果有健康追踪功能，"健康/健身"必须选"是" |
+| **位置类 App** | 如果有定位功能，"位置"必须选"是" |
+| **广告 SDK** | 如果集成广告 SDK，"广告"必须选"是" |
+| **分析 SDK** | 如果集成统计/分析 SDK，"性能数据"必须选"是" |
+| **离线 App（无网络）** | 所有网络相关选项选"否" |
+
+#### 常见 App 类型隐私配置表
+
+| App 类型 | 健康/健身 | 位置 | 联系信息 | 标识用户 | 浏览历史 | 购买行为 | 崩溃日志 | 性能数据 | 广告 |
+|---------|---------|------|---------|---------|---------|---------|---------|---------|------|
+| **番茄钟/专注计时** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **习惯追踪** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **屏幕时间管理** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **睡眠追踪** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **膳食/营养追踪** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **步数/运动追踪** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **地图/导航类** | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **社交类** | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **财务记账（内购）** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **含广告的免费 App** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **含统计 SDK** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+
+> ⚠️ **如果 App 隐私配置与实际功能不符**，Apple 审核会拒绝并要求修改。
+
+#### 配置步骤
+
+1. 在 App Store Connect 的 **App 隐私** 页面配置
+2. 根据 App 实际功能选择"是"或"否"
+3. 如果选"是"，必须在隐私政策中说明该数据的处理方式
+4. **配置完成后必须点击"存储"**
 
 ### 8.4 隐私政策要求
 
@@ -1859,6 +2186,63 @@ let data = sharedDefaults?.data(forKey: "habits")
 5. 联系方式：开发者联系方式
 6. 儿童隐私：是否面向 13 岁以下儿童
 7. 第三方服务：如果有广告或分析，说明
+
+### 8.5 AI 技术应用要求
+
+> ⚠️ **涉及 AI/机器学习技术的 App，Apple 有额外的审核要求，必须提前准备**
+
+#### AI 功能分类与解决方案
+
+| AI 功能类型 | 示例场景 | Apple 审核重点 | 解决方案 |
+|------------|---------|---------------|---------|
+| **设备端 ML（推荐）** | 本地情绪识别、语音转文字、本地推荐 | 只需声明数据类型 | 使用 CoreML/MLCompute，**无需额外审核** |
+| **Apple AI Framework** | Apple Intelligence 功能 | 必须使用官方 API | 仅用 Apple 官方框架（如 Image Playground） |
+| **第三方 AI API** | OpenAI GPT、Claude 等云端 AI | 隐私政策必须明确说明 | App 隐私选"否"，隐私政策说明云端处理 |
+| **AI 生成内容** | AI 生成图片/文字/语音 | 需说明内容来源 | 必须有内容审核机制，禁止生成违规内容 |
+| **AI 健康建议** | AI 饮食建议、睡眠建议 | 健康类 App 额外审核 | 不能替代专业医疗建议，需免责声明 |
+
+#### 隐私政策 AI 相关条款模板
+
+如果 App 使用云端 AI（OpenAI/Claude 等），隐私政策必须包含：
+
+```html
+<h2>6. AI Services</h2>
+<p>We use third-party AI services (OpenAI/Claude API) to power [feature name]. 
+These services process your data according to their privacy policies. 
+We do not store your data on external AI servers longer than necessary to provide the service.</p>
+
+<h2>6.1 Data Processing</h2>
+<p>When you use [AI feature], your [data type] is sent to [AI provider] for processing. 
+You can disable this feature in Settings at any time.</p>
+```
+
+#### App Store Connect AI 相关选项
+
+在 App Store Connect 填写时，以下选项需要正确配置：
+
+| 选项 | 正确配置 |
+|------|---------|
+| AI 功能说明 | 在审核备注中说明 AI 功能用途和处理方式 |
+| 第三方 AI 服务 | 如使用 OpenAI，需在 App 隐私声明 |
+| 健康建议免责声明 | AI 健康类功能必须有 "Not a medical device" 免责声明 |
+| 儿童年龄分级 | AI 功能面向儿童需额外审核 |
+
+#### Apple 审核常见 AI 相关拒绝原因
+
+| 拒绝原因 | 解决方案 |
+|---------|---------|
+| "App uses AI to make medical decisions" | 添加免责声明："This is not a medical device" |
+| "AI feature not clearly documented" | 在 App 描述和隐私政策明确说明 AI 处理流程 |
+| "Third-party AI API not disclosed" | App 隐私必须声明使用的第三方 AI 服务 |
+| "AI-generated content without moderation" | 实现内容审核机制，或限制 AI 生成内容类型 |
+
+#### 最佳实践
+
+1. **优先使用设备端 ML**（CoreML/MLCompute），无需额外审核
+2. **隐私政策必须说明 AI 数据处理流程**
+3. **健康类 AI 必须有免责声明**
+4. **AI 生成内容必须有审核机制**
+5. **不要夸大 AI 能力**，Apple 审核会验证功能真实性
 
 **隐私政策模板结构**（`ios-{AppName}/Docs/PrivacyPolicy.html`）：
 ```html
@@ -1902,13 +2286,15 @@ let data = sharedDefaults?.data(forKey: "habits")
 
 | 错误信息 | 原因 | 解决 |
 |---------|------|------|
+| **不读 SOP 文档就用旧经验操作** | AI Agent 没有遵循最新 SOP | **必须先读取 SOP-iOS-AppStore-Launch.md**，以本文档为准 |
+| **MacinCloud 桌面乱放文件** | 截图/临时文件留在桌面 | 所有文件必须 scp 到 AI Agent 本地，桌面只留项目文件夹 |
 | `Use the Signing & Capabilities editor` | signing 配置错误 | 确认 Release CODE_SIGNING_ALLOWED=YES |
 | `Assign a team to the targets` | base level 没有 TEAM | 加 `DEVELOPMENT_TEAM: 9L6N2ZF26B` |
 | `Invalid large app icon...alpha` | 1024 图标有透明通道 | 用 PIL 转为 RGB 模式: `Image.open(f).convert('RGB').save(f)` |
 | `Embedded binary not signed` | Widget Release 没开签名 | Widget configs Release 加 YES |
 | `SF Symbols 显示为文字/方块` | 用 `Text(icon)` 而非 `Image(systemName:)` 渲染 SF Symbols | 将所有 `Text(icon)` 改为 `Image(systemName: icon)` |
 | `App Record Creation failed: name in use` | App Store 名称被占 | 换名称或删旧 Record 重建 |
-| `errSecInternalComponent` | keychain 访问被拒 | 用 VNC 桌面操作 Sign and Upload |
+| `errSecInternalComponent` | keychain 访问被拒 | **用 VNC 桌面操作 Sign and Upload**（SSH signing 会失败）|
 
 ---
 
@@ -1972,11 +2358,11 @@ Image(systemName: achievement.icon) // ✅ 正确渲染 SF Symbol
 
 ### A.1 三层名称体系
 
-| 层级 | 位置 | 能否改 |
-|------|------|--------|
-| App Store 名称 | App Store Connect 填写 | ✅ 随时改 |
-| Bundle ID | 打包进二进制 | ❌ 上传后不能改 |
-| Display Name | Info.plist / PRODUCT_NAME | ✅ 可以改 |
+| 层级 | 位置 | 能否改 | 说明 |
+|------|------|--------|------|
+| App Store 名称 | App Store Connect 填写 | ✅ 随时改 | Human 在网页上填写 |
+| Bundle ID | **打包进二进制 + Apple Developer Portal** | ❌ 上传后不能改 | 👨 Human 必须先在 Apple Developer Portal 创建 Bundle ID，再在 App Store Connect 选择 |
+| Display Name | Info.plist / PRODUCT_NAME | ✅ 可以改 | 只改手机显示名 |
 
 ---
 
@@ -2023,7 +2409,43 @@ xcodebuild build -project {AppName}.xcodeproj \
 
 ---
 
-### A.3 占位符汇总
+### A.3 AI 功能名称后缀策略
+
+**适用场景**：App 功能涉及 AI（如 AI 日记、AI 睡眠追踪等），但 App Store 原始名称不带 AI，且名称未被占用。
+
+**策略**：在 Display Name 后加 "AI" 后缀，既能区分名称，又能突出 AI 功能。
+
+**示例**：
+
+| 原始名称 | 名称可用性 | 最终 Display Name |
+|---------|-----------|------------------|
+| {AppName} | 名称被占用 | {AppName}（不变）|
+| {AppName} | 名称未被占用，但功能有 AI | {AppName} AI |
+
+**判断流程**：
+
+```
+App 功能涉及 AI？
+    ↓ 是
+App Store 名称未被占用？
+    ↓ 是
+在 App Store Connect 填原名，在本地 Display Name 加 "AI" 后缀
+```
+
+**执行步骤**：
+
+1. **App Store Connect**：填原始名称（如 `{AppName}`）
+2. **本地 Display Name**：设为 `{AppName} AI`
+3. **隐私政策**：明确说明使用了 AI 技术（见 §8.5）
+
+**好处**：
+- 名称未被占用时，无需换名直接使用
+- "AI" 后缀让用户一眼看出 App 支持 AI 功能
+- 避免因名称重复导致的审核被拒
+
+---
+
+### A.4 占位符汇总
 
 | 占位符 | 含义 | 举例 |
 |--------|------|------|
@@ -2065,33 +2487,50 @@ xcodebuild build -project {AppName}.xcodeproj \
 
 #### 第四步：创建 App（或选择已有）
 
-1. 登录 https://appstoreconnect.apple.com
-2. **"我的 App"** → **"+"** → **"新建 App"**
-3. 填写：
+> ⚠️ **【强制】此步骤必须由 👨 Human 人类操作**，AI Agent 无法创建 App
+
+**操作步骤**：
+
+1. 👨 Human 打开浏览器，登录 https://appstoreconnect.apple.com
+2. 👨 Human 点击 **"我的 App"** → **"+"** → **"新建 App"**
+3. 👨 Human 在下拉列表中**手动选择正确的 Bundle ID**（必须是 `com.ggsheng.{AppName}`）
 
 | 字段 | 填写内容 |
 |------|---------|
 | 平台 | ✅ **iOS** |
 | 名称 | `{AppName}`（App Store 显示名称）|
 | 主语言 | **English** |
-| Bundle ID | 选择对应的 Bundle ID（如 `com.ggsheng.{AppName}`）|
+| Bundle ID | 👨 Human **必须手动选择** `com.ggsheng.{AppName}` |
 | SKU | `{AppName}-100`（随便填，唯一即可）|
+
+> ⚠️ **如果 Bundle ID 下拉为空**：说明 Bundle ID 尚未在 Apple Developer Portal 创建。👨 Human 必须先登录 https://developer.apple.com 创建 Bundle ID，再返回 App Store Connect。
+
+**Bundle ID 创建步骤（Apple Developer Portal）**：
+1. 👨 Human 登录 https://developer.apple.com
+2. 👨 Human 进入 **"Certificates, Identifiers & Profiles"**
+3. 👨 Human 点击 **"Identifiers"** → **"+"**
+4. 👨 Human 选择 **"App IDs"** → **"App"**
+5. 👨 Human 填写 Description 和 Bundle ID（格式：`com.ggsheng.{AppName}`）
+6. 👨 Human 选择 App Services（如需要）
+7. 👨 Human 点击 **"Continue"** → **"Register"**
 
 #### 第五步：App 隐私（左菜单）
 
-**必须全部选择"否"：**
+> ⚠️ **根据 App 实际功能配置，不是全部选"否"**
 
-| 问题 | 答案 |
-|------|------|
-| 健康与健身 | **否** |
-| 位置 | **否** |
-| 联系信息 | **否** |
-| 标识符 | **否** |
-| 浏览历史与搜索 | **否** |
-| 购买行为 | **否** |
-| 崩溃日志 | **否** |
-| 性能数据 | **否** |
-| 广告 | **否** |
+**配置方法**：根据 §8.3 的配置表，选择"是"或"否"
+
+| 问题 | 答案（示例）|
+|------|------------|
+| 健康与健身 | **根据 App 实际功能**：睡眠追踪/膳食追踪 → **是**，其他 → **否** |
+| 位置 | **根据 App 实际功能**：地图类 → **是**，其他 → **否** |
+| 联系信息 | **根据 App 实际功能**：社交类 → **是**，其他 → **否** |
+| 标识符 | **根据 App 实际功能**：有登录功能 → **是**，其他 → **否** |
+| 浏览历史与搜索 | 通常 **否** |
+| 购买行为 | **根据 App 实际功能**：有内购 → **是**，其他 → **否** |
+| 崩溃日志 | 通常 **否** |
+| 性能数据 | **根据 App 实际功能**：有统计 SDK → **是**，其他 → **否** |
+| 广告 | **根据 App 实际功能**：有广告 SDK → **是**，其他 → **否** |
 
 滚动到底部：
 - **隐私权政策网址**：填入 GitHub Pages URL，例如：
@@ -2224,8 +2663,44 @@ grep -rn "[぀-ゟ゠-ヿ]" ios-{AppName}/ --include="*.swift"  # 日文
 
 | 字段 | 填写内容 |
 |------|---------|
-| 登录信息 | **否**（不需要账号）|
-| 备注 | （留空）|
+| 登录信息 | **根据 App 实际情况**： |
+| | - 不需要登录的 App：选 **否** |
+| | - 需要登录的 App：选 **是**，并提供测试账号和密码 |
+| 备注 | 如果需要登录审核，必须填写： |
+
+**需要登录的 App 必须提供：**
+
+| 字段 | 说明 |
+|------|------|
+| **测试账号** | 用于登录 App Store 审核人员测试 |
+| **密码** | 对应测试账号的密码 |
+| **Demo 数据说明** | 说明账号里包含哪些演示数据（如：习惯列表、历史记录等） |
+
+> ⚠️ **【强制】如果 App 需要登录才能使用完整功能，必须在审核信息中提供测试账号**，否则 Apple 审核人员无法审核付费功能或会员内容。
+
+**测试账号要求**：
+1. 必须是真实可用的账号
+2. 密码不能包含特殊字符（避免审核页面输入问题）
+3. 建议密码格式：`Test123456`
+4. 账号里建议预置 **Demo 数据**，方便审核人员快速验证功能
+
+**Demo 数据准备**：
+
+| App 类型 | Demo 数据内容 |
+|---------|--------------|
+| 习惯追踪 | 至少 3-5 个习惯，包含已完成的和未完成的 |
+| 番茄钟 | 有历史记录，包含今天和过去几天的数据 |
+| 财务记账 | 有收入/支出记录，分类完整 |
+| 睡眠追踪 | 有最近 7 天的睡眠数据 |
+| 会员/订阅 | 包含一个已激活会员的账号 |
+
+**Demo 数据存放位置**：
+```swift
+// App 首次启动时检测，如果 UserDefaults 为空，自动插入 Demo 数据
+if UserDefaults.standard.array(forKey: "habits")?.isEmpty ?? true {
+    insertDemoData()  // 插入预设的演示数据
+}
+```
 
 #### 第十一步：出口合规（左菜单）
 
@@ -2245,11 +2720,12 @@ grep -rn "[぀-ゟ゠-ヿ]" ios-{AppName}/ --include="*.swift"  # 日文
 
 | 错误信息 | 原因 | 解决 |
 |---------|------|------|
-| "必须提供 App 隐私信息" | App 隐私未点"存储" | 返回 App 隐私页面，点"存储" |
-| "必须选择主要类别" | 类别未选 | App Store 信息 → 类别 → 根据 App 类型选择（参考 §8.2 类别选择指南） |
-| "名称已被使用" | App Store 名称被占 | 换名称，或用策略一处理 |
-| "截图尺寸不对" | 尺寸不符合要求，或使用了 resize/拉伸 | 用对应尺寸的模拟器或真机重新实截，不得 resize |
+| "必须提供 App 隐私信息" | App 隐私未点"存储" | 👨 Human 返回 App 隐私页面，点击"存储" |
+| "必须选择主要类别" | 类别未选 | 👨 Human 在 App Store 信息 → 类别 → 根据 App 类型选择 |
+| "名称已被使用" | App Store 名称被占 | 换名称，或用 §A.2 Display Name 策略 |
+| "截图尺寸不对" | 尺寸不符合要求 | 用对应尺寸的模拟器重新实截，不得 resize |
 | "描述包含禁止词汇" | 用了 Pomodoro 等词 | 移除并替换为替代词 |
+| **Bundle ID 下拉为空** | Bundle ID 尚未在 Apple Developer 创建 | 👨 Human 先在 Apple Developer Portal 创建 Bundle ID |
 
 ### 9.5 提交后
 
@@ -2258,5 +2734,5 @@ grep -rn "[぀-ゟ゠-ヿ]" ios-{AppName}/ --include="*.swift"  # 日文
 - 期间可在 App Store Connect 查看状态变化
 - 审核被拒：邮件通知具体原因，按原因修改后重新提交
 
-> **实际案例参考（JustZenGo）：** App Store 名称 JustZenGo / Bundle ID com.ggsheng.JustZenGo / 定价 $9.99 / 隐私政策 https://lauer3912.github.io/ios-JustZenGo/docs/PrivacyPolicy.html / 类别 Productivity / 年龄分级 4+ / 出口合规已预配置 / 登录信息否 / 禁用 Pomodoro、heatmap、emoji / 版权 Copyright © 2026 JustZenGo ZhiFeng Sun / 界面设计风格 参照 §4.5 / 功能数量 ≥60
+> **实际案例参考（JustZenGo）：** App Store 名称 JustZenGo / Bundle ID com.ggsheng.JustZenGo / 定价 $9.99 / 隐私政策 https://lauer3912.github.io/ios-JustZenGo/docs/PrivacyPolicy.html / 类别 Productivity / 年龄分级 4+ / 出口合规已预配置 / 登录信息否 / 审核信息如需登录则提供测试账号+Demo数据 / 禁用 Pomodoro、heatmap、emoji / 版权 Copyright © 2026 JustZenGo ZhiFeng Sun / 界面设计风格 参照 §4.5 / 功能数量 ≥60
 | 截图 | iPhone 6.9"(1320×2868)x3 + iPhone 6.5"(1284×2778)x3 + iPhone 6.3"(1206×2622)x3 + iPad 13"(2048×2732)x3 + iPad 11"(1668×2388)x3 |

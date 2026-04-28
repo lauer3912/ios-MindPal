@@ -24,6 +24,24 @@
 - **已修复**: Widget AppIcon Contents.json（缺少 filename 字段和 Icon-60@2x.png）
 - **待办**: 通过 VNC Xcode GUI Distribute Upload + 在 App Store Connect 创建 App
 
+### MindPal — AI日记与情绪追踪
+- 状态: ✅ **BUILD SUCCEEDED** — 编译成功，待截图+视频
+- Bundle ID: `com.ggsheng.MindPal`
+- 图标方案: AppStore/Assets/Icon/Icon-1024.png ✅ 已审核通过
+- UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
+- 功能清单: Docs/FeatureList.md ✅（66个功能）
+- GitHub: `ios-MindPal` ✅ 已提交（本地）
+- 编译: ✅ Debug Build SUCCEEDED
+- 下一步: MacinCloud VNC 截图 + 视频 → App Store Connect
+
+### DailyIQ — AI智能日程规划
+- 状态: ⏳ 图标+UI已审核通过，待开发
+- Bundle ID: `com.ggsheng.DailyIQ`
+- 图标方案: AppStore/Assets/Icon/Icon-1024.png ✅ 已审核通过
+- UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
+- 功能清单: Docs/FeatureList.md ✅（70个功能）
+- 下一步: 启动开发
+
 ### ChatFaker — 假聊天截图生成器（FakeChat更名）
 - 状态: ✅ BUILD SUCCEEDED，App运行正常(PID 19390)
 - Bundle ID: `com.ggsheng.FakeChat`（不变）
@@ -51,6 +69,7 @@
 
 ## ⚡ 行动准则（死规矩）
 
+- **【强制】所有会话内容必须永久记忆**：不得在 session 结束后丢弃，新 session 启动会自动读取 MEMORY.md 继承所有规则和信息
 - **代码同步校验**：每次 pull 后必须比对 `git rev-parse HEAD` 与 `origin/main`，一致才算成功
 - **MacinCloud 同步标准流程**：
   ```bash
@@ -88,8 +107,23 @@
     - password: idt52924irh
     - IP: 74.80.242.90
 
+### ⭐ 所有 App 签名/上传标准流程（VNC 模式）
+**【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
+**【强制】签名/上传模式：SSH signing 经常失败（keychain locked），必须通过 VNC 图形界面 Xcode 手动签名上传**
+1. MacinCloud VNC 连接桌面（端口 6000）
+2. Xcode → Product → Archive
+3. Distribute App → App Store Connect → Upload
+4. Transporter / altool / 命令行 signing 在本环境不适用
+5. GitHub 无法直接 push（host key 限制），代码变更通过 SCP/手动同步
+
 ### 团队
 - Team: ZhiFeng Sun (9L6N2ZF26B)
+
+### 已安装插件
+- `@martian-engineering/lossless-claw` v0.9.2 — 上下文引擎插件，slot: contextEngine
+- `memory-core` (bundled) — 梦境记忆系统插件
+  - dreaming 已激活（`/dreaming on`）
+  - 默认频率: 每天 03:00 自动执行记忆整理
 
 ### Provisioning Profile UUID（当前有效的）
 - JustZenGo App Store: `0da5433a-ef90-408f-a377-e16f4bc0ff54`
