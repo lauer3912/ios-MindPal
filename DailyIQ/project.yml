@@ -71,6 +71,7 @@ targets:
         CODE_SIGNING_ALLOWED: NO
         DEVELOPMENT_TEAM: 9L6N2ZF26B
         SKIP_INSTALL: YES
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/Frameworks"
