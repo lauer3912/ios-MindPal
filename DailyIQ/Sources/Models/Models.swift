@@ -399,6 +399,11 @@ struct UserSettings: Codable {
     var iCloudSyncEnabled: Bool
     var widgetSize: WidgetSize
     var accentColor: AccentColorOption
+    var notificationsEnabled: Bool
+    var morningBriefingHour: Int
+    var morningBriefingMinute: Int
+    var eveningReviewHour: Int
+    var eveningReviewMinute: Int
 
     init(
         theme: AppTheme = .system,
@@ -414,7 +419,12 @@ struct UserSettings: Codable {
         biometricEnabled: Bool = false,
         iCloudSyncEnabled: Bool = false,
         widgetSize: WidgetSize = .medium,
-        accentColor: AccentColorOption = .violet
+        accentColor: AccentColorOption = .violet,
+        notificationsEnabled: Bool = true,
+        morningBriefingHour: Int = 8,
+        morningBriefingMinute: Int = 0,
+        eveningReviewHour: Int = 21,
+        eveningReviewMinute: Int = 0
     ) {
         self.theme = theme
         self.language = language
@@ -430,6 +440,11 @@ struct UserSettings: Codable {
         self.iCloudSyncEnabled = iCloudSyncEnabled
         self.widgetSize = widgetSize
         self.accentColor = accentColor
+        self.notificationsEnabled = notificationsEnabled
+        self.morningBriefingHour = morningBriefingHour
+        self.morningBriefingMinute = morningBriefingMinute
+        self.eveningReviewHour = eveningReviewHour
+        self.eveningReviewMinute = eveningReviewMinute
     }
 }
 

@@ -54,6 +54,31 @@ final class SettingsService {
         save()
     }
 
+    func toggleNotifications(_ enabled: Bool) {
+        settings.notificationsEnabled = enabled
+        save()
+    }
+
+    var notificationsEnabled: Bool {
+        settings.notificationsEnabled
+    }
+
+    var morningBriefingHour: Int {
+        settings.morningBriefingHour
+    }
+
+    var morningBriefingMinute: Int {
+        settings.morningBriefingMinute
+    }
+
+    var eveningReviewHour: Int {
+        settings.eveningReviewHour
+    }
+
+    var eveningReviewMinute: Int {
+        settings.eveningReviewMinute
+    }
+
     func toggleBiometric(_ enabled: Bool) {
         settings.biometricEnabled = enabled
         save()

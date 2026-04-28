@@ -67,6 +67,7 @@
 | **AI Agent 操作不需要询问人类** | 标注为 🤖 AI Agent 执行的步骤，**直接执行，不需要询问人类**（除非明确标注需要人类审核） |
 | **Claude Code 审查 + 修复** | **每次代码变更后必须执行**。所有 commit 前必须先 Claude Code 审查，发现问题立即修复 |
 | **必须人类审核的** | AI 输出 → 人类审核 → 通过后继续 |
+| **人类肉眼审核时** | Agent 必须发送**真实图片/视频文件**，**禁止发送链接或口述内容** |
 | **必须人类操作的** | AI 无法完成（如 VNC 桌面操作、App Store Connect 审核点击）|
 | **禁止 AI 擅自提交的** | 未经 Claude Code 审查和修复的代码禁止 commit |
 
@@ -79,11 +80,11 @@
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 0.1.1 | 生成图标方案（1024×1024 PNG） | 🤖 AI Agent | 使用 §4.5 prompt 模板生成 |
-| 0.1.2 | **展示图标方案图片给 Human** | 🤖 AI Agent | **直接展示 PNG 图片**（不是描述或链接），让 Human 肉眼审核 |
+| 0.1.2 | **展示图标方案图片给 Human** | 🤖 AI Agent | **直接发送 PNG 图片文件**（不是描述或链接），让 Human 肉眼审核 |
 | 0.1.3 | 提交 Git 等待审核 | 🤖 AI Agent | commit 到 `AppStore/Assets/Icon/` |
 | 0.1.4 | 审核图标方案 | 👨 Human | **看图后**给出至少 1 个 approved 意见 |
 | 0.1.5 | 生成 19 个尺寸 | 🤖 AI Agent | 审核通过后使用 `ios-app-icon-generator` skill |
-| 0.2.1 | **展示 UI 设计稿图片给 Human** | 🤖 AI Agent | **直接展示设计稿图片**（Sketch/Figma/PDF 导出截图，不是描述或链接）|
+| 0.2.1 | **展示 UI 设计稿图片给 Human** | 🤖 AI Agent | **直接发送设计稿图片文件**（不是描述或链接），让 Human 肉眼审核 |
 | 0.2.2 | 提交 Git 等待审核 | 🤖 AI Agent | commit 到 `AppStore/Assets/UI/` |
 | 0.2.3 | 审核 UI 方案 | 👨 Human | **看图后**给出至少 1 个 approved 意见 |
 
@@ -140,12 +141,14 @@
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 6.1 | 截图尺寸要求 | - | 见 §6.0 工作流概述（**5个上传区域，每个区域至少1张，建议每个App页面×5设备**）|
+| 6.1 | 截图尺寸要求 | 🤖 AI Agent | 见 §6.0 工作流概述（**Agent 直接执行**）|
 | 6.2 | 编写截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift`（**Agent 直接执行，不需要询问人类**）|
 | 6.3 | 添加 Tab identifier | 🤖 AI Agent | 修改 App 源码添加 identifier（**Agent 直接执行**）|
-| 6.4 | 文件名规范 | - | 格式：`序号_页面名称.png`；见 §6.4 正文 |
-| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载（**Agent 直接执行**）|
-| 6.6 | **展示截图图片给 Human 审核** | 🤖 AI Agent | **直接展示 3 张不同 Tab 页面的截图图片**，人类肉眼确认 |
+| 6.4 | 文件名规范 | 🤖 AI Agent | 格式：`序号_页面名称.png`（**Agent 直接执行**）|
+| 6.5 | 下载截图到 AppStore/Screenshots/ | 🤖 AI Agent | scp 下载到对应目录（**Agent 直接执行**）|
+| 6.5.1 | MD5 验证每张截图不同 | 🤖 AI Agent | 使用 MD5 哈希验证（**Agent 直接执行，不需要询问人类**）|
+| 6.5.2 | XCUITest 截图代码模板 | 🤖 AI Agent | 生成 `ScreenshotTests.swift` 模板（**Agent 直接执行，不需要询问人类**）|
+| 6.6 | **展示截图图片给 Human 审核** | 🤖 AI Agent | **直接展示 3 张不同 Tab 页面的真实截图文件**（**必须发图片文件，不是链接或口述**）|
 
 #### 第六阶段附加：测试
 
@@ -161,8 +164,8 @@
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 7.1 | 配置 App Groups | 🤖 AI Agent | 修改 entitlements（**Agent 直接执行**）|
-| 7.2 | **Archive 上传 TestFlight** | 👨 Human | **必须通过 VNC 桌面操作** |
-| 7.3 | Beta 测试 | 👨 Human | 人类测试员执行 |
+| 7.2 | **Archive 上传 TestFlight** | 👨 Human | **必须通过 VNC 桌面操作**（**可选操作**）|
+| 7.3 | Beta 测试 | 👨 Human | 人类测试员执行（**可选操作**）|
 | 7.4 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码（**Agent 直接执行**）|
 
 #### 第八阶段：App Store Connect 上传
@@ -180,7 +183,7 @@
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 9.1 | 提交前最终检查 | 🤖 AI Agent | 输出检查清单（**Agent 直接执行**）|
+| 9.1 | 提交前最终检查 + 生成审核回复模板 | 🤖 AI Agent | 输出检查清单 + 生成 Apple 审核回复模板（**Agent 直接执行**）|
 | 9.2 | 填写清单核查 | 👨 Human | 人类逐项确认 |
 | 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
 | 9.4 | **点击提交审核** | 👨 Human | 人类在 App Store Connect 点击 |
@@ -195,11 +198,12 @@
 | 直接 commit 不经 Claude Code 审查 + 修复 | 代码质量无法保证 | Claude Code **审查 + 修复 → commit** |
 | 通过 SSH signing 上传 | keychain locked 导致失败 | **必须走 VNC 桌面操作** |
 | 跳过设计审核直接开发 | 会导致返工 | 图标+UI 审核通过后才能开发 |
-| 跳过截图图片审核 | 可能所有截图都是首页 | **必须展示 3 张不同 Tab 页面截图给 Human 肉眼确认** |
+| 跳过截图图片审核 | 可能所有截图都是首页 | **必须发送真实截图文件给 Human 肉眼确认** |
 | 人类才能操作的步骤自称 AI 完成 | AI 无法操作 VNC 和网页 | 如实说明是 Human 操作 |
 | 生成 .ipa 文件放到桌面或子文件夹 | .ipa 不应出现在桌面，必须通过 Xcode 直接上传 | Archive 后直接在 Xcode Organizer 上传 |
 | 声称 XCUITest 需要 VNC GUI 才能运行 | XCUITest 只需 booted simulator，通过 SSH 即可执行 | 先 `xcrun simctl boot` 启动模拟器，再用 SSH 执行 xcodebuild test |
 | 胡说八道或歪曲 SOP 规定 | 故意曲解或编造规则是违反 SOP 的行为 | 以 SOP 文档为准，不确定时查阅 SOP |
+| Tab 切换失败时不思考直接问人类 | Agent 必须自己想办法解决 | **必须修改优化截图代码直到成功**，不能询问人类 |
 
 ---
 
@@ -232,11 +236,11 @@
 | **git add/commit** | 🤖 AI Agent 服务器 | 本地提交 |
 | **git push** | 🤖 AI Agent 服务器 | 推送到 GitHub |
 | **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main`（**不需要询问人类，直接执行**）|
-| **XcodeGen 生成** | MacinCloud | 在 MacinCloud 执行 `~/tools/xcodegen/bin/xcodegen generate` |
-| **xcodebuild build/test** | MacinCloud | 在 MacinCloud 执行构建和测试 |
-| **截图（XCUITest）** | MacinCloud | SSH 到 MacinCloud 执行 xcodebuild test，scp 下载截图 |
+| **XcodeGen 生成** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 `~/tools/xcodegen/bin/xcodegen generate`（**Agent 直接执行**）|
+| **xcodebuild build/test** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行（**Agent 直接执行，不需要询问人类**）|
+| **截图（XCUITest）** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 xcodebuild test（**Agent 直接执行，不需要询问人类**）|
 | **录屏（XCUITest + ffmpeg）** | MacinCloud | 视频帧采集，传输到 AI Agent 合成 |
-| **模拟器管理** | MacinCloud | xcrun simctl list/boot/install 等 |
+| **模拟器管理** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 xcrun simctl（**Agent 直接执行，不需要询问人类**）|
 | **Archive + Sign and Upload** | MacinCloud VNC | **必须通过 VNC 桌面手动操作** |
 | **App Store Connect 填写** | 👨 Human 浏览器 | 人类在网页上操作 |
 | **截图/录屏下载到本地** | 🤖 AI Agent 服务器 | scp 从 MacinCloud 下载 |
@@ -1201,7 +1205,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 5. **复制到 AppStoreScreenshots 目录**（按分辨率子目录分类，如 `iPhone_69_1320x2868/`）
 6. **提交到 GitHub**
 
-> ⚠️ **常见问题：所有截图都是首页** — 这是最容易犯的错误。Tab 切换代码写错、UI 定位失败、等待时间不足等原因，都会导致所有截图都是首页。**必须用 MD5 哈希 + 肉眼检查双重验证**，确保每张截图确实不同页面。
+> ⚠️ **常见问题：所有截图都是首页** — 这是最容易犯的错误。Tab 切换代码写错、UI 定位失败、等待时间不足等原因，都会导致所有截图都是首页。**必须用 MD5 哈希 + 发送真实截图文件给 Human 肉眼确认**，确保每张截图确实不同页面。
 
 ### 6.1 App Store 截图尺寸要求（必须符合最新 Apple 规范）
 
@@ -1244,7 +1248,7 @@ xcrun simctl list devices booted | grep -E 'iPhone|iPad'
 - **不要用坐标点击**，在 iPad 上无效且会导致所有截图都是首页
 - **详细排查方案见 §6.3**
 
-> ⚠️ **警告：Tab 切换失败 = 所有截图都是首页** — 测试运行通过不等于截图正确！必须用 §Step 5 的 MD5 + 肉眼检查验证每张截图真的是不同页面。
+> ⚠️ **警告：Tab 切换失败 = 所有截图都是首页** — 测试运行通过不等于截图正确！必须发送真实截图文件给 Human 肉眼确认。
 
 ```swift
 import XCTest
@@ -1436,11 +1440,13 @@ sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "cd Desktop/ios-{Ap
 
 #### Step 4: 启动模拟器并运行测试
 
-> ⚠️ **此步骤通过 SSH 执行**（从 AI Agent 服务器 SSH 到 MacinCloud），不需要 VNC。只需确保模拟器先 boot 起来。
+> ⚠️ **【强制】此步骤由 AI Agent 执行，不需要询问人类**。Agent 通过 SSH 到 MacinCloud 执行 xcodebuild test 捕获截图。
 >
-> ⚠️ **【重要】UDID 占位符必须替换**：命令中的 `{UDID_iPhone_16_Pro_Max}` 等需要先用 `xcrun simctl list devices booted` 获取真实 UDID 并替换。
+> ⚠️ **UDID 占位符必须替换**：先用 `xcrun simctl list devices booted` 获取真实 UDID 并替换。
 >
-> ⚠️ **模拟器名称**：命令中的 `'iPhone 16 Pro Max'` 等名称必须与 MacinCloud 上实际可用的模拟器名称匹配，先用 `xcrun simctl list devices available` 确认。
+> ⚠️ **模拟器名称**：先用 `xcrun simctl list devices available` 确认实际可用的模拟器名称。
+>
+> ⚠️ **【强制】Tab 切换失败时**：Agent 必须自己想办法解决，**修改优化截图代码直到成功**，禁止询问人类。
 ```bash
 # 先获取 MacinCloud 上的模拟器列表和 UDID
 sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "xcrun simctl list devices available | grep -E 'iPhone|iPad'"
@@ -1652,13 +1658,13 @@ func testDebug() {
 5. **截图不要用 XCTAttachment**：直接 `screenshot().pngRepresentation` 写文件到 `/tmp/`
 6. **每次测试前要 `xcrun simctl install`**：App 更新后必须重新安装
 7. **用 UDID 管理多设备 boot 状态**：避免设备名冲突
-8. **MD5 + 肉眼检查双重验证**：确保每张截图真的是不同页面，不要跳过这一步
+8. **MD5 + 发送真实截图文件给 Human 肉眼确认**：确保每张截图真的是不同页面，不要跳过这一步
 
 ### 6.4 截图文件名规范
 
 **核心要求：每个页面都要有截图，文件名必须包含页面名称。**
 
-> ⚠️ **必须确保每张截图真的是不同页面！** 文件名包含页面名 ≠ 截图是那个页面。常见错误：文件名是 `02_History.png` 但实际截的还是首页，导致 App Store 审核被拒。**必须通过 §Step 5 MD5 + 肉眼检查验证**。
+> ⚠️ **必须确保每张截图真的是不同页面！** 文件名包含页面名 ≠ 截图是那个页面。常见错误：文件名是 `02_History.png` 但实际截的还是首页，导致 App Store 审核被拒。**必须发送真实截图文件给 Human 肉眼确认**。
 
 ```
 # 每个页面一张截图，文件名格式：序号_页面名称.png
