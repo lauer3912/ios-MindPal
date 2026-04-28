@@ -178,8 +178,8 @@ enum Theme {
         static let normal: TimeInterval = 0.3
         static let slow: TimeInterval = 0.5
 
-        static func spring() -> UIView.AnimationParameters {
-            .init(damping: 0.8, velocity: 0.5)
+        static func spring() -> (damping: CGFloat, velocity: CGFloat) {
+            (damping: 0.8, velocity: 0.5)
         }
     }
 }

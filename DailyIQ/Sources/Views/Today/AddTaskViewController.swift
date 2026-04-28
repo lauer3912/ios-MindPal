@@ -244,12 +244,12 @@ class AddTaskViewController: UIViewController {
     }
 
     private func setupKeyboardDismissal() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardTapped))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
-    @objc private func dismissKeyboard() {
+    @objc private func dismissKeyboardTapped() {
         view.endEditing(true)
     }
 
