@@ -25,6 +25,8 @@ targets:
         excludes:
           - "**/Tests/**"
           - "**/UITests/**"
+          - "**/Widgets/**"
+          - "**/*Widget*.swift"
     resources:
       - path: Sources/Resources/Assets.xcassets
     settings:
@@ -45,6 +47,38 @@ targets:
     dependencies:
       - package: SnapKit
       - package: SQLite.swift
+      - target: DailyIQWidget
+        embed: true
+
+  DailyIQWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Sources/Views/Today/Widgets
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/Views/Today/Widgets/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.DailyIQ.widget
+        PRODUCT_NAME: DailyIQWidget
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_EMIT_LOC_STRINGS: YES
+        CODE_SIGN_ENTITLEMENTS: Sources/Views/Today/Widgets/DailyIQWidget.entitlements
+        CODE_SIGNING_ALLOWED: NO
+        DEVELOPMENT_TEAM: 9L6N2ZF26B
+        SKIP_INSTALL: YES
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+          - "@executable_path/../../Frameworks"
+      configs:
+        Debug:
+          CODE_SIGNING_ALLOWED: NO
+        Release:
+          CODE_SIGNING_ALLOWED: YES
+    entitlements:
+      path: Sources/Views/Today/Widgets/DailyIQWidget.entitlements
 
   DailyIQTests:
     type: bundle.unit-test
@@ -104,6 +138,7 @@ schemes:
     build:
       targets:
         DailyIQ: all
+        DailyIQWidget: all
         DailyIQTests: [test]
         DailyIQUITests: [test]
     run:

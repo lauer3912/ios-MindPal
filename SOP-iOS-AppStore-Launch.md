@@ -64,6 +64,7 @@
 
 | 原则 | 说明 |
 |------|------|
+| **AI Agent 操作不需要询问人类** | 标注为 🤖 AI Agent 执行的步骤，**直接执行，不需要询问人类**（除非明确标注需要人类审核） |
 | **Claude Code 审查 + 修复** | **每次代码变更后必须执行**。所有 commit 前必须先 Claude Code 审查，发现问题立即修复 |
 | **必须人类审核的** | AI 输出 → 人类审核 → 通过后继续 |
 | **必须人类操作的** | AI 无法完成（如 VNC 桌面操作、App Store Connect 审核点击）|
@@ -96,42 +97,42 @@
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 1.1 | 核查 App Store 名称是否被占用 | 🤖 AI Agent | 执行 curl 命令查询 |
-| 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定 |
-| 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md` |
+| 1.1 | 核查 App Store 名称是否被占用 | 🤖 AI Agent | 执行 curl 命令查询（**Agent 直接执行**）|
+| 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定（**Agent 直接执行**）|
+| 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md`（**Agent 直接执行**）|
 | 1.4 | 审核功能清单 | 👨 Human | 确认功能数量达标 |
 
 #### 第二阶段：创建项目目录结构
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 2.1 | 创建目录结构 | 🤖 AI Agent | 执行 mkdir 命令 |
-| 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | git init, add, commit |
+| 2.1 | 创建目录结构 | 🤖 AI Agent | 执行 mkdir 命令（**Agent 直接执行**）|
+| 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | git init, add, commit（**Agent 直接执行**）|
 
 #### 第三阶段：project.yml 配置
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 3.1 | 编写 project.yml | 🤖 AI Agent | 配置 4 个 targets |
-| 3.2 | 审查 project.yml | 🤖 AI Agent | **Claude Code 审查 + 修复**（在 AI Agent 服务器）|
+| 3.1 | 编写 project.yml | 🤖 AI Agent | 配置 4 个 targets（**Agent 直接执行**）|
+| 3.2 | 审查 project.yml | 🤖 AI Agent | **Claude Code 审查 + 修复**（Agent 直接执行）|
 
 #### 第四阶段：必需的文件
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 4.1 | 编写 Info.plist、Entitlements | 🤖 AI Agent | 按模板生成 |
-| 4.2 | 审查配置文件 | 🤖 AI Agent | **Claude Code 审查 + 修复**（在 AI Agent 服务器）|
-| 4.3 | 编写 Widget Info.plist | 🤖 AI Agent | 按模板生成 |
-| 4.4 | 编写 Widget Entitlements | 🤖 AI Agent | 按模板生成 |
-| 4.5 | 编写 AppIcon 图标设计规范 | 🤖 AI Agent | 从 ggsheng-app-icon-design-SKILL.md 同步 |
+| 4.1 | 编写 Info.plist、Entitlements | 🤖 AI Agent | 按模板生成（**Agent 直接执行**）|
+| 4.2 | 审查配置文件 | 🤖 AI Agent | **Claude Code 审查 + 修复**（Agent 直接执行）|
+| 4.3 | 编写 Widget Info.plist | 🤖 AI Agent | 按模板生成（**Agent 直接执行**）|
+| 4.4 | 编写 Widget Entitlements | 🤖 AI Agent | 按模板生成（**Agent 直接执行**）|
+| 4.5 | 编写 AppIcon 图标设计规范 | 🤖 AI Agent | 从 ggsheng-app-icon-design-SKILL.md 同步（**Agent 直接执行**）|
 
 #### 第五阶段：XcodeGen 生成项目
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 5.1 | 执行 XcodeGen 生成项目 | 🤖 AI Agent | **SSH 到 MacinCloud** 执行 `~/tools/xcodegen/bin/xcodegen generate` |
-| 5.2 | 验证生成结果 | 🤖 AI Agent | 检查文件是否完整 |
-| 5.3 | Git 提交 + 同步到 MacinCloud | 🤖 AI Agent | git push + SSH 到 MacinCloud 执行 git pull + xcodegen |
+| 5.1 | 执行 XcodeGen 生成项目 | 🤖 AI Agent | **SSH 到 MacinCloud** 执行（**Agent 直接执行，不需要询问人类**）|
+| 5.2 | 验证生成结果 | 🤖 AI Agent | 检查文件是否完整（**Agent 直接执行**）|
+| 5.3 | Git 提交 + 同步到 MacinCloud | 🤖 AI Agent | git push + SSH 到 MacinCloud 执行（**Agent 直接执行，不需要询问人类**）|
 
 #### 第六阶段：App Store 截图制作
 
@@ -140,29 +141,29 @@
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 6.1 | 截图尺寸要求 | - | 见 §6.0 工作流概述（**5个上传区域，每个区域至少1张，建议每个App页面×5设备**）|
-| 6.2 | 编写 + 审查截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift`（每个设备单独测试函数），**Claude Code 审查 + 修复** |
-| 6.3 | 添加 Tab identifier + 审查 | 🤖 AI Agent | 修改 App 源码添加 identifier，**Claude Code 审查 + 修复** |
+| 6.2 | 编写截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift`（**Agent 直接执行，不需要询问人类**）|
+| 6.3 | 添加 Tab identifier | 🤖 AI Agent | 修改 App 源码添加 identifier（**Agent 直接执行**）|
 | 6.4 | 文件名规范 | - | 格式：`序号_页面名称.png`；见 §6.4 正文 |
-| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载；数量见 §6.0 工作流概述 |
-| 6.6 | 验证截图尺寸 + 肉眼检查 | 🤖 AI Agent + 👨 Human | MD5 + sips 命令验证尺寸，人类确认每张截图不同页面 |
+| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载（**Agent 直接执行**）|
+| 6.6 | **展示截图图片给 Human 审核** | 🤖 AI Agent | **直接展示 3 张不同 Tab 页面的截图图片**，人类肉眼确认 |
 
 #### 第六阶段附加：测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 6.7 | 编写 + 审查 Unit Tests | 🤖 AI Agent | 编写功能测试代码，**Claude Code 审查 + 修复** |
-| 6.8 | 编写 + 审查 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码，**Claude Code 审查 + 修复** |
-| 6.9 | 录屏制作 | 🤖 AI Agent | **由 Agent 负责，必须在 Archive + Upload 之前完成**，编写 XCUITest 截图代码 + ffmpeg 合成视频 |
-| 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果 |
+| 6.7 | 编写 + 审查 Unit Tests | 🤖 AI Agent | 编写功能测试代码，**Claude Code 审查 + 修复**（Agent 直接执行）|
+| 6.8 | 编写 + 审查 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码，**Claude Code 审查 + 修复**（Agent 直接执行）|
+| 6.9 | 录屏制作 | 🤖 AI Agent | 编写 XCUITest 截图代码 + ffmpeg 合成视频（**Agent 直接执行**）|
+| 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果（**Agent 直接执行**）|
 
 #### 第七阶段：Widget 数据共享 / Beta 测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 7.1 | 配置 App Groups | 🤖 AI Agent | 修改 entitlements |
+| 7.1 | 配置 App Groups | 🤖 AI Agent | 修改 entitlements（**Agent 直接执行**）|
 | 7.2 | **Archive 上传 TestFlight** | 👨 Human | **必须通过 VNC 桌面操作** |
 | 7.3 | Beta 测试 | 👨 Human | 人类测试员执行 |
-| 7.4 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码 |
+| 7.4 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码（**Agent 直接执行**）|
 
 #### 第八阶段：App Store Connect 上传
 
@@ -171,19 +172,19 @@
 | 8.1 | **Archive + Sign and Upload** | 👨 Human | **必须通过 VNC 桌面操作** |
 | 8.2 | 填写 App Store Connect 信息 | 👨 Human | 人类在网页上填写 |
 | 8.3 | 配置 App 隐私 | 👨 Human | 根据 App 实际功能选择"是"或"否"（参考 §8.3 配置表）|
-| 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html` |
-| 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | AI Agent 服务器 git push 后自动部署 |
+| 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html`（**Agent 直接执行**）|
+| 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | git push 后自动部署（**Agent 直接执行**）|
 | 8.6 | AI 相关配置 | 🤖 AI Agent + 👨 Human | AI 写隐私政策条款，人类审核 |
 
 #### 第九阶段：提交审核
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 9.1 | 提交前最终检查 | 🤖 AI Agent | 输出检查清单 |
+| 9.1 | 提交前最终检查 | 🤖 AI Agent | 输出检查清单（**Agent 直接执行**）|
 | 9.2 | 填写清单核查 | 👨 Human | 人类逐项确认 |
 | 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
 | 9.4 | **点击提交审核** | 👨 Human | 人类在 App Store Connect 点击 |
-| 9.5 | 关注审核状态 | 👨 Human | 提交后状态变为"等待审核"，首次审核通常7-14个工作日；见 §9.5 正文 |
+| 9.5 | 关注审核状态 | 👨 Human | 提交后状态变为"等待审核"，首次审核通常7-14个工作日 |
 
 ---
 
@@ -194,7 +195,7 @@
 | 直接 commit 不经 Claude Code 审查 + 修复 | 代码质量无法保证 | Claude Code **审查 + 修复 → commit** |
 | 通过 SSH signing 上传 | keychain locked 导致失败 | **必须走 VNC 桌面操作** |
 | 跳过设计审核直接开发 | 会导致返工 | 图标+UI 审核通过后才能开发 |
-| 跳过截图 MD5 验证 | 可能所有截图都是首页 | 必须 MD5 + 肉眼检查 |
+| 跳过截图图片审核 | 可能所有截图都是首页 | **必须展示 3 张不同 Tab 页面截图给 Human 肉眼确认** |
 | 人类才能操作的步骤自称 AI 完成 | AI 无法操作 VNC 和网页 | 如实说明是 Human 操作 |
 | 生成 .ipa 文件放到桌面或子文件夹 | .ipa 不应出现在桌面，必须通过 Xcode 直接上传 | Archive 后直接在 Xcode Organizer 上传 |
 | 声称 XCUITest 需要 VNC GUI 才能运行 | XCUITest 只需 booted simulator，通过 SSH 即可执行 | 先 `xcrun simctl boot` 启动模拟器，再用 SSH 执行 xcodebuild test |
@@ -230,7 +231,7 @@
 | **Claude Code 审查 + 修复** | 🤖 AI Agent 服务器 | 审查代码发现问题并修复 |
 | **git add/commit** | 🤖 AI Agent 服务器 | 本地提交 |
 | **git push** | 🤖 AI Agent 服务器 | 推送到 GitHub |
-| **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main` |
+| **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main`（**不需要询问人类，直接执行**）|
 | **XcodeGen 生成** | MacinCloud | 在 MacinCloud 执行 `~/tools/xcodegen/bin/xcodegen generate` |
 | **xcodebuild build/test** | MacinCloud | 在 MacinCloud 执行构建和测试 |
 | **截图（XCUITest）** | MacinCloud | SSH 到 MacinCloud 执行 xcodebuild test，scp 下载截图 |
@@ -1423,11 +1424,13 @@ final class ScreenshotTests: XCTestCase {
 ```
 
 #### Step 3: 同步到 MacinCloud 并生成项目
+
+> ⚠️ **【强制】此步骤由 AI Agent 执行，不需要询问人类**，直接通过 SSH 执行。
 ```bash
 # 本地提交
 git add -A && git commit -m "Add screenshot tests" && git push origin main
 
-# MacinCloud 同步
+# MacinCloud 同步（AI Agent 直接执行，不需要询问人类）
 sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "cd Desktop/ios-{AppName} && git fetch origin && git reset --hard origin/main && ~/tools/xcodegen/bin/xcodegen generate"
 ```
 

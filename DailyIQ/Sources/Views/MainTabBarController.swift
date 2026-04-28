@@ -46,6 +46,7 @@ class MainTabBarController: UITabBarController {
         )
         todayVC.tabBarItem.accessibilityLabel = "Today tab"
         todayVC.tabBarItem.accessibilityHint = "Navigate to today's schedule"
+        todayVC.tabBarItem.accessibilityIdentifier = "tab_today"
 
         // Calendar Tab
         let calendarVC = CalendarViewController()
@@ -56,6 +57,7 @@ class MainTabBarController: UITabBarController {
         )
         calendarVC.tabBarItem.accessibilityLabel = "Calendar tab"
         calendarVC.tabBarItem.accessibilityHint = "Navigate to calendar view"
+        calendarVC.tabBarItem.accessibilityIdentifier = "tab_calendar"
 
         // AI Chat Tab
         let aiChatVC = AIChatViewController()
@@ -66,6 +68,7 @@ class MainTabBarController: UITabBarController {
         )
         aiChatVC.tabBarItem.accessibilityLabel = "AI Assistant tab"
         aiChatVC.tabBarItem.accessibilityHint = "Chat with AI scheduling assistant"
+        aiChatVC.tabBarItem.accessibilityIdentifier = "tab_ai"
 
         // Goals Tab
         let goalsVC = GoalsViewController()
@@ -76,6 +79,7 @@ class MainTabBarController: UITabBarController {
         )
         goalsVC.tabBarItem.accessibilityLabel = "Goals tab"
         goalsVC.tabBarItem.accessibilityHint = "Navigate to goals tracking"
+        goalsVC.tabBarItem.accessibilityIdentifier = "tab_goals"
 
         // Insights Tab
         let insightsVC = InsightsViewController()
@@ -86,6 +90,7 @@ class MainTabBarController: UITabBarController {
         )
         insightsVC.tabBarItem.accessibilityLabel = "Insights tab"
         insightsVC.tabBarItem.accessibilityHint = "Navigate to productivity insights"
+        insightsVC.tabBarItem.accessibilityIdentifier = "tab_insights"
 
         // Settings Tab
         let settingsVC = SettingsViewController()
@@ -96,6 +101,7 @@ class MainTabBarController: UITabBarController {
         )
         settingsVC.tabBarItem.accessibilityLabel = "Settings tab"
         settingsVC.tabBarItem.accessibilityHint = "Navigate to app settings"
+        settingsVC.tabBarItem.accessibilityIdentifier = "tab_settings"
 
         // Create navigation controllers
         let todayNav = UINavigationController(rootViewController: todayVC)
