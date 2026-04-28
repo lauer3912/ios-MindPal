@@ -163,7 +163,8 @@ final class DataService {
     func getAllTasks() -> [Task] {
         var result: [Task] = []
         do {
-            for row in try db?.prepare(tasks) ?? [] {
+            guard let rows = try db?.prepare(tasks) else { return result }
+            for row in rows {
                 if let task = taskFromRow(row) {
                     result.append(task)
                 }
@@ -258,7 +259,8 @@ final class DataService {
 
         do {
             let query = events.filter(eventStartTime >= startOfDay && eventStartTime < endOfDay)
-            for row in try db?.prepare(query) ?? [] {
+            guard let rows = try db?.prepare(query) else { return result }
+            for row in rows {
                 if let event = eventFromRow(row) {
                     result.append(event)
                 }
@@ -272,7 +274,8 @@ final class DataService {
     func getAllEvents() -> [Event] {
         var result: [Event] = []
         do {
-            for row in try db?.prepare(events) ?? [] {
+            guard let rows = try db?.prepare(events) else { return result }
+            for row in rows {
                 if let event = eventFromRow(row) {
                     result.append(event)
                 }
@@ -344,7 +347,8 @@ final class DataService {
     func getAllGoals() -> [Goal] {
         var result: [Goal] = []
         do {
-            for row in try db?.prepare(goals) ?? [] {
+            guard let rows = try db?.prepare(goals) else { return result }
+            for row in rows {
                 if let goal = goalFromRow(row) {
                     result.append(goal)
                 }
@@ -409,7 +413,8 @@ final class DataService {
         var result: [AIInsight] = []
         do {
             let query = insights.order(insightCreatedAt.desc)
-            for row in try db?.prepare(query) ?? [] {
+            guard let rows = try db?.prepare(query) else { return result }
+            for row in rows {
                 if let insight = insightFromRow(row) {
                     result.append(insight)
                 }
@@ -446,9 +451,9 @@ final class DataService {
 
     // MARK: - User Settings
 
-    func saveUserSettings(_ settings: UserSettings) {
+    func saveUserSettings(_ userSettings: UserSettings) {
         do {
-            if let data = try? JSONEncoder().encode(settings) {
+            if let data = try? JSONEncoder().encode(userSettings) {
                 let insert = settings.insert(or: .replace,
                     Expression<String>("key") <- "user_settings",
                     settingsData <- data
@@ -475,10 +480,10 @@ final class DataService {
 
     // MARK: - Statistics
 
-    func saveDailyStatistics(_ stats: DailyStatistics) {
-        let key = "stats_\(stats.dateFormatter.string(from: stats.date))"
+    func saveDailyStatistics(_ dailyStats: DailyStatistics) {
+        let key = "stats_\(DailyStatistics.dateFormatter.string(from: dailyStats.date))"
         do {
-            if let data = try? JSONEncoder().encode(stats) {
+            if let data = try? JSONEncoder().encode(dailyStats) {
                 let insert = statistics.insert(or: .replace,
                     Expression<String>("key") <- key,
                     settingsData <- data
