@@ -254,7 +254,7 @@ class AddTaskViewController: UIViewController {
     }
 
     private func createCategoryMenu() -> UIMenu {
-        let actions = Category.allCases.map { category in
+        let actions: [UIAction] = Category.allCases.map { category in
             UIAction(
                 title: category.displayName,
                 image: UIImage(systemName: category.iconName)
@@ -269,7 +269,7 @@ class AddTaskViewController: UIViewController {
     }
 
     private func createEnergyMenu() -> UIMenu {
-        let actions = EnergyLevel.allCases.map { level in
+        let actions: [UIAction] = EnergyLevel.allCases.map { level in
             let icon: String
             switch level {
             case .low: icon = "battery.25"
@@ -277,7 +277,7 @@ class AddTaskViewController: UIViewController {
             case .high: icon = "battery.100"
             }
 
-            UIAction(
+            return UIAction(
                 title: level.displayName,
                 image: UIImage(systemName: icon)
             ) { [weak self] _ in
