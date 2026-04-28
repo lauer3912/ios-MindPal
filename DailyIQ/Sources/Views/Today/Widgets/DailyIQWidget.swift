@@ -249,6 +249,8 @@ struct DailyIQWidgetBundle: WidgetBundle {
 
 // MARK: - Previews
 
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview(as: .systemSmall) {
     DailyIQWidget()
 } timeline: {
@@ -263,6 +265,7 @@ struct DailyIQWidgetBundle: WidgetBundle {
     )
 }
 
+@available(iOS 17.0, *)
 #Preview(as: .systemMedium) {
     DailyIQWidget()
 } timeline: {
@@ -276,3 +279,4 @@ struct DailyIQWidgetBundle: WidgetBundle {
         streak: 5
     )
 }
+#endif
