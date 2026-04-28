@@ -8,6 +8,8 @@ class InsightsViewController: UIViewController {
         label.text = "Insights"
         label.font = Theme.Typography.heading1()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -89,6 +91,9 @@ class InsightsViewController: UIViewController {
         titleLabel.text = title
         titleLabel.font = Theme.Typography.heading2()
         titleLabel.textColor = Theme.Colors.txtPrimary
+        titleLabel.accessibilityTraits = .header
+        titleLabel.isAccessibilityElement = true
+        titleLabel.accessibilityLabel = title
 
         card.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
@@ -120,11 +125,16 @@ class InsightsViewController: UIViewController {
         labelView.text = label
         labelView.font = Theme.Typography.body()
         labelView.textColor = Theme.Colors.txtSecondary
+        labelView.isAccessibilityElement = true
+        labelView.accessibilityLabel = "\(label): \(value)"
 
         let valueView = UILabel()
         valueView.text = value
         valueView.font = Theme.Typography.mono()
         valueView.textColor = Theme.Colors.txtPrimary
+        valueView.accessibilityTraits = .updatesFrequently
+        valueView.isAccessibilityElement = true
+        valueView.accessibilityLabel = "\(label): \(value)"
 
         row.addSubview(labelView)
         row.addSubview(valueView)
@@ -153,12 +163,17 @@ class InsightsViewController: UIViewController {
         titleLabel.text = "Energy Patterns"
         titleLabel.font = Theme.Typography.heading2()
         titleLabel.textColor = Theme.Colors.txtPrimary
+        titleLabel.accessibilityTraits = .header
+        titleLabel.isAccessibilityElement = true
+        titleLabel.accessibilityLabel = "Energy Patterns"
 
         let insightLabel = UILabel()
         insightLabel.text = "You focus best before noon. Consider scheduling deep work before 12 PM."
         insightLabel.font = Theme.Typography.body()
         insightLabel.textColor = Theme.Colors.txtSecondary
         insightLabel.numberOfLines = 0
+        insightLabel.isAccessibilityElement = true
+        insightLabel.accessibilityLabel = "Energy insight: You focus best before noon. Consider scheduling deep work before 12 PM."
 
         card.addSubview(titleLabel)
         card.addSubview(insightLabel)
@@ -186,12 +201,17 @@ class InsightsViewController: UIViewController {
         titleLabel.text = "AI Weekly Report"
         titleLabel.font = Theme.Typography.heading2()
         titleLabel.textColor = Theme.Colors.accentPrimary
+        titleLabel.accessibilityTraits = .header
+        titleLabel.isAccessibilityElement = true
+        titleLabel.accessibilityLabel = "AI Weekly Report"
 
         let reportLabel = UILabel()
         reportLabel.text = "This week you completed 23 tasks, 15% above your average. Your productivity peaked on Tuesday with 5 completed tasks. Keep up the momentum!"
         reportLabel.font = Theme.Typography.body()
         reportLabel.textColor = Theme.Colors.txtPrimary
         reportLabel.numberOfLines = 0
+        reportLabel.isAccessibilityElement = true
+        reportLabel.accessibilityLabel = "AI Weekly Report: This week you completed 23 tasks, 15 percent above your average. Your productivity peaked on Tuesday with 5 completed tasks. Keep up the momentum!"
 
         card.addSubview(titleLabel)
         card.addSubview(reportLabel)

@@ -40,11 +40,16 @@ class EnergyRingView: UIView {
         percentLabel.font = .monospacedSystemFont(ofSize: 36, weight: .bold)
         percentLabel.textColor = Theme.Colors.txtPrimary
         percentLabel.textAlignment = .center
+        percentLabel.accessibilityTraits = .updatesFrequently
+        percentLabel.isAccessibilityElement = true
+        percentLabel.accessibilityLabel = "Energy level, 75 percent"
 
         titleLabel.text = "Energy Level"
         titleLabel.font = Theme.Typography.caption()
         titleLabel.textColor = Theme.Colors.txtSecondary
         titleLabel.textAlignment = .center
+        titleLabel.isAccessibilityElement = true
+        titleLabel.accessibilityLabel = "Energy Level"
 
         addSubview(percentLabel)
         addSubview(titleLabel)
@@ -80,6 +85,7 @@ class EnergyRingView: UIView {
     func setEnergyLevel(_ level: Int) {
         currentEnergy = min(100, max(0, level))
         percentLabel.text = "\(currentEnergy)%"
+        percentLabel.accessibilityLabel = "Energy level, \(currentEnergy) percent"
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = ringLayer.strokeEnd

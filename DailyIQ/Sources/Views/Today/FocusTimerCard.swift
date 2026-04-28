@@ -38,11 +38,16 @@ class FocusTimerCard: UIView {
         timerLabel.text = "25:00"
         timerLabel.font = .monospacedSystemFont(ofSize: 32, weight: .bold)
         timerLabel.textColor = Theme.Colors.accentPrimary
+        timerLabel.accessibilityTraits = .updatesFrequently
+        timerLabel.isAccessibilityElement = true
+        timerLabel.accessibilityLabel = "Focus timer, 25 minutes remaining"
 
         startButton.setTitle("Start", for: .normal)
         startButton.setTitleColor(Theme.Colors.accentPrimary, for: .normal)
         startButton.titleLabel?.font = Theme.Typography.body()
         startButton.addTarget(self, action: #selector(toggleTimer), for: .touchUpInside)
+        startButton.accessibilityLabel = "Start focus timer"
+        startButton.accessibilityHint = "Double tap to start the focus timer"
 
         [titleLabel, subtitleLabel, timerLabel, startButton].forEach { addSubview($0) }
 

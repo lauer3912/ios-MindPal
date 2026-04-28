@@ -8,6 +8,8 @@ class SettingsViewController: UIViewController {
         label.text = "Settings"
         label.font = Theme.Typography.heading1()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -72,10 +74,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = sections[indexPath.section].1[indexPath.row]
+        let settingName = sections[indexPath.section].1[indexPath.row]
+        cell.textLabel?.text = settingName
         cell.textLabel?.textColor = Theme.Colors.txtPrimary
         cell.backgroundColor = Theme.Colors.bgSecondary
         cell.accessoryType = .disclosureIndicator
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = "\(settingName) setting"
+        cell.accessibilityTraits = .button
 
         if indexPath.section == 5 && indexPath.row == 0 {
             cell.textLabel?.textColor = Theme.Colors.accentPrimary

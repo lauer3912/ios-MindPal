@@ -23,6 +23,8 @@ class TodayViewController: UIViewController {
         let label = UILabel()
         label.font = Theme.Typography.heading1()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -30,11 +32,15 @@ class TodayViewController: UIViewController {
         let label = UILabel()
         label.font = Theme.Typography.body()
         label.textColor = Theme.Colors.txtSecondary
+        label.isAccessibilityElement = true
         return label
     }()
 
     private lazy var energyRingView: EnergyRingView = {
         let view = EnergyRingView()
+        view.isAccessibilityElement = true
+        view.accessibilityLabel = "Energy ring"
+        view.accessibilityHint = "Shows your current energy level"
         return view
     }()
 
@@ -48,6 +54,8 @@ class TodayViewController: UIViewController {
         label.text = "Today's Schedule"
         label.font = Theme.Typography.heading2()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -63,6 +71,9 @@ class TodayViewController: UIViewController {
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.tintColor = Theme.Colors.accentPrimary
         btn.addTarget(self, action: #selector(addTaskTapped), for: .touchUpInside)
+        btn.accessibilityLabel = "Add new task"
+        btn.accessibilityHint = "Double tap to add a new task"
+        btn.accessibilityTraits = .button
         return btn
     }()
 
@@ -74,6 +85,8 @@ class TodayViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.isHidden = true
+        label.accessibilityLabel = "No tasks scheduled. Tap the add button to create your first task."
+        label.accessibilityTraits = .staticText
         return label
     }()
 

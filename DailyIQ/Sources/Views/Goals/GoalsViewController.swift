@@ -8,6 +8,8 @@ class GoalsViewController: UIViewController {
         label.text = "Goals"
         label.font = Theme.Typography.heading1()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -16,6 +18,9 @@ class GoalsViewController: UIViewController {
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.tintColor = Theme.Colors.accentPrimary
         btn.addTarget(self, action: #selector(addGoalTapped), for: .touchUpInside)
+        btn.accessibilityLabel = "Add new goal"
+        btn.accessibilityHint = "Double tap to add a new goal"
+        btn.accessibilityTraits = .button
         return btn
     }()
 
@@ -116,6 +121,8 @@ class GoalCard: UIView {
 
         titleLabel.font = Theme.Typography.heading2()
         titleLabel.textColor = Theme.Colors.txtPrimary
+        titleLabel.accessibilityTraits = .header
+        titleLabel.isAccessibilityElement = true
 
         dateLabel.font = Theme.Typography.caption()
         dateLabel.textColor = Theme.Colors.txtSecondary
@@ -153,10 +160,14 @@ class GoalCard: UIView {
 
     private func configure(with goal: Goal) {
         titleLabel.text = goal.title
+        titleLabel.accessibilityLabel = "Goal: \(goal.title)"
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         dateLabel.text = "Target: \(formatter.string(from: goal.targetDate))"
+        dateLabel.accessibilityLabel = "Target date: \(formatter.string(from: goal.targetDate))"
         progressBar.progress = Float(goal.progress)
+        progressBar.accessibilityLabel = "Progress: \(Int(goal.progress * 100)) percent"
         progressLabel.text = "\(Int(goal.progress * 100))%"
+        progressLabel.accessibilityLabel = "\(Int(goal.progress * 100)) percent complete"
     }
 }

@@ -34,10 +34,14 @@ class TaskBlockCard: UIView {
         timeLabel.text = "\(formatter.string(from: taskBlock.startTime)) - \(formatter.string(from: taskBlock.endTime))"
         timeLabel.font = Theme.Typography.caption()
         timeLabel.textColor = Theme.Colors.txtSecondary
+        timeLabel.isAccessibilityElement = true
+        timeLabel.accessibilityLabel = "Time: \(formatter.string(from: taskBlock.startTime)) to \(formatter.string(from: taskBlock.endTime))"
 
         titleLabel.text = taskBlock.task.title
         titleLabel.font = Theme.Typography.body()
         titleLabel.textColor = Theme.Colors.txtPrimary
+        titleLabel.isAccessibilityElement = true
+        titleLabel.accessibilityLabel = "Task: \(taskBlock.task.title)"
 
         let durationLabel = UILabel()
         durationLabel.text = "\(taskBlock.task.estimatedMinutes) min"
@@ -62,11 +66,17 @@ class TaskBlockCard: UIView {
         completeBtn.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         completeBtn.tintColor = Theme.Colors.success
         completeBtn.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
+        completeBtn.accessibilityLabel = "Mark task complete"
+        completeBtn.accessibilityHint = "Double tap to mark this task as complete"
+        completeBtn.accessibilityTraits = .button
 
         let deferBtn = UIButton(type: .system)
         deferBtn.setImage(UIImage(systemName: "clock.arrow.circlepath"), for: .normal)
         deferBtn.tintColor = Theme.Colors.txtSecondary
         deferBtn.addTarget(self, action: #selector(deferTapped), for: .touchUpInside)
+        deferBtn.accessibilityLabel = "Defer task"
+        deferBtn.accessibilityHint = "Double tap to defer this task to another time slot"
+        deferBtn.accessibilityTraits = .button
 
         [timeLabel, titleLabel, durationBadge, categoryIcon, energyIndicator, completeBtn, deferBtn].forEach {
             addSubview($0)

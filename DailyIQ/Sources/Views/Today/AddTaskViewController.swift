@@ -52,20 +52,27 @@ class AddTaskViewController: UIViewController {
         titleField.borderStyle = .roundedRect
         titleField.backgroundColor = Theme.Colors.bgSecondary
         titleField.textColor = Theme.Colors.txtPrimary
+        titleField.accessibilityLabel = "Task title"
+        titleField.accessibilityHint = "Enter the title of your task"
 
         let notesLabel = label("Notes (optional)")
         notesField.placeholder = "Add notes"
         notesField.borderStyle = .roundedRect
         notesField.backgroundColor = Theme.Colors.bgSecondary
         notesField.textColor = Theme.Colors.txtPrimary
+        notesField.accessibilityLabel = "Task notes"
+        notesField.accessibilityHint = "Enter optional notes for your task"
 
         let durationLabelTitle = label("Duration (minutes)")
         durationLabel.text = "30"
+        durationLabel.accessibilityLabel = "Duration"
         durationStepper.minimumValue = 5
         durationStepper.maximumValue = 240
         durationStepper.value = 30
         durationStepper.stepValue = 5
         durationStepper.addTarget(self, action: #selector(durationChanged), for: .valueChanged)
+        durationStepper.accessibilityLabel = "Task duration stepper"
+        durationStepper.accessibilityHint = "Adjust the task duration in 5 minute increments"
 
         [titleLabel, titleField, notesLabel, notesField, durationLabelTitle, durationLabel, durationStepper].forEach {
             contentView.addSubview($0)

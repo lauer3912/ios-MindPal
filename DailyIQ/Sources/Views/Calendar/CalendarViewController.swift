@@ -8,6 +8,8 @@ class CalendarViewController: UIViewController {
         label.text = "Calendar"
         label.font = Theme.Typography.heading1()
         label.textColor = Theme.Colors.txtPrimary
+        label.accessibilityTraits = .header
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -16,6 +18,7 @@ class CalendarViewController: UIViewController {
         label.font = Theme.Typography.heading2()
         label.textColor = Theme.Colors.txtPrimary
         label.textAlignment = .center
+        label.isAccessibilityElement = true
         return label
     }()
 
@@ -63,10 +66,16 @@ class CalendarViewController: UIViewController {
         prevButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         prevButton.tintColor = Theme.Colors.txtSecondary
         prevButton.addTarget(self, action: #selector(prevMonth), for: .touchUpInside)
+        prevButton.accessibilityLabel = "Previous month"
+        prevButton.accessibilityHint = "Double tap to see the previous month"
+        prevButton.accessibilityTraits = .button
 
         nextButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         nextButton.tintColor = Theme.Colors.txtSecondary
         nextButton.addTarget(self, action: #selector(nextMonth), for: .touchUpInside)
+        nextButton.accessibilityLabel = "Next month"
+        nextButton.accessibilityHint = "Double tap to see the next month"
+        nextButton.accessibilityTraits = .button
 
         [headerLabel, prevButton, monthLabel, nextButton, weekdayStack, calendarGrid].forEach {
             view.addSubview($0)
@@ -151,8 +160,12 @@ class CalendarViewController: UIViewController {
                     let isToday = val == calendar.component(.day, from: Date()) &&
                                   calendar.isDate(currentMonth, equalTo: Date(), toGranularity: .month)
                     dayLabel.textColor = isToday ? Theme.Colors.accentPrimary : Theme.Colors.txtPrimary
+                    dayLabel.accessibilityLabel = "\(val)"
+                    dayLabel.accessibilityTraits = isToday ? .button : .staticText
+                    dayLabel.isAccessibilityElement = true
                 } else {
                     dayLabel.text = ""
+                    dayLabel.isAccessibilityElement = false
                 }
 
                 weekStack.addArrangedSubview(dayLabel)
