@@ -3,6 +3,8 @@ import SnapKit
 
 class GoalsViewController: UIViewController {
 
+    private let goalService = GoalService.shared
+
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Goals"
@@ -37,23 +39,35 @@ class GoalsViewController: UIViewController {
         return sv
     }()
 
+    private lazy var emptyStateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No goals yet.\nTap + to create your first goal."
+        label.font = Theme.Typography.body()
+        label.textColor = Theme.Colors.txtSecondary
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.isHidden = true
+        label.accessibilityLabel = "No goals created yet. Tap the add button to create your first goal."
+        return label
+    }()
+
     private var goals: [Goal] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadSampleGoals()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        loadGoals()
     }
 
     private func setupUI() {
         view.backgroundColor = Theme.Colors.bgPrimary
 
-        [headerLabel, addButton, scrollView].forEach { view.addSubview($0) }
+        [headerLabel, addButton, scrollView, emptyStateLabel].forEach { view.addSubview($0) }
         scrollView.addSubview(stackView)
 
         headerLabel.snp.makeConstraints { make in
@@ -72,43 +86,141 @@ class GoalsViewController: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
 
+        emptyStateLabel.snp.makeConstraints { make in
+            make.center.equalTo(scrollView)
+        }
+
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(Theme.Spacing.lg)
             make.width.equalToSuperview().offset(-Theme.Spacing.lg * 2)
         }
     }
 
-    private func loadSampleGoals() {
-        goals = [
-            Goal(title: "Launch DailyIQ App", targetDate: Calendar.current.date(byAdding: .month, value: 1, to: Date())!, progress: 0.65),
-            Goal(title: "Reach 100 paying users", targetDate: Calendar.current.date(byAdding: .month, value: 3, to: Date())!, progress: 0.30),
-            Goal(title: "Write 20 blog posts", targetDate: Calendar.current.date(byAdding: .month, value: 2, to: Date())!, progress: 0.55),
-        ]
+    private func loadGoals() {
+        goals = goalService.getActiveGoals()
 
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        for goal in goals {
-            let card = GoalCard(goal: goal)
-            stackView.addArrangedSubview(card)
+        if goals.isEmpty {
+            emptyStateLabel.isHidden = false
+            stackView.isHidden = true
+        } else {
+            emptyStateLabel.isHidden = true
+            stackView.isHidden = false
+
+            for goal in goals {
+                let card = GoalCard(goal: goal)
+                card.onTap = { [weak self] in
+                    self?.editGoal(goal)
+                }
+                card.onDelete = { [weak self] in
+                    self?.deleteGoal(goal)
+                }
+                stackView.addArrangedSubview(card)
+            }
         }
     }
 
     @objc private func addGoalTapped() {
-        // Add goal logic
+        let alert = UIAlertController(title: "New Goal", message: "Enter your goal details", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "Goal title"
+            textField.accessibilityLabel = "Goal title"
+        }
+
+        alert.addTextField { textField in
+            textField.placeholder = "Target date (YYYY-MM-DD)"
+            textField.accessibilityLabel = "Target date"
+            textField.keyboardType = .numbersAndPunctuation
+        }
+
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
+            guard let title = alert.textFields?[0].text, !title.isEmpty,
+                  let dateString = alert.textFields?[1].text else {
+                return
+            }
+
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let targetDate = formatter.date(from: dateString) ?? Date().adding(days: 30)
+
+            let goal = Goal(
+                title: title,
+                targetDate: targetDate,
+                progress: 0
+            )
+
+            self?.goalService.createGoal(goal)
+            HapticManager.shared.notification(.success)
+            self?.loadGoals()
+        }
+
+        alert.addAction(saveAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    private func editGoal(_ goal: Goal) {
+        let alert = UIAlertController(title: "Edit Goal", message: "Update your goal", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.text = goal.title
+            textField.placeholder = "Goal title"
+            textField.accessibilityLabel = "Goal title"
+        }
+
+        let updateAction = UIAlertAction(title: "Update", style: .default) { [weak self] _ in
+            guard let title = alert.textFields?[0].text, !title.isEmpty else {
+                return
+            }
+
+            var updatedGoal = goal
+            updatedGoal.title = title
+            self?.goalService.updateGoal(updatedGoal)
+            HapticManager.shared.notification(.success)
+            self?.loadGoals()
+        }
+
+        alert.addAction(updateAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    private func deleteGoal(_ goal: Goal) {
+        showConfirmation(
+            title: "Delete Goal",
+            message: "Are you sure you want to delete \"\(goal.title)\"?",
+            confirmTitle: "Delete",
+            confirmStyle: .destructive
+        ) { [weak self] in
+            self?.goalService.deleteGoal(goal.id)
+            HapticManager.shared.notification(.success)
+            self?.loadGoals()
+        }
     }
 }
 
+// MARK: - GoalCard
+
 class GoalCard: UIView {
+
+    var onTap: (() -> Void)?
+    var onDelete: (() -> Void)?
 
     private let titleLabel = UILabel()
     private let dateLabel = UILabel()
     private let progressBar = UIProgressView(progressViewStyle: .default)
     private let progressLabel = UILabel()
+    private let deleteButton = UIButton(type: .system)
 
     init(goal: Goal) {
         super.init(frame: .zero)
         setupUI()
         configure(with: goal)
+        setupGestures()
     }
 
     required init?(coder: NSCoder) {
@@ -133,11 +245,22 @@ class GoalCard: UIView {
         progressLabel.font = Theme.Typography.caption()
         progressLabel.textColor = Theme.Colors.accentPrimary
 
-        [titleLabel, dateLabel, progressBar, progressLabel].forEach { addSubview($0) }
+        deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
+        deleteButton.tintColor = Theme.Colors.destructive
+        deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
+        deleteButton.accessibilityLabel = "Delete goal"
+        deleteButton.accessibilityHint = "Double tap to delete this goal"
+
+        [titleLabel, dateLabel, progressBar, progressLabel, deleteButton].forEach { addSubview($0) }
 
         titleLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().offset(Theme.Spacing.md)
-            make.trailing.equalToSuperview().offset(-Theme.Spacing.md)
+            make.trailing.equalTo(deleteButton.snp.leading).offset(-Theme.Spacing.sm)
+        }
+
+        deleteButton.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(Theme.Spacing.md)
+            make.size.equalTo(32)
         }
 
         dateLabel.snp.makeConstraints { make in
@@ -169,5 +292,20 @@ class GoalCard: UIView {
         progressBar.accessibilityLabel = "Progress: \(Int(goal.progress * 100)) percent"
         progressLabel.text = "\(Int(goal.progress * 100))%"
         progressLabel.accessibilityLabel = "\(Int(goal.progress * 100)) percent complete"
+    }
+
+    private func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(cardTapped))
+        addGestureRecognizer(tap)
+    }
+
+    @objc private func cardTapped() {
+        HapticManager.shared.selection()
+        onTap?()
+    }
+
+    @objc private func deleteTapped() {
+        HapticManager.shared.selection()
+        onDelete?()
     }
 }

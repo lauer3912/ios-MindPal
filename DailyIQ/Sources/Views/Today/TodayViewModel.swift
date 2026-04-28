@@ -3,35 +3,136 @@ import Foundation
 class TodayViewModel {
 
     var dailySchedule: DailySchedule
+    private let taskService = TaskService.shared
+    private let aiSchedulingService = AISchedulingService.shared
 
     init() {
         self.dailySchedule = DailySchedule()
     }
 
     func generateDailySchedule() {
-        // AI-driven daily planning logic
-        // For demo, create sample tasks
+        // Get pending tasks from database
+        let pendingTasks = taskService.getPendingTasks()
+
+        // Use AI scheduling service to generate optimized schedule
+        let scheduleDate = Date()
+        var blocks = aiSchedulingService.generateDailySchedule(for: scheduleDate, tasks: pendingTasks)
+
+        // If no tasks, create sample data for demo purposes
+        if blocks.isEmpty {
+            blocks = createSampleSchedule()
+        }
+
+        // Calculate completion stats
+        let completedTasks = blocks.filter { $0.task.status == .completed }.count
+        let totalTasks = blocks.count
+
+        // Calculate current energy level (average of scheduled blocks)
+        let avgEnergy = blocks.isEmpty ? 70 : blocks.reduce(0) { $0 + $1.energyLevel } / blocks.count
+
+        self.dailySchedule = DailySchedule(
+            date: scheduleDate,
+            taskBlocks: blocks,
+            energyLevel: avgEnergy,
+            completedTasks: completedTasks,
+            totalTasks: totalTasks
+        )
+    }
+
+    func completeTask(_ blockId: UUID) {
+        // Update in database
+        if let block = dailySchedule.taskBlocks.first(where: { $0.id == blockId }) {
+            taskService.completeTask(block.task.id)
+        }
+
+        // Update local state
+        if let index = dailySchedule.taskBlocks.firstIndex(where: { $0.id == blockId }) {
+            dailySchedule.taskBlocks[index].task.status = .completed
+            dailySchedule.completedTasks += 1
+        }
+    }
+
+    func deferTask(_ blockId: UUID) {
+        // Update in database
+        if let block = dailySchedule.taskBlocks.first(where: { $0.id == blockId }) {
+            let tomorrow = Date().adding(days: 1)
+            taskService.deferTask(block.task.id, to: tomorrow)
+        }
+
+        // Update local state
+        if let index = dailySchedule.taskBlocks.firstIndex(where: { $0.id == blockId }) {
+            dailySchedule.taskBlocks[index].task.status = .deferred
+            // Remove from today's schedule
+            dailySchedule.taskBlocks.remove(at: index)
+            dailySchedule.totalTasks -= 1
+        }
+    }
+
+    func rescheduleTask(_ blockId: UUID, to newStart: Date) {
+        if let index = dailySchedule.taskBlocks.firstIndex(where: { $0.id == blockId }) {
+            let oldBlock = dailySchedule.taskBlocks[index]
+            let newBlock = aiSchedulingService.rescheduleTask(oldBlock, to: newStart)
+            dailySchedule.taskBlocks[index] = newBlock
+        }
+    }
+
+    func regenerateSchedule() {
+        generateDailySchedule()
+    }
+
+    func getMorningBriefing() -> String {
+        return aiSchedulingService.generateMorningBriefing(
+            schedule: dailySchedule.taskBlocks,
+            energyLevel: dailySchedule.energyLevel
+        )
+    }
+
+    func getEveningReview() -> String {
+        let completedMinutes = dailySchedule.taskBlocks
+            .filter { $0.task.status == .completed }
+            .reduce(0) { total, block in
+                let minutes = Calendar.current.dateComponents([.minute], from: block.startTime, to: block.endTime).minute ?? 0
+                return total + minutes
+            }
+
+        return aiSchedulingService.generateEveningReview(
+            completedTasks: dailySchedule.completedTasks,
+            totalTasks: dailySchedule.totalTasks,
+            focusMinutes: completedMinutes
+        )
+    }
+
+    // MARK: - Sample Data for Demo
+
+    private func createSampleSchedule() -> [TaskBlock] {
         let today = Date()
         let calendar = Calendar.current
 
-        var tasks: [Task] = [
-            Task(title: "Review morning emails", estimatedMinutes: 30, priority: .p2, category: .work, energyRequired: .low),
-            Task(title: "Deep work: Project planning", estimatedMinutes: 120, priority: .p1, category: .work, energyRequired: .high),
-            Task(title: "Team standup meeting", estimatedMinutes: 30, priority: .p1, category: .work, energyRequired: .medium),
-            Task(title: "30-minute workout", estimatedMinutes: 30, priority: .p2, category: .health, energyRequired: .medium),
-            Task(title: "Read 'Atomic Habits' chapter", estimatedMinutes: 45, priority: .p3, category: .learning, energyRequired: .low),
-            Task(title: "Lunch break", estimatedMinutes: 60, priority: .p3, category: .personal, energyRequired: .low),
-            Task(title: "Client call: Q1 review", estimatedMinutes: 60, priority: .p0, category: .work, energyRequired: .high),
-            Task(title: "Weekly planning for next week", estimatedMinutes: 45, priority: .p2, category: .work, energyRequired: .medium),
+        let sampleTasks: [(String, Int, Priority, Category, EnergyLevel)] = [
+            ("Review morning emails", 30, .p2, .work, .low),
+            ("Deep work: Project planning", 120, .p1, .work, .high),
+            ("Team standup meeting", 30, .p1, .work, .medium),
+            ("30-minute workout", 30, .p2, .health, .medium),
+            ("Read book chapter", 45, .p3, .learning, .low),
+            ("Client call: Q1 review", 60, .p0, .work, .high),
+            ("Weekly planning", 45, .p2, .work, .medium),
         ]
 
         var blocks: [TaskBlock] = []
         var currentHour = 9
 
-        for task in tasks {
+        for (title, minutes, priority, category, energy) in sampleTasks {
             let startTime = calendar.date(bySettingHour: currentHour, minute: 0, second: 0, of: today)!
-            let endMinute = task.estimatedMinutes
-            let endTime = calendar.date(byAddingMinute: endMinute, to: startTime)!
+            let endTime = calendar.date(byAdding: .minute, value: minutes, to: startTime)!
+
+            let task = Task(
+                title: title,
+                estimatedMinutes: minutes,
+                priority: priority,
+                category: category,
+                energyRequired: energy,
+                status: .pending
+            )
 
             let block = TaskBlock(
                 task: task,
@@ -41,35 +142,10 @@ class TodayViewModel {
             )
             blocks.append(block)
 
-            currentHour += (endMinute / 60) + 1
+            currentHour += (minutes / 60) + 1
             if currentHour >= 18 { break }
         }
 
-        let completedCount = blocks.filter { $0.task.status == .completed }.count
-
-        self.dailySchedule = DailySchedule(
-            date: today,
-            taskBlocks: blocks,
-            energyLevel: 75,
-            completedTasks: completedCount,
-            totalTasks: blocks.count
-        )
-    }
-
-    func completeTask(_ blockId: UUID) {
-        if let index = dailySchedule.taskBlocks.firstIndex(where: { $0.id == blockId }) {
-            dailySchedule.taskBlocks[index].task.status = .completed
-            dailySchedule.completedTasks += 1
-        }
-    }
-
-    func deferTask(_ blockId: UUID) {
-        if let index = dailySchedule.taskBlocks.firstIndex(where: { $0.id == blockId }) {
-            dailySchedule.taskBlocks[index].task.status = .deferred
-        }
-    }
-
-    func regenerateSchedule() {
-        generateDailySchedule()
+        return blocks
     }
 }
