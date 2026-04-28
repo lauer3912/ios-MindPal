@@ -64,7 +64,7 @@ final class DataService {
     // Settings
     private let settingsData = Expression<Data>("settings_data")
 
-    private init {
+    private init() {
         setupDatabase()
     }
 
