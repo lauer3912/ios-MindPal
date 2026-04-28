@@ -27,20 +27,34 @@ class SettingsViewController: UIViewController {
 
     private enum Section: Int, CaseIterable {
         case appearance
+        case workday
         case notifications
-        case timer
+        case focusMode
         case feedback
-        case aiSettings
         case data
+        case about
 
         var title: String {
             switch self {
             case .appearance: return "Appearance"
+            case .workday: return "Workday"
             case .notifications: return "Notifications"
-            case .timer: return "Timer"
+            case .focusMode: return "Focus Mode"
             case .feedback: return "Feedback"
-            case .aiSettings: return "AI Settings"
             case .data: return "Data"
+            case .about: return "About"
+            }
+        }
+
+        var rowCount: Int {
+            switch self {
+            case .appearance: return 3
+            case .workday: return 3
+            case .notifications: return 2
+            case .focusMode: return 2
+            case .feedback: return 2
+            case .data: return 3
+            case .about: return 3
             }
         }
     }
@@ -82,15 +96,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionType = Section(rawValue: section) else { return 0 }
-        switch sectionType {
-        case .appearance: return 3  // Dark Mode, Follow System, Light Mode
-        case .notifications: return 2  // Enable Notifications, Morning Briefing
-        case .timer: return 2  // Focus Duration, Break Duration
-        case .feedback: return 2  // Sound, Haptic
-        case .aiSettings: return 2  // Planning Aggressiveness, Auto-Regenerate
-        case .data: return 2  // Export Data, Import Data
-        }
+        return Section(rawValue: section)?.rowCount ?? 0
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -105,16 +111,18 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch sectionType {
         case .appearance:
             return appearanceCell(for: indexPath)
+        case .workday:
+            return workdayCell(for: indexPath)
         case .notifications:
             return notificationsCell(for: indexPath)
-        case .timer:
-            return timerCell(for: indexPath)
+        case .focusMode:
+            return focusModeCell(for: indexPath)
         case .feedback:
             return feedbackCell(for: indexPath)
-        case .aiSettings:
-            return aiSettingsCell(for: indexPath)
         case .data:
             return dataCell(for: indexPath)
+        case .about:
+            return aboutCell(for: indexPath)
         }
     }
 
@@ -126,16 +134,18 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch sectionType {
         case .appearance:
             handleAppearanceSelection(indexPath)
+        case .workday:
+            handleWorkdaySelection(indexPath)
         case .notifications:
             handleNotificationsSelection(indexPath)
-        case .timer:
-            handleTimerSelection(indexPath)
+        case .focusMode:
+            handleFocusModeSelection(indexPath)
         case .feedback:
-            break // Switch cells handled elsewhere
-        case .aiSettings:
-            handleAISettingsSelection(indexPath)
+            break
         case .data:
             handleDataSelection(indexPath)
+        case .about:
+            handleAboutSelection(indexPath)
         }
     }
 
@@ -145,130 +155,116 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.backgroundColor = Theme.Colors.bgSecondary
         cell.textLabel?.textColor = Theme.Colors.txtPrimary
+        cell.tintColor = Theme.Colors.accentPrimary
         cell.accessoryType = .none
+
+        let settings = settingsService.settings
 
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "Dark Mode"
-            cell.accessoryType = settingsService.themeMode == .dark ? .checkmark : .none
-            cell.tintColor = Theme.Colors.accentPrimary
+            cell.accessoryType = settings.theme == .dark ? .checkmark : .none
         case 1:
             cell.textLabel?.text = "Light Mode"
-            cell.accessoryType = settingsService.themeMode == .light ? .checkmark : .none
-            cell.tintColor = Theme.Colors.accentPrimary
+            cell.accessoryType = settings.theme == .light ? .checkmark : .none
         case 2:
             cell.textLabel?.text = "Follow System"
-            cell.accessoryType = settingsService.themeMode == .system ? .checkmark : .none
-            cell.tintColor = Theme.Colors.accentPrimary
+            cell.accessoryType = settings.theme == .system ? .checkmark : .none
         default:
             break
         }
 
-        cell.isAccessibilityElement = true
-        cell.accessibilityLabel = cell.textLabel?.text
-        cell.accessibilityHint = "Double tap to select"
-        cell.accessibilityTraits = .button
-
         return cell
     }
 
-    private func notificationsCell(for indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-            cell.configure(title: "Enable Notifications", isOn: settingsService.notificationsEnabled) { isOn in
-                self.settingsService.notificationsEnabled = isOn
-                if isOn {
-                    NotificationService.shared.requestAuthorization { granted in
-                        if !granted {
-                            self.showAlert(title: "Notifications Disabled", message: "Please enable notifications in Settings")
-                        }
-                    }
-                }
-            }
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.backgroundColor = Theme.Colors.bgSecondary
-            cell.textLabel?.textColor = Theme.Colors.txtPrimary
-            cell.textLabel?.text = "Morning Briefing"
-            cell.detailTextLabel?.text = "\(settingsService.morningBriefingHour):\(String(format: "%02d", settingsService.morningBriefingMinute))"
-            cell.accessoryType = .disclosureIndicator
-            cell.isAccessibilityElement = true
-            cell.accessibilityLabel = "Morning Briefing at \(cell.detailTextLabel?.text ?? "")"
-            return cell
-        default:
-            return UITableViewCell()
-        }
-    }
-
-    private func timerCell(for indexPath: IndexPath) -> UITableViewCell {
+    private func workdayCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.backgroundColor = Theme.Colors.bgSecondary
         cell.textLabel?.textColor = Theme.Colors.txtPrimary
         cell.accessoryType = .disclosureIndicator
 
+        let settings = settingsService.settings
+
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = "Focus Duration"
-            cell.detailTextLabel?.text = "\(settingsService.defaultFocusDuration) min"
+            cell.textLabel?.text = "Start Hour"
+            cell.detailTextLabel?.text = String(format: "%02d:00", settings.workdayStartHour)
         case 1:
-            cell.textLabel?.text = "Break Duration"
-            cell.detailTextLabel?.text = "\(settingsService.defaultBreakDuration) min"
+            cell.textLabel?.text = "End Hour"
+            cell.detailTextLabel?.text = String(format: "%02d:00", settings.workdayEndHour)
+        case 2:
+            cell.textLabel?.text = "Work Days"
+            cell.detailTextLabel?.text = workDaysDisplay(settings.workDays)
         default:
             break
         }
 
-        cell.isAccessibilityElement = true
-        cell.accessibilityLabel = "\(cell.textLabel?.text ?? ""): \(cell.detailTextLabel?.text ?? "")"
+        return cell
+    }
+
+    private func workDaysDisplay(_ days: [Int]) -> String {
+        let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        let selected = days.map { dayNames[$0 - 1] }.joined(separator: ", ")
+        return selected.isEmpty ? "None" : selected
+    }
+
+    private func notificationsCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+
+        switch indexPath.row {
+        case 0:
+            cell.configure(title: "Enable Notifications", isOn: true) { [weak self] isOn in
+                // Handle notifications toggle
+            }
+        case 1:
+            let settings = settingsService.settings
+            cell.configure(title: "Morning Briefing", isOn: true) { [weak self] isOn in
+                // Handle briefing toggle
+            }
+        default:
+            break
+        }
+
+        return cell
+    }
+
+    private func focusModeCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+
+        switch indexPath.row {
+        case 0:
+            let settings = settingsService.settings
+            cell.configure(title: "Focus Mode", isOn: settings.focusModeEnabled) { [weak self] isOn in
+                self?.settingsService.toggleFocusMode(isOn)
+            }
+        case 1:
+            let settings = settingsService.settings
+            cell.configure(title: "Do Not Disturb", isOn: settings.doNotDisturbEnabled) { [weak self] isOn in
+                self?.settingsService.toggleDoNotDisturb(isOn)
+            }
+        default:
+            break
+        }
 
         return cell
     }
 
     private func feedbackCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+        let settings = settingsService.settings
 
         switch indexPath.row {
         case 0:
-            cell.configure(title: "Sound Effects", isOn: settingsService.soundEnabled) { isOn in
-                self.settingsService.soundEnabled = isOn
+            cell.configure(title: "Sound Effects", isOn: settings.soundEffectsEnabled) { [weak self] isOn in
+                self?.settingsService.toggleSoundEffects(isOn)
             }
         case 1:
-            cell.configure(title: "Haptic Feedback", isOn: settingsService.hapticEnabled) { isOn in
-                self.settingsService.hapticEnabled = isOn
-                if isOn {
-                    HapticManager.shared.selection()
-                }
+            cell.configure(title: "Haptic Feedback", isOn: settings.hapticFeedbackEnabled) { [weak self] isOn in
+                self?.settingsService.toggleHapticFeedback(isOn)
             }
         default:
             break
         }
-
-        return cell
-    }
-
-    private func aiSettingsCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.backgroundColor = Theme.Colors.bgSecondary
-        cell.textLabel?.textColor = Theme.Colors.txtPrimary
-        cell.accessoryType = .disclosureIndicator
-
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "Planning Aggressiveness"
-            cell.detailTextLabel?.text = settingsService.planningAggressiveness.displayName
-        case 1:
-            let cell2 = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-            cell2.configure(title: "Auto-Regenerate Schedule", isOn: settingsService.autoRegenerate) { isOn in
-                self.settingsService.autoRegenerate = isOn
-            }
-            return cell2
-        default:
-            break
-        }
-
-        cell.isAccessibilityElement = true
-        cell.accessibilityLabel = "\(cell.textLabel?.text ?? ""): \(cell.detailTextLabel?.text ?? "")"
 
         return cell
     }
@@ -277,22 +273,48 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.backgroundColor = Theme.Colors.bgSecondary
         cell.textLabel?.textColor = Theme.Colors.txtPrimary
+        cell.accessoryType = .disclosureIndicator
 
         switch indexPath.row {
         case 0:
+            cell.textLabel?.text = "iCloud Sync"
+            let syncCell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            let settings = settingsService.settings
+            syncCell.configure(title: "iCloud Sync", isOn: settings.iCloudSyncEnabled) { [weak self] isOn in
+                self?.settingsService.toggleICloudSync(isOn)
+            }
+            return syncCell
+        case 1:
             cell.textLabel?.text = "Export Data"
             cell.accessoryType = .disclosureIndicator
-        case 1:
+        case 2:
             cell.textLabel?.text = "Import Data"
             cell.accessoryType = .disclosureIndicator
         default:
             break
         }
 
-        cell.isAccessibilityElement = true
-        cell.accessibilityLabel = cell.textLabel?.text
-        cell.accessibilityHint = "Double tap to \(indexPath.row == 0 ? "export" : "import")"
-        cell.accessibilityTraits = .button
+        return cell
+    }
+
+    private func aboutCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.backgroundColor = Theme.Colors.bgSecondary
+        cell.textLabel?.textColor = Theme.Colors.txtPrimary
+
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = "Privacy Policy"
+            cell.accessoryType = .disclosureIndicator
+        case 1:
+            cell.textLabel?.text = "Terms of Service"
+            cell.accessoryType = .disclosureIndicator
+        case 2:
+            cell.textLabel?.text = "Rate App"
+            cell.accessoryType = .disclosureIndicator
+        default:
+            break
+        }
 
         return cell
     }
@@ -300,81 +322,69 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Selection Handlers
 
     private func handleAppearanceSelection(_ indexPath: IndexPath) {
-        let mode: SettingsService.ThemeMode
-        switch indexPath.row {
-        case 0: mode = .dark
-        case 1: mode = .light
-        case 2: mode = .system
-        default: return
-        }
-
-        settingsService.themeMode = mode
-        HapticManager.shared.selection()
+        let themes: [AppTheme] = [.dark, .light, .system]
+        let theme = themes[indexPath.row]
+        settingsService.updateTheme(theme)
         tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
     }
 
-    private func handleNotificationsSelection(_ indexPath: IndexPath) {
-        if indexPath.row == 1 {
-            // Morning briefing time picker
-            showTimePicker(title: "Morning Briefing Time", currentHour: settingsService.morningBriefingHour, currentMinute: settingsService.morningBriefingMinute) { hour, minute in
-                self.settingsService.morningBriefingHour = hour
-                self.settingsService.morningBriefingMinute = minute
-                NotificationService.shared.scheduleMorningBriefing(hour: hour, minute: minute)
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    private func handleTimerSelection(_ indexPath: IndexPath) {
-        let title: String
-        let currentValue: Int
+    private func handleWorkdaySelection(_ indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            title = "Focus Duration"
-            currentValue = settingsService.defaultFocusDuration
-        case 1:
-            title = "Break Duration"
-            currentValue = settingsService.defaultBreakDuration
-        default: return
-        }
-
-        showDurationPicker(title: title, currentValue: currentValue) { newValue in
-            switch indexPath.row {
-            case 0: self.settingsService.defaultFocusDuration = newValue
-            case 1: self.settingsService.defaultBreakDuration = newValue
-            default: break
+            showHourPicker(title: "Workday Start", currentHour: settingsService.settings.workdayStartHour) { [weak self] hour in
+                guard let self = self else { return }
+                let current = self.settingsService.settings
+                self.settingsService.updateWorkday(hour, current.workdayEndHour, current.workDays)
+                self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
             }
-            self.tableView.reloadData()
+        case 1:
+            showHourPicker(title: "Workday End", currentHour: settingsService.settings.workdayEndHour) { [weak self] hour in
+                guard let self = self else { return }
+                let current = self.settingsService.settings
+                self.settingsService.updateWorkday(current.workdayStartHour, hour, current.workDays)
+                self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+            }
+        case 2:
+            showWorkDaysPicker()
+        default:
+            break
         }
     }
 
-    private func handleAISettingsSelection(_ indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            // Planning aggressiveness picker
-            let alert = UIAlertController(title: "Planning Aggressiveness", message: "How densely should AI schedule your day?", preferredStyle: .actionSheet)
+    private func handleNotificationsSelection(_ indexPath: IndexPath) {
+        // Handle notification settings
+    }
 
-            for aggressiveness in [SettingsService.PlanningAggressiveness.relaxed, .moderate, .aggressive] {
-                let action = UIAlertAction(title: aggressiveness.displayName, style: .default) { _ in
-                    self.settingsService.planningAggressiveness = aggressiveness
-                    self.tableView.reloadData()
-                }
-                if settingsService.planningAggressiveness == aggressiveness {
-                    action.setValue(true, forKey: "checked")
-                }
-                alert.addAction(action)
-            }
-
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            present(alert, animated: true)
-        }
+    private func handleFocusModeSelection(_ indexPath: IndexPath) {
+        // Focus mode handled by switches
     }
 
     private func handleDataSelection(_ indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            exportData()
         case 1:
+            exportData()
+        case 2:
             importData()
+        default:
+            break
+        }
+    }
+
+    private func handleAboutSelection(_ indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            // Open privacy policy
+            if let url = URL(string: "https://lauer3912.github.io/ios-DailyIQ/docs/PrivacyPolicy.html") {
+                UIApplication.shared.open(url)
+            }
+        case 1:
+            // Open terms of service
+            if let url = URL(string: "https://lauer3912.github.io/ios-DailyIQ/docs/TermsOfService.html") {
+                UIApplication.shared.open(url)
+            }
+        case 2:
+            // Rate app - would use SKStoreReviewController in production
+            break
         default:
             break
         }
@@ -382,41 +392,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - Pickers
 
-    private func showTimePicker(title: String, currentHour: Int, currentMinute: Int, completion: @escaping (Int, Int) -> Void) {
+    private func showHourPicker(title: String, currentHour: Int, completion: @escaping (Int) -> Void) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 
-        let picker = UIDatePicker()
-        picker.datePickerMode = .countDownTimer
-        picker.preferredDatePickerStyle = .wheels
-        picker.countDownDuration = TimeInterval(currentHour * 3600 + currentMinute * 60)
-
-        alert.view.addSubview(picker)
-        picker.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(150)
-        }
-
-        alert.addAction(UIAlertAction(title: "Done", style: .default) { _ in
-            let components = Calendar.current.dateComponents([.hour, .minute], from: picker.date)
-            completion(components.hour ?? 8, components.minute ?? 0)
-        })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-
-        let height: NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 300)
-        alert.view.addConstraint(height)
-
-        present(alert, animated: true)
-    }
-
-    private func showDurationPicker(title: String, currentValue: Int, completion: @escaping (Int) -> Void) {
-        let alert = UIAlertController(title: title, message: "Select duration in minutes", preferredStyle: .actionSheet)
-
-        for duration in [15, 25, 30, 45, 60, 90, 120] {
-            let action = UIAlertAction(title: "\(duration) min", style: .default) { _ in
-                completion(duration)
+        for hour in 0..<24 {
+            let action = UIAlertAction(title: String(format: "%02d:00", hour), style: .default) { _ in
+                completion(hour)
             }
-            if currentValue == duration {
+            if hour == currentHour {
                 action.setValue(true, forKey: "checked")
             }
             alert.addAction(action)
@@ -426,44 +409,77 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         present(alert, animated: true)
     }
 
+    private func showWorkDaysPicker() {
+        let alert = UIAlertController(title: "Work Days", message: nil, preferredStyle: .actionSheet)
+
+        let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        let currentDays = settingsService.settings.workDays
+
+        for (index, day) in days.enumerated() {
+            let weekday = index + 1
+            let action = UIAlertAction(title: day, style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                var newDays = self.settingsService.settings.workDays
+                if newDays.contains(weekday) {
+                    newDays.removeAll { $0 == weekday }
+                } else {
+                    newDays.append(weekday)
+                    newDays.sort()
+                }
+                let current = self.settingsService.settings
+                self.settingsService.updateWorkday(current.workdayStartHour, current.workdayEndHour, newDays)
+                self.tableView.reloadSections(IndexSet(integer: Section.workday.rawValue), with: .automatic)
+            }
+            if currentDays.contains(weekday) {
+                action.setValue(true, forKey: "checked")
+            }
+            alert.addAction(action)
+        }
+
+        alert.addAction(UIAlertAction(title: "Done", style: .cancel))
+        present(alert, animated: true)
+    }
+
     // MARK: - Data Export/Import
 
     private func exportData() {
-        guard let data = settingsService.exportData() else {
-            showAlert(title: "Export Failed", message: "Could not export data")
-            return
-        }
-
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileURL = documentsPath.appendingPathComponent("dailyiq_backup.json")
-
-        do {
-            try data.write(to: fileURL)
-            showAlert(title: "Export Successful", message: "Data exported to Documents/dailyiq_backup.json")
-        } catch {
-            showAlert(title: "Export Failed", message: error.localizedDescription)
+        let settings = settingsService.settings
+        if let data = try? JSONEncoder().encode(settings) {
+            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let fileURL = documentsPath.appendingPathComponent("dailyiq_settings.json")
+            do {
+                try data.write(to: fileURL)
+                showAlert(title: "Export Successful", message: "Settings exported to Documents/dailyiq_settings.json")
+            } catch {
+                showAlert(title: "Export Failed", message: error.localizedDescription)
+            }
         }
     }
 
     private func importData() {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileURL = documentsPath.appendingPathComponent("dailyiq_backup.json")
+        let fileURL = documentsPath.appendingPathComponent("dailyiq_settings.json")
 
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
-            showAlert(title: "Import Failed", message: "No backup file found. Export data first.")
+            showAlert(title: "Import Failed", message: "No backup file found")
             return
         }
 
         do {
             let data = try Data(contentsOf: fileURL)
-            if settingsService.importData(data) {
-                showAlert(title: "Import Successful", message: "Data imported successfully")
-            } else {
-                showAlert(title: "Import Failed", message: "Could not parse backup file")
-            }
+            let importedSettings = try JSONDecoder().decode(UserSettings.self, from: data)
+            settingsService.saveUserSettings(importedSettings)
+            showAlert(title: "Import Successful", message: "Settings imported successfully")
+            tableView.reloadData()
         } catch {
             showAlert(title: "Import Failed", message: error.localizedDescription)
         }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
@@ -522,7 +538,6 @@ class SwitchCell: UITableViewCell {
 
     @objc private func switchChanged() {
         onToggle?(toggleSwitch.isOn)
-        HapticManager.shared.selection()
         accessibilityValue = toggleSwitch.isOn ? "On" : "Off"
     }
 }

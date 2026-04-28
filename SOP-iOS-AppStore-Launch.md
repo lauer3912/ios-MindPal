@@ -6,6 +6,7 @@
 > - AI Agent 在执行任何步骤前，**必须先读取并理解最新版本的 SOP-iOS-AppStore-Launch.md**
 > - 如果发现本文档与实际执行有差异，**以本文档为准**，不要自行其是
 > - 所有规则和要求一旦更新，AI Agent 必须立即遵循，**禁止用旧经验或记忆中的规则**
+> - **禁止胡说八道或歪曲 SOP 规定**：如果 Agent 的说法与 SOP 矛盾，以 SOP 为准。故意曲解或编造规则是违反 SOP 的行为
 >
 > ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
 > - SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
@@ -33,16 +34,25 @@
 | 🤖 **AI Agent（Claude Code）** | **审查 + 修复**，运行在 AI Agent 服务器（不是 MacinCloud），每次代码变更后必须执行审查和修复 |
 | 👨 **Human（人类）** | 真实用户，负责审核、审批、VNC 桌面操作、最终提交等 |
 
-> ⚠️ **【重要】Claude Code 配置**：
-> - AI Agent 可以为 Claude Code 配置 MiniMax 中国 APIKey
-> - 配置内容：
->   ```json
->   {
->     "baseUrl": "https://api.minimaxi.com/v1",
->     "apiKey": "sk-cp-JrsXMfjYj9mexu5NAr9Eevedk7IBFoCZFi4azaPEColz-bU0LH0NPA-Z-gxMlM505CKP1Cq-zaAP0OF2bQ0k6y44J1TP0XNodYCxY9oiQAmeGb0RPIivl6A"
->   }
->   ```
-> - Claude Code 的职责是"审查 + 修复"，不是"编写"
+> ⚠️ **【重要】Claude Code 配置 MiniMax API**：
+> - 使用 `set-minimax-api.sh` 脚本配置 MiniMax API（推荐方式）
+> - 脚本位置：`Apple-App-Manager/set-minimax-api.sh`
+> - 用法：`./set-minimax-api.sh <api_key> [base_url]`
+> - 示例：`./set-minimax-api.sh "sk-cp-xxxxx" "https://api.minimaxi.com/v1"`
+> - 配置完成后重启 Claude Code 或开启新 session 即可生效
+>
+> **【重要】Root 用户兼容性**：如果 Claude Code 以 root 身份运行，可能出现 API 返回格式不兼容的问题。解决方案是直接使用环境变量：
+> ```bash
+> export CLAUDE_BASE_URL="https://api.minimaxi.com/v1"
+> export CLAUDE_API_KEY="sk-cp-xxxxx"
+> claude
+> ```
+>
+> **MiniMax API 配置参数**：
+> - Base URL：`https://api.minimaxi.com/v1`
+> - API Key：`sk-cp-JrsXMfjYj9mexu5NAr9Eevedk7IBFoCZFi4azaPEColz-bU0LH0NPA-Z-gxMlM505CKP1Cq-zaAP0OF2bQ0k6y44J1TP0XNodYCxY9oiQAmeGb0RPIivl6A`
+>
+> Claude Code 的职责是"审查 + 修复"，不是"编写"
 
 > ⚠️ **【重要】Claude Code 的职责是"审查 + 修复"，不是"编写"**：
 > - **审查**：分析代码发现问题（bug、风格、安全等）
@@ -111,6 +121,8 @@
 |------|------|---------|------|
 | 4.1 | 编写 Info.plist、Entitlements | 🤖 AI Agent | 按模板生成 |
 | 4.2 | 审查配置文件 | 🤖 AI Agent | **Claude Code 审查 + 修复**（在 AI Agent 服务器）|
+| 4.3 | 编写 Widget Info.plist | 🤖 AI Agent | 按模板生成 |
+| 4.4 | 编写 Widget Entitlements | 🤖 AI Agent | 按模板生成 |
 | 4.5 | 编写 AppIcon 图标设计规范 | 🤖 AI Agent | 从 ggsheng-app-icon-design-SKILL.md 同步 |
 
 #### 第五阶段：XcodeGen 生成项目
@@ -123,35 +135,34 @@
 
 #### 第六阶段：App Store 截图制作
 
+> ⚠️ **【强制】截图 + 视频必须在 Archive + Upload 之前完成**（第七/八阶段之前）
+
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 6.2 | 编写 XCUITest 截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift` |
-| 6.2 | 审查截图代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
-| 6.3 | 添加 Tab accessibilityIdentifier | 🤖 AI Agent | 修改 App 源码添加 identifier |
-| 6.3 | 审查源码修改 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
-| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载 |
-| 6.6 | 验证截图尺寸 | 🤖 AI Agent | 执行 MD5 + sips 命令 |
-| 6.6 | **肉眼检查截图** | 👨 Human | 确认每张截图是不同的页面 |
+| 6.1 | 截图尺寸要求 | - | 见 §6.0 工作流概述（**5个上传区域，每个区域至少1张，建议每个App页面×5设备**）|
+| 6.2 | 编写 + 审查截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift`（每个设备单独测试函数），**Claude Code 审查 + 修复** |
+| 6.3 | 添加 Tab identifier + 审查 | 🤖 AI Agent | 修改 App 源码添加 identifier，**Claude Code 审查 + 修复** |
+| 6.4 | 文件名规范 | - | 格式：`序号_页面名称.png`；见 §6.4 正文 |
+| 6.5 | 下载截图到本地 | 🤖 AI Agent | scp 下载；数量见 §6.0 工作流概述 |
+| 6.6 | 验证截图尺寸 + 肉眼检查 | 🤖 AI Agent + 👨 Human | MD5 + sips 命令验证尺寸，人类确认每张截图不同页面 |
 
 #### 第六阶段附加：测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 6.7 | 编写 Unit Tests | 🤖 AI Agent | 编写功能测试代码 |
-| 6.7 | 审查测试代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
-| 6.8 | 编写 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码 |
-| 6.8 | 审查测试代码 | 🤖 AI Agent | **Claude Code 审查 + 修复** |
-| 6.9 | 录屏制作 | 👨 Human | **可选**，如需要则手动录制 |
+| 6.7 | 编写 + 审查 Unit Tests | 🤖 AI Agent | 编写功能测试代码，**Claude Code 审查 + 修复** |
+| 6.8 | 编写 + 审查 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码，**Claude Code 审查 + 修复** |
+| 6.9 | 录屏制作 | 🤖 AI Agent | **由 Agent 负责，必须在 Archive + Upload 之前完成**，编写 XCUITest 截图代码 + ffmpeg 合成视频 |
 | 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果 |
 
-#### 第七阶段：Widget / Beta 测试
+#### 第七阶段：Widget 数据共享 / Beta 测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 7.1 | 配置 App Groups | 🤖 AI Agent | 修改 entitlements |
 | 7.2 | **Archive 上传 TestFlight** | 👨 Human | **必须通过 VNC 桌面操作** |
-| 7.2 | Beta 测试 | 👨 Human | 人类测试员执行 |
-| 7.2 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码 |
+| 7.3 | Beta 测试 | 👨 Human | 人类测试员执行 |
+| 7.4 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码 |
 
 #### 第八阶段：App Store Connect 上传
 
@@ -161,8 +172,8 @@
 | 8.2 | 填写 App Store Connect 信息 | 👨 Human | 人类在网页上填写 |
 | 8.3 | 配置 App 隐私 | 👨 Human | 根据 App 实际功能选择"是"或"否"（参考 §8.3 配置表）|
 | 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html` |
-| 8.4 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | AI Agent 服务器 git push 后自动部署 |
-| 8.5 | AI 相关配置 | 🤖 AI Agent + 👨 Human | AI 写隐私政策条款，人类审核 |
+| 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | AI Agent 服务器 git push 后自动部署 |
+| 8.6 | AI 相关配置 | 🤖 AI Agent + 👨 Human | AI 写隐私政策条款，人类审核 |
 
 #### 第九阶段：提交审核
 
@@ -170,8 +181,9 @@
 |------|------|---------|------|
 | 9.1 | 提交前最终检查 | 🤖 AI Agent | 输出检查清单 |
 | 9.2 | 填写清单核查 | 👨 Human | 人类逐项确认 |
-| 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 👨 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
+| 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
 | 9.4 | **点击提交审核** | 👨 Human | 人类在 App Store Connect 点击 |
+| 9.5 | 关注审核状态 | 👨 Human | 提交后状态变为"等待审核"，首次审核通常7-14个工作日；见 §9.5 正文 |
 
 ---
 
@@ -184,6 +196,9 @@
 | 跳过设计审核直接开发 | 会导致返工 | 图标+UI 审核通过后才能开发 |
 | 跳过截图 MD5 验证 | 可能所有截图都是首页 | 必须 MD5 + 肉眼检查 |
 | 人类才能操作的步骤自称 AI 完成 | AI 无法操作 VNC 和网页 | 如实说明是 Human 操作 |
+| 生成 .ipa 文件放到桌面或子文件夹 | .ipa 不应出现在桌面，必须通过 Xcode 直接上传 | Archive 后直接在 Xcode Organizer 上传 |
+| 声称 XCUITest 需要 VNC GUI 才能运行 | XCUITest 只需 booted simulator，通过 SSH 即可执行 | 先 `xcrun simctl boot` 启动模拟器，再用 SSH 执行 xcodebuild test |
+| 胡说八道或歪曲 SOP 规定 | 故意曲解或编造规则是违反 SOP 的行为 | 以 SOP 文档为准，不确定时查阅 SOP |
 
 ---
 
@@ -218,7 +233,7 @@
 | **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main` |
 | **XcodeGen 生成** | MacinCloud | 在 MacinCloud 执行 `~/tools/xcodegen/bin/xcodegen generate` |
 | **xcodebuild build/test** | MacinCloud | 在 MacinCloud 执行构建和测试 |
-| **截图（XCUITest）** | MacinCloud | XCUITest 执行截图，scp 下载到 AI Agent |
+| **截图（XCUITest）** | MacinCloud | SSH 到 MacinCloud 执行 xcodebuild test，scp 下载截图 |
 | **录屏（XCUITest + ffmpeg）** | MacinCloud | 视频帧采集，传输到 AI Agent 合成 |
 | **模拟器管理** | MacinCloud | xcrun simctl list/boot/install 等 |
 | **Archive + Sign and Upload** | MacinCloud VNC | **必须通过 VNC 桌面手动操作** |
@@ -227,9 +242,16 @@
 
 > ⚠️ **MacinCloud 的核心作用**：编译（build）、构建（xcodebuild）、打包（Archive）、截图（XCUITest）、录屏（XCUITest + ffmpeg）、模拟器管理（xcrun simctl）
 >
+> ⚠️ **【强制】XCUITest 截图通过 SSH 执行，不需要 VNC GUI**：
+> - XCUITest 不需要真正的显示器，只需要模拟器已启动（booted）
+> - 模拟器启动后（`xcrun simctl boot`），即使通过 SSH 执行 `xcodebuild test` 也能正常截图
+> - **关键**：先 `xcrun simctl boot` 启动模拟器，再执行 xcodebuild test
+> - 如果 SSH 执行 xcodebuild test 失败，先用 VNC 确认模拟器是否正常运行
+>
 > ⚠️ **【强制】MacinCloud 桌面必须保持整洁**：
 > - MacinCloud VNC 桌面上**只存放 App 项目文件夹**（如 `ios-{AppName}`）
-> - **禁止**在桌面存放其他文件（截图文件、临时文件、个人文件等）
+> - **禁止**在桌面存放其他文件（截图文件、临时文件、个人文件、.ipa 文件等）
+> - **禁止**生成 .ipa 文件放到桌面或任何子文件夹
 > - 所有截图/录屏文件必须通过 `scp` 下载到 AI Agent 本地，**不要留在 MacinCloud 桌面**
 > - 定期清理 `/tmp/` 目录下的临时文件
 >
@@ -239,21 +261,6 @@
 > - "SSH signing 可以替代 VNC" ❌ → SSH signing 会失败，必须 VNC
 
 ---
-
-> ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
-> - SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
->
-> ⚠️ **【强制】必须使用 Claude Code 审查+修复所有源码**，未经 Claude Code 审查+修复的代码禁止提交
->
-> ⚠️ **【强制】目标用户**：所有 App 主要面向**欧美客户**，设计必须符合西方审美和文化习惯，**禁止中式审美元素**
->
-> ⚠️ **【强制】必须按流程执行**：
-> - 图标方案和 App UI 设计方案**必须先审核通过**，才能开始编写代码
-> - 禁止跳过设计审核直接开发
->
-> ⚠️ **【强制】涉及 AI 技术的 App**：必须使用设备端 ML（推荐）或在隐私政策中明确说明云端 AI 处理，详见 §8.5
->
-> ⚠️ **【重要】录屏是可选的，不是必选项**。如果 App 功能无法通过截图展示清楚，再考虑录屏。
 
 ## 第零阶段：设计审核（必须先完成）
 
@@ -1148,7 +1155,12 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
-│  ✅ BUILD SUCCEEDED → 打开 Xcode → Archive         │
+│  ✅ BUILD SUCCEEDED                                 │
+│  ⚠️ 必须重新截图                                      │
+└─────────────────┬───────────────────────────────────┘
+                  ▼
+┌─────────────────────────────────────────────────────┐
+│  打开 Xcode → Archive                              │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -1165,8 +1177,24 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 ### 6.0 截图工作流概述
 
-1. **创建专用 XCUITest 文件**（`ScreenshotTests.swift`），专门用于截图
-2. **选择正确尺寸的模拟器**（必须与 App Store 要求匹配）
+> ⚠️ **【强制】截图数量 = App页面数 × 5个设备**
+> - **最少数量**：每个上传区域1张（5区域共5张）
+> - **建议数量**：每个App页面 × 5个设备（如App有5个Tab，则5×5=25张）
+> - **最多**：每个上传区域10张
+
+**截图设备清单：**
+
+| 设备 | 模拟器 | 分辨率 | 上传区域 |
+|------|--------|--------|---------|
+| iPhone 16 Pro Max | iPhone 16 Pro Max | 1320×2868 | 6.9" |
+| iPhone 14 Plus | iPhone 14 Plus | 1284×2778 | 6.5" |
+| iPhone 16 Pro | iPhone 16 Pro | 1206×2622 | 6.3" |
+| iPad Pro 13" (M4) | iPad Pro 13-inch (M4) | 2048×2732 | 13" |
+| iPad Pro 11" (M4) | iPad Pro 11-inch (M4) | 1668×2388 | 11" |
+
+**工作流：**
+1. **创建专用 XCUITest 文件**（`ScreenshotTests.swift`），每个设备单独测试函数
+2. **启动5个模拟器**（分别 boot 上述5个设备）
 3. **运行测试并截图**（保存到 `/tmp/` 目录）
 4. **验证截图内容不同**（使用 MD5 哈希确保每张截图内容不同）
 5. **复制到 AppStoreScreenshots 目录**（按分辨率子目录分类，如 `iPhone_69_1320x2868/`）
@@ -1404,7 +1432,16 @@ sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "cd Desktop/ios-{Ap
 ```
 
 #### Step 4: 启动模拟器并运行测试
+
+> ⚠️ **此步骤通过 SSH 执行**（从 AI Agent 服务器 SSH 到 MacinCloud），不需要 VNC。只需确保模拟器先 boot 起来。
+>
+> ⚠️ **【重要】UDID 占位符必须替换**：命令中的 `{UDID_iPhone_16_Pro_Max}` 等需要先用 `xcrun simctl list devices booted` 获取真实 UDID 并替换。
+>
+> ⚠️ **模拟器名称**：命令中的 `'iPhone 16 Pro Max'` 等名称必须与 MacinCloud 上实际可用的模拟器名称匹配，先用 `xcrun simctl list devices available` 确认。
 ```bash
+# 先获取 MacinCloud 上的模拟器列表和 UDID
+sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "xcrun simctl list devices available | grep -E 'iPhone|iPad'"
+```
 # ── iPhone 6.9" (iPhone 16 Pro Max) ──────────────────────────
 xcrun simctl boot 'iPhone 16 Pro Max' 2>/dev/null || true
 sleep 3
@@ -1889,7 +1926,7 @@ final class E2ETests: XCTestCase {
 
 ---
 
-### 6.9 录屏制作（云 Mac 无录屏权限解决方案）
+### 6.9 录屏制作（🤖 AI Agent 负责）
 
 #### 问题
 MacinCloud 的 VNC 桌面**没有录屏权限**，无法直接录制 App 预览视频。
@@ -2080,12 +2117,6 @@ let data = sharedDefaults?.data(forKey: "habits")
 ---
 
 ## 第八阶段：App Store Connect 上传
-
-> ⚠️ **【强制】所有 App 上传 App Store 必须通过 MacinCloud VNC 桌面操作**
->
-> **【强制】签名/上传模式**：SSH signing 经常失败（keychain locked），**必须通过 VNC 图形界面 Xcode 手动签名上传**
->
-> 所有 App 都走 VNC 模式，不用再浪费时间在 SSH signing 上！
 
 ### 8.1 Archive 操作（VNC 桌面）
 

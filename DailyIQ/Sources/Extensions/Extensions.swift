@@ -193,19 +193,19 @@ class HapticManager {
     private init() {}
 
     func impact(_ style: UIImpactFeedbackGenerator.FeedbackStyle) {
-        guard SettingsService.shared.hapticEnabled else { return }
+        guard SettingsService.shared.settings.hapticFeedbackEnabled else { return }
         let generator = UIImpactFeedbackGenerator(style: style)
         generator.impactOccurred()
     }
 
     func notification(_ type: UINotificationFeedbackGenerator.FeedbackType) {
-        guard SettingsService.shared.hapticEnabled else { return }
+        guard SettingsService.shared.settings.hapticFeedbackEnabled else { return }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(type)
     }
 
     func selection() {
-        guard SettingsService.shared.hapticEnabled else { return }
+        guard SettingsService.shared.settings.hapticFeedbackEnabled else { return }
         let generator = UISelectionFeedbackGenerator()
         generator.selectionChanged()
     }
@@ -221,19 +221,19 @@ class SoundManager {
     private init() {}
 
     func playSound(_ name: String) {
-        guard SettingsService.shared.soundEnabled else { return }
+        guard SettingsService.shared.settings.soundEffectsEnabled else { return }
 
         // Play system sound for now
         AudioServicesPlaySystemSound(1007) // Standard sound
     }
 
     func playSuccessSound() {
-        guard SettingsService.shared.soundEnabled else { return }
+        guard SettingsService.shared.settings.soundEffectsEnabled else { return }
         AudioServicesPlaySystemSound(1007)
     }
 
     func playCompletionSound() {
-        guard SettingsService.shared.soundEnabled else { return }
+        guard SettingsService.shared.settings.soundEffectsEnabled else { return }
         AudioServicesPlaySystemSound(1008)
     }
 }

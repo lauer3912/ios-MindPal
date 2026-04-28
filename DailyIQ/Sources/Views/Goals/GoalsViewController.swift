@@ -148,7 +148,8 @@ class GoalsViewController: UIViewController {
             let goal = Goal(
                 title: title,
                 targetDate: targetDate,
-                progress: 0
+                progress: 0,
+                category: .personal
             )
 
             self?.goalService.createGoal(goal)

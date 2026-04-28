@@ -29,6 +29,7 @@
 - Bundle ID: `com.ggsheng.MindPal`
 - 图标方案: AppStore/Assets/Icon/Icon-1024.png ✅ 已审核通过
 - UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
+- UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
 - 功能清单: Docs/FeatureList.md ✅（66个功能）
 - GitHub: `ios-MindPal` ✅ 已提交（本地）
 - 编译: ✅ Debug Build SUCCEEDED
@@ -38,6 +39,7 @@
 - 状态: ⏳ 图标+UI已审核通过，待开发
 - Bundle ID: `com.ggsheng.DailyIQ`
 - 图标方案: AppStore/Assets/Icon/Icon-1024.png ✅ 已审核通过
+- UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
 - UI设计: AppStore/Assets/UI/UI-Mockup-v1.png ✅ 已审核通过
 - 功能清单: Docs/FeatureList.md ✅（70个功能）
 - 下一步: 启动开发

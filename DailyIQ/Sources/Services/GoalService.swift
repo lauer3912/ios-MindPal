@@ -14,6 +14,7 @@ class GoalService {
     private let progress = Expression<Double>("progress")
     private let linkedTaskIds = Expression<String>("linked_task_ids")
     private let createdAt = Expression<Double>("created_at")
+    private let category = Expression<String>("category")
 
     private init() {
         setupDatabase()
@@ -32,6 +33,7 @@ class GoalService {
                 t.column(progress)
                 t.column(linkedTaskIds)
                 t.column(createdAt)
+                t.column(category)
             })
         } catch {
             print("Goals database setup error: \(error)")
@@ -49,7 +51,8 @@ class GoalService {
                 targetDate <- goal.targetDate.timeIntervalSince1970,
                 progress <- goal.progress,
                 linkedTaskIds <- linkedIds,
-                createdAt <- goal.createdAt.timeIntervalSince1970
+                createdAt <- goal.createdAt.timeIntervalSince1970,
+                category <- goal.category.rawValue
             )
             try db?.run(insert)
         } catch {
@@ -83,7 +86,8 @@ class GoalService {
                 title <- goal.title,
                 targetDate <- goal.targetDate.timeIntervalSince1970,
                 progress <- goal.progress,
-                linkedTaskIds <- linkedIds
+                linkedTaskIds <- linkedIds,
+                category <- goal.category.rawValue
             ))
         } catch {
             print("Update goal error: \(error)")
@@ -129,6 +133,7 @@ class GoalService {
     private func rowToGoal(_ row: Row) -> Goal {
         let linkedIdsString = row[linkedTaskIds]
         let linkedIds = linkedIdsString.split(separator: ",").compactMap { UUID(uuidString: String($0)) }
+        let goalCategory = GoalCategory(rawValue: row[category]) ?? .personal
 
         return Goal(
             id: UUID(uuidString: row[id]) ?? UUID(),
@@ -136,7 +141,8 @@ class GoalService {
             targetDate: Date(timeIntervalSince1970: row[targetDate]),
             progress: row[progress],
             linkedTaskIds: linkedIds,
-            createdAt: Date(timeIntervalSince1970: row[createdAt])
+            createdAt: Date(timeIntervalSince1970: row[createdAt]),
+            category: goalCategory
         )
     }
 
