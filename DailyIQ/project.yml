@@ -54,6 +54,8 @@ targets:
   DailyIQWidget:
     type: app-extension
     platform: iOS
+    deploymentTarget:
+      iOS: "17.0"
     sources:
       - path: Sources/Views/Today/Widgets
         excludes:
