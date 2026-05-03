@@ -209,6 +209,54 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+### 📋 Memory Protocol（强制执行）
+
+#### Before Ending Any Session
+每次 Session 结束前，必须将当次对话的关键内容追加到 `memory/YYYY-MM-DD.md`：
+- 完成的任务（不要写感受，只写事实）
+- 重要的决定或变更
+- 未完成需跟进的事项
+- 任何需要下次 session 记住的信息
+
+#### Startup Behavior
+每次启动时：
+1. 检查 `memory/` 目录下是否有今天的文件
+2. 如果没有，今天是新的开始，需要创建
+3. 如果有，读取当天的记录，了解之前的上下文
+
+#### Memory Search Rule
+**回答任何关于"之前做了什么"、"上次谈到哪"、"任务进展"的问题之前，必须先执行 `memory_search` 查询 memory 文件**。不允许说"我不记得了"——如果 memory 里没有，就老实说没记录，而不是假装记得。
+
+#### How to Never Forget
+- **有任务要继续**：开场时说"继续上次XXX"，我会先去查 memory
+- **重要的事**：直接告诉我"记下来，今天我们..."
+- **不确定有没有记**：直接问"我们上次聊了什么？"
+- **每个 session 结束前**：主动补全当天的 memory 日记（如果当天有对话）
+
+#### What to Write
+```
+## 2026-05-03 Session
+
+### 完成
+- [AppName] BUILD SUCCEEDED
+- 上传 App Store Connect 成功
+
+### 决定
+- 图标改用深色版本
+- PrivacyPolicy URL 改为 GitHub Pages
+
+### 待跟进
+- [AppName] 等待审核通过
+- 下次需要 VNC 登录 MacinCloud 做截图
+
+### 重要变更
+- Bundle ID 从 com.example.Old 改为 com.ggsheng.New
+```
+
+> 写事实不写感受。"做了什么"比"感觉如何"更重要。
+
+---
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
