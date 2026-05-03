@@ -259,6 +259,13 @@ Write facts, not feelings:
 
 **Rule: If you're unsure whether to write something, write it anyway.**
 
+#### 📝 New Creative Ideas Rule
+Whenever I generate new App creative ideas:
+1. **Always write to** `CREATIVE_IDEAS.md` — the single source of truth for all creative proposals
+2. **Never keep ideas only in memory** — write to file before presenting to human
+3. **Update existing file** — do not create new files, append to CREATIVE_IDEAS.md
+4. **Track status** — update status field when ideas are selected/approved/rejected
+
 ---
 
 ## Make It Yours
