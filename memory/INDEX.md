@@ -1,7 +1,7 @@
 # Memory Index — 企业级记忆系统中央索引
 
-> 最后更新: 2026-05-03T09:04:00+08:00
-> 系统版本: v4.0 (企业级最高水平)
+> 最后更新: 2026-05-03T09:21:00+08:00
+> 系统版本: v5.0 (AI Enterprise Level)
 
 ---
 
@@ -107,22 +107,18 @@ memory/
 
 ---
 
-## 🆕 v4.0 新增功能
+## 🆕 v5.0 AI Enterprise Level 新增功能
 
 | 功能 | 文件 | 用途 |
 |------|------|------|
-| 会话轨迹 | sessions/SESSIONS.md | 每次 session 的完整记录 |
-| 热度追踪 | hot/HOT.md + accessed.txt | 最近7天活跃文件 |
-| 搜索索引 | search/INDEX.md | 全局搜索关键词映射 |
-| 上下文桥 | context/BRIDGE.md | 跨 session 未完成任务 |
-| 系统架构图 | ARCHITECTURE.md | 完整架构文档 |
-| 审计追踪 | audit/AUDIT.md | 完整性审计 |
-| 完整性检查 | integrity/integrity_check.py | 自动验证 |
-| 灾难恢复 | recovery/RECOVERY.md | 紧急恢复 |
-| 监控面板 | dashboard/DASHBOARD.md | 实时状态 |
-| 保留策略 | retention/POLICY.md | 数据保留规则 |
-| 压缩归档 | compression/COMPRESS.md | 旧文件压缩 |
-| 双向链接 | links/LINKS.md | 文件间关联 |
+| 知识图谱 | knowledge_graph/GRAPH.md | 项目关系可视化 |
+| AI推理引擎 | knowledge_graph/inference.py | 智能推理+异常检测 |
+| 主动提醒 | alerts/ALERTS.md | 项目状态变化提醒 |
+| 提醒管理 | alerts/alert_manager.py | 提醒检查+报告生成 |
+| 语义标签 | semantic/TAGS.md | 多维度标签分类 |
+| 自动化工作流 | workflows/WORKFLOWS.md | 条件触发Actions |
+| 多地备份 | backup/BACKUP.md | 异地容灾 |
+| 备份管理 | backup/backup_manager.py | 增量+全量备份 |
 
 ---
 
