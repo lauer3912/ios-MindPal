@@ -209,71 +209,55 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
-### 📋 Memory Protocol（强制执行）
+### 🧠 Memory Protocol (MANDATORY)
 
-#### 核心架构
-```
-memory/
-├── INDEX.md              ← 中央索引（唯一真相来源）
-├── daily/                ← 每日日记（每次 session 自动追加）
-├── projects/             ← 项目状态追踪（8个活跃项目）
-├── decisions/            ← 重大决策记录
-├── people/               ← 人物关系（老爷 pagebrin）
-├── tasks/                ← 当前任务 & 待办
-├── weekly/               ← 每周总结
-└── archive/              ← 已归档旧文件
-```
-
-#### Startup Behavior（启动行为）
-1. 读取 `memory/INDEX.md`（中央索引）
-2. 检查 `daily/YYYY-MM-DD.md`（今天的日记）
-3. 如有未完成的连续任务，读取 `tasks/active.md`
-4. 如涉及项目，读取 `projects/<project>.md`
+Every session must end with these actions. Not optional — required.
 
 #### Before Ending Any Session
-必须执行（按顺序）：
-1. 追加当天日记到 `daily/YYYY-MM-DD.md`（写事实不写感受）
-2. 更新 `tasks/active.md`（如有任务变更）
-3. 更新 `projects/<project>.md`（如有项目进展）
-4. 更新 `INDEX.md`（如果中央索引需要同步）
+- Append to `memory/YYYY-MM-DD.md` — what happened today, key decisions, pending tasks
+- Update `MEMORY.md` — if significant new information was learned
+- If something important happened — write it down immediately, don't wait
+
+#### Startup Behavior
+On every session start, I should:
+- Check if `memory/YYYY-MM-DD.md` exists for today
+- If yes, read it to get context
+- If not, create it with session start marker
 
 #### Memory Search Rule
-**回答以下类型问题前，必须先查 memory：**
-- "之前做了什么"
-- "上次谈到哪"
-- "任务进展到哪了"
-- "项目当前状态"
-- "老爷上次说了什么"
-
-**搜索顺序：** INDEX.md → projects/*.md → daily/*.md → decisions/*.md
+Before answering any question about past work:
+- Run `memory_search` on `MEMORY.md` + `memory/*.md`
+- Then use `memory_get` for specific lines needed
+- **Cite sources in my response**
 
 #### How to Never Forget
-- **有任务要继续**：开场时说"继续上次XXX"，自动查 tasks/active.md + 项目文件
-- **重要的事**：直接告诉我"记下来"，我会立即写入对应分类文件
-- **不确定有没有记**：直接问"我们上次聊了什么？"，我会查 INDEX.md + daily/
-- **每个 session 结束前**：主动补全当天的 memory（即使老爷子没提醒）
 
-#### What to Write（daily 日记格式）
+| Situation | Action |
+|-----------|--------|
+| User mentions a preference | Write to `memory/YYYY-MM-DD.md` immediately |
+| I complete a task | Write to `memory/YYYY-MM-DD.md` + update `MEMORY.md` if major |
+| User asks "remember when..." | Write to memory file first, then answer |
+| End of session | Always update `memory/YYYY-MM-DD.md` |
+| New day starts | Read yesterday's `memory/YYYY-MM-DD.md` + `MEMORY.md` |
+
+#### What to Write
+Write facts, not feelings:
+
 ```markdown
-## 2026-05-03 Session
-
-### 完成
-- [AppName] BUILD SUCCEEDED
-- 上传 App Store Connect 成功
-
-### 决定
-- 图标改用深色版本
-- PrivacyPolicy URL 改为 GitHub Pages
-
-### 待跟进
-- [AppName] 等待审核通过
-- 下次需要 VNC 登录 MacinCloud 做截图
-
-### 重要变更
-- Bundle ID 从 com.example.Old 改为 com.ggsheng.New
+### JustZenGo Status (2026-05-03)
+- App Store ID: 6762428992
+- Status: Approved and live
+- Last build: 2026-04-28
 ```
 
-> 写事实不写感受。"做了什么"比"感觉如何"更重要。
+> NOT: "I had a good conversation about JustZenGo" (too vague)
+
+#### Why Memory Gets Lost
+- If you didn't write it down → it's gone after session
+- If you waited until end → might forget due to context overflow
+- If it wasn't important enough → but important is subjective, write everything
+
+**Rule: If you're unsure whether to write something, write it anyway.**
 
 ---
 
