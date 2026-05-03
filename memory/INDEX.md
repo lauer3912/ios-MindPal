@@ -1,7 +1,7 @@
 # Memory Index — 企业级记忆系统中央索引
 
-> 最后更新: 2026-05-03T08:53:00+08:00
-> 系统版本: v2.0 (企业级)
+> 最后更新: 2026-05-03T08:54:00+08:00
+> 系统版本: v3.0 (企业级最高水平)
 
 ---
 
@@ -10,13 +10,41 @@
 ```
 memory/
 ├── INDEX.md              ← 中央索引（本文档）
+├── ARCHITECTURE.md       ← 系统架构图（v3.0新增）
+├── MEMORY.md             ← 核心记忆（长期）
+├── AGENTS.md             ← 系统规则（含 Memory Protocol）
+│
 ├── daily/                ← 每日日记（每次session自动追加）
-├── projects/             ← 项目状态追踪
-├── decisions/            ← 重大决策记录
+│   └── YYYY-MM-DD.md
+│
+├── projects/             ← 项目状态追踪（8个）
+│   └── *.md
+│
+├── decisions/            ← 重大决策记录（3个）
+│   └── YYYY-MM-DD-*.md
+│
 ├── people/              ← 人物关系
+│   └── pagebrin.md
+│
 ├── tasks/                ← 当前任务 & 待办
-├── weekly/               ← 每周总结
-└── archive/              ← 已归档的旧文件
+│   └── active.md
+│
+├── sessions/            ← 会话轨迹记录（v3.0新增）
+│   └── SESSIONS.md
+│
+├── hot/                 ← 热文件访问记录（v3.0新增）
+│   ├── HOT.md           ← 热度主文件
+│   └── accessed.txt     ← 访问日志
+│
+├── search/              ← 搜索索引（v3.0新增）
+│   └── INDEX.md
+│
+├── context/             ← 跨会话上下文桥（v3.0新增）
+│   └── BRIDGE.md
+│
+├── weekly/              ← 每周总结
+├── archive/             ← 已归档
+└── dreaming/             ← 梦境记忆系统
 ```
 
 ---
@@ -27,7 +55,8 @@ memory/
 2. **项目状态变更**：立即更新 `projects/<project>.md`
 3. **重大决策**：立即写入 `decisions/`
 4. **任务完成/新增**：立即更新 `tasks/active.md`
-5. **每周一**：生成 `weekly/YYYY-WXX.md` 总结
+5. **每次 session**：自动更新 `sessions/SESSIONS.md` + `hot/accessed.txt`
+6. **每周一**：生成 `weekly/YYYY-WXX.md` 总结
 
 ---
 
@@ -36,7 +65,7 @@ memory/
 ### Daily（每日日记）
 | 文件 | 最后更新 | 状态 |
 |------|----------|------|
-| 2026-05-03.md | 2026-05-03 08:50 | ✅ 今天 |
+| 2026-05-03.md | 2026-05-03 08:54 | ✅ 今天 |
 | 2026-04-29.md | 2026-04-29 00:03 | ⬅️ 需补 |
 | 2026-04-28.md | 2026-04-28 08:08 | ⬅️ 需补 |
 | 2026-04-27.md | 2026-04-27 23:09 | ✅ |
@@ -64,6 +93,7 @@ memory/
 |------|------|------|
 | 2026-04-17 | Memory Protocol 强制执行规则 | decisions/2026-04-17-memory-protocol.md |
 | 2026-04-26 | FakeChat SOP 重建决定 | decisions/2026-04-26-fakechat-rebuild.md |
+| 2026-05-03 | 企业级记忆系统 v3.0 升级 | decisions/2026-05-03-enterprise-memory.md |
 
 ### People（人物关系）
 | 人物 | ID | 关系 | 文件 |
@@ -73,7 +103,21 @@ memory/
 ### Tasks（任务）
 | 任务 | 优先级 | 状态 | 文件 |
 |------|--------|------|------|
-| 记忆系统升级 | P0 | 🔄 进行中 | tasks/active.md |
+| 记忆系统 v3.0 升级 | P0 | 🔄 进行中 | tasks/active.md |
+
+---
+
+## 🆕 v3.0 新增功能
+
+| 功能 | 文件 | 用途 |
+|------|------|------|
+| 会话轨迹 | sessions/SESSIONS.md | 每次 session 的完整记录 |
+| 热度追踪 | hot/HOT.md + accessed.txt | 最近7天活跃文件 |
+| 搜索索引 | search/INDEX.md | 全局搜索关键词映射 |
+| 上下文桥 | context/BRIDGE.md | 跨 session 未完成任务 |
+| 系统架构图 | ARCHITECTURE.md | 完整架构文档 |
+| 自动备份脚本 | memory_autosave.py | Python 版自动维护 |
+| Session End Hook | memory_end_session.sh | Bash 版自动维护 |
 
 ---
 
@@ -87,13 +131,16 @@ memory/
 
 ---
 
-## 🏢 企业级特性
+## 🏢 企业级特性（v3.0）
 
-- **多维度索引**：时间 + 项目 + 人物 + 决策 + 任务
+- **多维度索引**：时间 + 项目 + 人物 + 决策 + 任务 + 热度
 - **自动追踪**：每次 session 自动更新，无需手动
 - **中央索引**：INDEX.md 是唯一真相来源
-- **归档机制**：旧文件自动归档，保持活跃文件精简
-- **搜索优化**：按类型搜索，快速定位
+- **热度系统**：最近访问的文件优先级更高
+- **会话轨迹**：每次 session 完整记录，可追溯
+- **上下文桥**：BRIDGE.md 确保跨 session 连续性
+- **搜索优化**：search/INDEX.md 提供快速关键词定位
+- **容错机制**：文件缺失时自动创建空白模板
 
 ---
 
