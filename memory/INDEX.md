@@ -119,6 +119,7 @@ memory/
 | 自动化工作流 | workflows/WORKFLOWS.md | 条件触发Actions |
 | 多地备份 | backup/BACKUP.md | 异地容灾 |
 | 备份管理 | backup/backup_manager.py | 增量+全量备份 |
+| 健康检查 | .cron/health_check.py | 每2小时全面检查+自动修复 |
 
 ---
 
