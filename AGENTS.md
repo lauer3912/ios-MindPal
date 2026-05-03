@@ -266,6 +266,17 @@ Whenever I generate new App creative ideas:
 3. **Update existing file** — do not create new files, append to CREATIVE_IDEAS.md
 4. **Track status** — update status field when ideas are selected/approved/rejected
 
+#### ⚠️ SOP-iOS-AppStore-Launch.md 强制执行规则
+**每次开始新的 iOS App 项目时，必须严格按 SOP 执行：**
+1. **读取 SOP** — 开始前先读取最新版本 SOP-iOS-AppStore-Launch.md
+2. **不能跳过步骤** — 设计审核 → 项目结构 → project.yml → 必须按顺序执行
+3. **每次代码变更后** — 必须 Claude Code 审查 + 修复，禁止直接 commit
+4. **禁止跳过审核** — 图标方案和 UI 设计稿必须人类审核通过后才能开发
+5. **VNC 操作除外** — Archive/Upload 必须通过 VNC，不能 SSH signing
+6. **自我检查** — 执行每个步骤前自问："我是否遵循了 SOP？"
+
+**如果不确定 SOP 要求 → 立即重新读取 SOP 文档，不要凭记忆。**
+
 ---
 
 ## Make It Yours

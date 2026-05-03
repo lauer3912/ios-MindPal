@@ -1,0 +1,12 @@
+.DS_Store
+*.xcuserstate
+*.xcworkspace
+xcuserdata/
+build/
+DerivedData/
+*.hprof
+*.ipa
+*.dSYM
+*.app
+*.mobileprovision
+*.entitlements
