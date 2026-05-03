@@ -1,7 +1,7 @@
 # Memory Index — 企业级记忆系统中央索引
 
-> 最后更新: 2026-05-03T08:54:00+08:00
-> 系统版本: v3.0 (企业级最高水平)
+> 最后更新: 2026-05-03T09:04:00+08:00
+> 系统版本: v4.0 (企业级最高水平)
 
 ---
 
@@ -107,7 +107,7 @@ memory/
 
 ---
 
-## 🆕 v3.0 新增功能
+## 🆕 v4.0 新增功能
 
 | 功能 | 文件 | 用途 |
 |------|------|------|
@@ -116,8 +116,13 @@ memory/
 | 搜索索引 | search/INDEX.md | 全局搜索关键词映射 |
 | 上下文桥 | context/BRIDGE.md | 跨 session 未完成任务 |
 | 系统架构图 | ARCHITECTURE.md | 完整架构文档 |
-| 自动备份脚本 | memory_autosave.py | Python 版自动维护 |
-| Session End Hook | memory_end_session.sh | Bash 版自动维护 |
+| 审计追踪 | audit/AUDIT.md | 完整性审计 |
+| 完整性检查 | integrity/integrity_check.py | 自动验证 |
+| 灾难恢复 | recovery/RECOVERY.md | 紧急恢复 |
+| 监控面板 | dashboard/DASHBOARD.md | 实时状态 |
+| 保留策略 | retention/POLICY.md | 数据保留规则 |
+| 压缩归档 | compression/COMPRESS.md | 旧文件压缩 |
+| 双向链接 | links/LINKS.md | 文件间关联 |
 
 ---
 
