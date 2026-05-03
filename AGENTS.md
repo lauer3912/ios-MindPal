@@ -211,30 +211,50 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 
 ### 📋 Memory Protocol（强制执行）
 
-#### Before Ending Any Session
-每次 Session 结束前，必须将当次对话的关键内容追加到 `memory/YYYY-MM-DD.md`：
-- 完成的任务（不要写感受，只写事实）
-- 重要的决定或变更
-- 未完成需跟进的事项
-- 任何需要下次 session 记住的信息
+#### 核心架构
+```
+memory/
+├── INDEX.md              ← 中央索引（唯一真相来源）
+├── daily/                ← 每日日记（每次 session 自动追加）
+├── projects/             ← 项目状态追踪（8个活跃项目）
+├── decisions/            ← 重大决策记录
+├── people/               ← 人物关系（老爷 pagebrin）
+├── tasks/                ← 当前任务 & 待办
+├── weekly/               ← 每周总结
+└── archive/              ← 已归档旧文件
+```
 
-#### Startup Behavior
-每次启动时：
-1. 检查 `memory/` 目录下是否有今天的文件
-2. 如果没有，今天是新的开始，需要创建
-3. 如果有，读取当天的记录，了解之前的上下文
+#### Startup Behavior（启动行为）
+1. 读取 `memory/INDEX.md`（中央索引）
+2. 检查 `daily/YYYY-MM-DD.md`（今天的日记）
+3. 如有未完成的连续任务，读取 `tasks/active.md`
+4. 如涉及项目，读取 `projects/<project>.md`
+
+#### Before Ending Any Session
+必须执行（按顺序）：
+1. 追加当天日记到 `daily/YYYY-MM-DD.md`（写事实不写感受）
+2. 更新 `tasks/active.md`（如有任务变更）
+3. 更新 `projects/<project>.md`（如有项目进展）
+4. 更新 `INDEX.md`（如果中央索引需要同步）
 
 #### Memory Search Rule
-**回答任何关于"之前做了什么"、"上次谈到哪"、"任务进展"的问题之前，必须先执行 `memory_search` 查询 memory 文件**。不允许说"我不记得了"——如果 memory 里没有，就老实说没记录，而不是假装记得。
+**回答以下类型问题前，必须先查 memory：**
+- "之前做了什么"
+- "上次谈到哪"
+- "任务进展到哪了"
+- "项目当前状态"
+- "老爷上次说了什么"
+
+**搜索顺序：** INDEX.md → projects/*.md → daily/*.md → decisions/*.md
 
 #### How to Never Forget
-- **有任务要继续**：开场时说"继续上次XXX"，我会先去查 memory
-- **重要的事**：直接告诉我"记下来，今天我们..."
-- **不确定有没有记**：直接问"我们上次聊了什么？"
-- **每个 session 结束前**：主动补全当天的 memory 日记（如果当天有对话）
+- **有任务要继续**：开场时说"继续上次XXX"，自动查 tasks/active.md + 项目文件
+- **重要的事**：直接告诉我"记下来"，我会立即写入对应分类文件
+- **不确定有没有记**：直接问"我们上次聊了什么？"，我会查 INDEX.md + daily/
+- **每个 session 结束前**：主动补全当天的 memory（即使老爷子没提醒）
 
-#### What to Write
-```
+#### What to Write（daily 日记格式）
+```markdown
 ## 2026-05-03 Session
 
 ### 完成
