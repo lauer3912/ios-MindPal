@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-27T23:40:14.143Z",
+  "updatedAt": "2026-05-04T19:01:14.735Z",
   "entries": {
     "memory:memory/2026-04-10.md:1:35": {
       "key": "memory:memory/2026-04-10.md:1:35",
@@ -183,7 +183,8 @@
         "e7113f6ed66e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-04-19"
       ],
       "conceptTags": [
         "com.ggsheng.habitgo",
@@ -214,7 +215,8 @@
         "e7113f6ed66e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-04-19"
       ],
       "conceptTags": [
         "com.ggsheng.habitgo",
@@ -245,7 +247,8 @@
         "e7113f6ed66e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-04-19"
       ],
       "conceptTags": [
         "btn.exists",
@@ -276,7 +279,8 @@
         "e7113f6ed66e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-04-19"
       ],
       "conceptTags": [
         "development-team",
@@ -307,7 +311,8 @@
         "e7113f6ed66e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-04-19"
       ],
       "conceptTags": [
         "development-team",
@@ -340,7 +345,8 @@
       ],
       "recallDays": [
         "2026-04-21",
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "desktop/ios-justzengo",
@@ -668,7 +674,8 @@
         "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "n/a",
@@ -699,7 +706,8 @@
         "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "generate-icons.py",
@@ -730,7 +738,8 @@
         "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "appstore/screenshots",
@@ -761,7 +770,8 @@
         "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "settings-btn",
@@ -792,7 +802,8 @@
         "1d2397899dcb"
       ],
       "recallDays": [
-        "2026-04-28"
+        "2026-04-28",
+        "2026-04-27"
       ],
       "conceptTags": [
         "generate-icons.py",
@@ -803,6 +814,4487 @@
         "app",
         "store",
         "验证"
+      ]
+    },
+    "memory:memory/2026-05-03.md:3:3": {
+      "key": "memory:memory/2026-05-03.md:3:3",
+      "path": "memory/2026-05-03.md",
+      "startLine": 3,
+      "endLine": 3,
+      "source": "memory",
+      "snippet": "2026-05-03 Daily Log: > 系统版本: AI Enterprise Level v5.0 | Memory Protocol: MANDATORY",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "log",
+        "系统",
+        "版本",
+        "enterprise",
+        "level",
+        "protocol",
+        "mandatory"
+      ]
+    },
+    "memory:memory/2026-05-03.md:8:9": {
+      "key": "memory:memory/2026-05-03.md:8:9",
+      "path": "memory/2026-05-03.md",
+      "startLine": 8,
+      "endLine": 9,
+      "source": "memory",
+      "snippet": "08:36 — 第1次 Session: **问题**: 老爷指出 AI 总忘记之前的谈话和任务; **操作**: 创建 Memory Protocol (MANDATORY)",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "问题",
+        "老爷",
+        "指出",
+        "忘记",
+        "之前",
+        "谈话",
+        "任务",
+        "操作"
+      ]
+    },
+    "memory:memory/2026-05-03.md:12:13": {
+      "key": "memory:memory/2026-05-03.md:12:13",
+      "path": "memory/2026-05-03.md",
+      "startLine": 12,
+      "endLine": 13,
+      "source": "memory",
+      "snippet": "08:49 — 第2次 Session: **操作**: v2.0 架构（INDEX.md + projects/ + decisions/ + people/ + tasks/）; **commit**: `5629dda`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "index.md",
+        "操作",
+        "架构",
+        "projects",
+        "decisions",
+        "people",
+        "tasks"
+      ]
+    },
+    "memory:memory/2026-05-03.md:16:17": {
+      "key": "memory:memory/2026-05-03.md:16:17",
+      "path": "memory/2026-05-03.md",
+      "startLine": 16,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "08:52 — 第3次 Session: **操作**: 同步 MANDATORY Memory Protocol 到 AGENTS.md; **commit**: `74358ac`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "操作",
+        "同步",
+        "mandatory",
+        "protocol",
+        "commit",
+        "74358ac"
+      ]
+    },
+    "memory:memory/2026-05-03.md:20:21": {
+      "key": "memory:memory/2026-05-03.md:20:21",
+      "path": "memory/2026-05-03.md",
+      "startLine": 20,
+      "endLine": 21,
+      "source": "memory",
+      "snippet": "08:53 — 第4次 Session: **操作**: v3.0 企业级升级（sessions/ + hot/ + search/ + context/ + ARCHITECTURE.md）; **commit**: `6f0fc37`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v3.0",
+        "architecture.md",
+        "操作",
+        "企业",
+        "升级",
+        "hot",
+        "context",
+        "commit"
+      ]
+    },
+    "memory:memory/2026-05-03.md:24:25": {
+      "key": "memory:memory/2026-05-03.md:24:25",
+      "path": "memory/2026-05-03.md",
+      "startLine": 24,
+      "endLine": 25,
+      "source": "memory",
+      "snippet": "09:04 — 第5次 Session: **操作**: v4.0 企业级增强（audit/ + integrity/ + recovery/ + dashboard/ + retention/ + compression/ + links/）; **commit**: `cab39c7`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v4.0",
+        "操作",
+        "企业",
+        "增强",
+        "audit",
+        "integrity",
+        "recovery",
+        "dashboard"
+      ]
+    },
+    "memory:memory/2026-05-03.md:28:29": {
+      "key": "memory:memory/2026-05-03.md:28:29",
+      "path": "memory/2026-05-03.md",
+      "startLine": 28,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "09:12 — 第6次 Session: **操作**: 断电保护机制（integrity_check.py + .cron/ 脚本）; **commit**: `38ea79b`, `29b4519`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "integrity-check.py",
+        "操作",
+        "断电",
+        "保护",
+        "机制",
+        "cron",
+        "脚本",
+        "commit"
+      ]
+    },
+    "memory:memory/2026-05-03.md:32:33": {
+      "key": "memory:memory/2026-05-03.md:32:33",
+      "path": "memory/2026-05-03.md",
+      "startLine": 32,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "09:21 — 第7次 Session（当前）: **问题**: 老爷要求 AI 企业级最高水平; **操作**: **v5.0 AI Enterprise Level 升级**",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "当前",
+        "问题",
+        "老爷",
+        "要求",
+        "企业",
+        "最高",
+        "水平"
+      ]
+    },
+    "memory:memory/2026-05-03.md:37:40": {
+      "key": "memory:memory/2026-05-03.md:37:40",
+      "path": "memory/2026-05-03.md",
+      "startLine": 37,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "🆕 v5.0 AI Enterprise Level 新增功能: | 功能 | 文件 | 状态 | |------|------|------| | 知识图谱 | knowledge_graph/GRAPH.md | ✅ | | AI推理引擎 | knowledge_graph/inference.py | ✅ |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "knowledge-graph/graph.md",
+        "knowledge-graph/inference.py",
+        "enterprise",
+        "level",
+        "新增",
+        "功能",
+        "文件"
+      ]
+    },
+    "memory:memory/2026-05-03.md:41:44": {
+      "key": "memory:memory/2026-05-03.md:41:44",
+      "path": "memory/2026-05-03.md",
+      "startLine": 41,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "🆕 v5.0 AI Enterprise Level 新增功能: | 主动提醒系统 | alerts/ALERTS.md + alert_manager.py | ✅ | | 语义标签 | semantic/TAGS.md | ✅ | | 自动化工作流 | workflows/WORKFLOWS.md | ✅ | | 多地容灾备份 | backup/BACKUP.md + backup_manager.py | ✅ |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "backup",
+        "备份",
+        "v5.0",
+        "alerts/alerts.md",
+        "alert-manager.py",
+        "semantic/tags.md",
+        "workflows/workflows.md",
+        "backup/backup.md"
+      ]
+    },
+    "memory:memory/2026-05-03.md:50:53": {
+      "key": "memory:memory/2026-05-03.md:50:53",
+      "path": "memory/2026-05-03.md",
+      "startLine": 50,
+      "endLine": 53,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── INDEX.md 中央索引（唯一真相来源）✅ ├── ARCHITECTURE.md 系统架构图 ✅ ├── MEMORY.md 核心记忆 ✅ ├── AGENTS.md 系统规则（含 MANDATORY Memory Protocol）✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "index.md",
+        "architecture.md",
+        "memory.md",
+        "agents.md",
+        "记忆",
+        "系统",
+        "enterprise"
+      ]
+    },
+    "memory:memory/2026-05-03.md:55:58": {
+      "key": "memory:memory/2026-05-03.md:55:58",
+      "path": "memory/2026-05-03.md",
+      "startLine": 55,
+      "endLine": 58,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── daily/ 每日日记 ✅ ├── projects/ 项目追踪（8个）✅ ├── decisions/ 决策记录（3个）✅ ├── people/ 人物关系 ✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level",
+        "架构",
+        "每日",
+        "日记"
+      ]
+    },
+    "memory:memory/2026-05-03.md:59:62": {
+      "key": "memory:memory/2026-05-03.md:59:62",
+      "path": "memory/2026-05-03.md",
+      "startLine": 59,
+      "endLine": 62,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── tasks/ 任务追踪 ✅ ├── sessions/ 会话轨迹 ✅ ├── hot/ 热文件追踪 ✅ ├── search/ 搜索索引 ✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level",
+        "架构",
+        "tasks",
+        "任务"
+      ]
+    },
+    "memory:memory/2026-05-03.md:63:66": {
+      "key": "memory:memory/2026-05-03.md:63:66",
+      "path": "memory/2026-05-03.md",
+      "startLine": 63,
+      "endLine": 66,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── context/ 跨session桥 ✅ ├── audit/ 审计追踪 ✅ ├── integrity/ 完整性检查 ✅ ├── recovery/ 灾难恢复 ✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level",
+        "架构",
+        "context",
+        "audit"
+      ]
+    },
+    "memory:memory/2026-05-03.md:67:70": {
+      "key": "memory:memory/2026-05-03.md:67:70",
+      "path": "memory/2026-05-03.md",
+      "startLine": 67,
+      "endLine": 70,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── dashboard/ 监控面板 ✅ ├── retention/ 保留策略 ✅ ├── compression/ 压缩归档 ✅ ├── links/ 双向链接 ✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level",
+        "架构",
+        "dashboard",
+        "面板"
+      ]
+    },
+    "memory:memory/2026-05-03.md:72:75": {
+      "key": "memory:memory/2026-05-03.md:72:75",
+      "path": "memory/2026-05-03.md",
+      "startLine": 72,
+      "endLine": 75,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── knowledge_graph/ 知识图谱 ← 🆕 v5.0 AI │ ├── GRAPH.md 项目关系图 │ └── inference.py AI推理引擎 ├── alerts/ 主动提醒 ← 🆕 v5.0 AI",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "knowledge-graph",
+        "graph.md",
+        "inference.py",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level"
+      ]
+    },
+    "memory:memory/2026-05-03.md:76:79": {
+      "key": "memory:memory/2026-05-03.md:76:79",
+      "path": "memory/2026-05-03.md",
+      "startLine": 76,
+      "endLine": 79,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: │ ├── ALERTS.md 提醒清单 │ └── alert_manager.py 提醒管理器 ├── semantic/ 语义标签 ← 🆕 v5.0 AI │ └── TAGS.md 多维度标签",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "alerts.md",
+        "alert-manager.py",
+        "tags.md",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level"
+      ]
+    },
+    "memory:memory/2026-05-03.md:80:83": {
+      "key": "memory:memory/2026-05-03.md:80:83",
+      "path": "memory/2026-05-03.md",
+      "startLine": 80,
+      "endLine": 83,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── workflows/ 自动化工作流 ← 🆕 v5.0 AI │ └── WORKFLOWS.md 工作流定义 ├── backup/ 多地容灾 ← 🆕 v5.0 AI │ ├── BACKUP.md 备份架构",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "backup",
+        "备份",
+        "v5.0",
+        "workflows.md",
+        "backup.md",
+        "记忆",
+        "系统",
+        "enterprise"
+      ]
+    },
+    "memory:memory/2026-05-03.md:84:84": {
+      "key": "memory:memory/2026-05-03.md:84:84",
+      "path": "memory/2026-05-03.md",
+      "startLine": 84,
+      "endLine": 84,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: │ └── backup_manager.py 备份管理器",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "backup",
+        "备份",
+        "v5.0",
+        "backup-manager.py",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level"
+      ]
+    },
+    "memory:memory/2026-05-03.md:86:88": {
+      "key": "memory:memory/2026-05-03.md:86:88",
+      "path": "memory/2026-05-03.md",
+      "startLine": 86,
+      "endLine": 88,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: ├── weekly/ 每周总结 ├── archive/ 归档 └── dreaming/ 梦境记忆系统",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level",
+        "架构",
+        "weekly",
+        "每周"
+      ]
+    },
+    "memory:memory/2026-05-03.md:90:93": {
+      "key": "memory:memory/2026-05-03.md:90:93",
+      "path": "memory/2026-05-03.md",
+      "startLine": 90,
+      "endLine": 93,
+      "source": "memory",
+      "snippet": "📊 记忆系统 v5.0 AI Enterprise Level 架构: .cron/ 定时器 + 钩子（防断电）✅ ├── memory_cron.sh 每分钟自动提交 ├── crash_recovery.sh 崩溃恢复 └── startup_check.sh 启动检查",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "memory-cron.sh",
+        "crash-recovery.sh",
+        "startup-check.sh",
+        "记忆",
+        "系统",
+        "enterprise",
+        "level"
+      ]
+    },
+    "memory:memory/2026-05-03.md:99:102": {
+      "key": "memory:memory/2026-05-03.md:99:102",
+      "path": "memory/2026-05-03.md",
+      "startLine": 99,
+      "endLine": 102,
+      "source": "memory",
+      "snippet": "🧠 AI 推理引擎输出（09:21 验证）: 📊 开发中项目: FakeChat, MindPal, UstiaGo 📊 等待测试项目: LuminaHealth, StretchFlow 🔗 Memory Protocol 影响链: DailyIQ, FakeChat, MindPal, JustZenGo 🎯 项目下一步建议:",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "推理",
+        "引擎",
+        "输出",
+        "验证",
+        "开发",
+        "项目",
+        "fakechat",
+        "mindpal"
+      ]
+    },
+    "memory:memory/2026-05-03.md:103:106": {
+      "key": "memory:memory/2026-05-03.md:103:106",
+      "path": "memory/2026-05-03.md",
+      "startLine": 103,
+      "endLine": 106,
+      "source": "memory",
+      "snippet": "🧠 AI 推理引擎输出（09:21 验证）: • FakeChat: VNC 截图 → Archive → 上传 • MindPal: VNC 截图 → Archive → 上传 • LuminaHealth: BUILD 测试 → VNC 截图 → Archive 🔍 异常检测: ⚠️ DailyIQ: 已上架但仍依赖 Memory Protocol",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "推理",
+        "引擎",
+        "输出",
+        "验证",
+        "fakechat",
+        "vnc",
+        "archive",
+        "mindpal"
+      ]
+    },
+    "memory:memory/2026-05-03.md:111:114": {
+      "key": "memory:memory/2026-05-03.md:111:114",
+      "path": "memory/2026-05-03.md",
+      "startLine": 111,
+      "endLine": 114,
+      "source": "memory",
+      "snippet": "🔔 活跃提醒（09:21）: | 优先级 | 提醒 | 消息 | |--------|------|------| | 🔴 P0 | DailyIQ 上架提醒 | 已上架审核通过，待 VNC 截图 | | 🔴 P0 | 记忆补全提醒 | 请补充 2026-04-29 ~ 05-02 历史 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "05-02",
+        "活跃",
+        "提醒",
+        "优先",
+        "消息",
+        "dailyiq",
+        "上架",
+        "审核"
+      ]
+    },
+    "memory:memory/2026-05-03.md:115:116": {
+      "key": "memory:memory/2026-05-03.md:115:116",
+      "path": "memory/2026-05-03.md",
+      "startLine": 115,
+      "endLine": 116,
+      "source": "memory",
+      "snippet": "🔔 活跃提醒（09:21）: | 🟠 P1 | FakeChat 开发进度 | 待 VNC 截图 → Archive → 上传 | | 🟠 P1 | LuminaHealth/StretchFlow | 待 BUILD 测试 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "luminahealth/stretchflow",
+        "活跃",
+        "提醒",
+        "fakechat",
+        "开发",
+        "进度",
+        "vnc",
+        "archive"
+      ]
+    },
+    "memory:memory/2026-05-03.md:120:123": {
+      "key": "memory:memory/2026-05-03.md:120:123",
+      "path": "memory/2026-05-03.md",
+      "startLine": 120,
+      "endLine": 123,
+      "source": "memory",
+      "snippet": "🛡️ 断电保护（每分钟自动备份）: ✅ memory_cron.sh 每分钟自动 git add + commit; ✅ 每小时自动 push 到 GitHub; ✅ crash_recovery.sh 断电后自动恢复; ✅ startup_check.sh 每次 Session 启动检查",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "备份",
+        "memory-cron.sh",
+        "crash-recovery.sh",
+        "startup-check.sh",
+        "断电",
+        "保护",
+        "分钟",
+        "自动"
+      ]
+    },
+    "memory:memory/2026-05-03.md:127:127": {
+      "key": "memory:memory/2026-05-03.md:127:127",
+      "path": "memory/2026-05-03.md",
+      "startLine": 127,
+      "endLine": 127,
+      "source": "memory",
+      "snippet": "🛡️ 断电保护（每分钟自动备份）: *本文档由系统自动维护 | 最后更新: 2026-05-03 09:21*",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "备份",
+        "断电",
+        "保护",
+        "分钟",
+        "自动",
+        "本文",
+        "系统",
+        "维护"
+      ]
+    },
+    "memory:memory/2026-05-03.md:130:131": {
+      "key": "memory:memory/2026-05-03.md:130:131",
+      "path": "memory/2026-05-03.md",
+      "startLine": 130,
+      "endLine": 131,
+      "source": "memory",
+      "snippet": "2026-05-03 Daily Log (续): > 系统版本: AI Enterprise Level v5.0 | Memory Protocol: MANDATORY > 补充时间: 2026-05-03 18:43",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "log",
+        "系统",
+        "版本",
+        "enterprise",
+        "level",
+        "protocol",
+        "mandatory"
+      ]
+    },
+    "memory:memory/2026-05-03.md:140:143": {
+      "key": "memory:memory/2026-05-03.md:140:143",
+      "path": "memory/2026-05-03.md",
+      "startLine": 140,
+      "endLine": 143,
+      "source": "memory",
+      "snippet": "创意提案: **文件**: `CREATIVE_IDEAS.md`; **5个方案**: ParadoxAI, MindWeaver, ReverseWorld, CipherCrack, EgoShift; **老爷选择**: MindWeaver — 思维编织器; **概念**: AI 预测用户思维，挑战用户否认预测",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "creative-ideas.md",
+        "创意",
+        "提案",
+        "文件",
+        "方案",
+        "paradoxai",
+        "mindweaver",
+        "reverseworld"
+      ]
+    },
+    "memory:memory/2026-05-03.md:146:149": {
+      "key": "memory:memory/2026-05-03.md:146:149",
+      "path": "memory/2026-05-03.md",
+      "startLine": 146,
+      "endLine": 149,
+      "source": "memory",
+      "snippet": "图标设计（3轮迭代）: | 轮次 | 状态 | |------|------| | 方案1 | ❌ 不通过 | | 方案2 | ❌ 不通过 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "设计",
+        "迭代",
+        "状态",
+        "方案",
+        "通过"
+      ]
+    },
+    "memory:memory/2026-05-03.md:150:150": {
+      "key": "memory:memory/2026-05-03.md:150:150",
+      "path": "memory/2026-05-03.md",
+      "startLine": 150,
+      "endLine": 150,
+      "source": "memory",
+      "snippet": "图标设计（3轮迭代）: | 方案3 | ✅ **审核通过** — 极光编织风格 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "设计",
+        "迭代",
+        "方案",
+        "审核",
+        "通过",
+        "极光",
+        "编织",
+        "风格"
+      ]
+    },
+    "memory:memory/2026-05-03.md:153:156": {
+      "key": "memory:memory/2026-05-03.md:153:156",
+      "path": "memory/2026-05-03.md",
+      "startLine": 153,
+      "endLine": 156,
+      "source": "memory",
+      "snippet": "UI 设计稿（3张）: | 页面 | 状态 | |------|------| | Home.png (首页) | ✅ 通过 | | Challenge.png (挑战详情) | ✅ 通过 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "home.png",
+        "challenge.png",
+        "设计",
+        "状态",
+        "首页",
+        "通过",
+        "挑战",
+        "详情"
+      ]
+    },
+    "memory:memory/2026-05-03.md:157:157": {
+      "key": "memory:memory/2026-05-03.md:157:157",
+      "path": "memory/2026-05-03.md",
+      "startLine": 157,
+      "endLine": 157,
+      "source": "memory",
+      "snippet": "UI 设计稿（3张）: | Settings.png (设置页) | ✅ 通过 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "settings.png",
+        "设计",
+        "设置",
+        "通过"
+      ]
+    },
+    "memory:memory/2026-05-03.md:160:163": {
+      "key": "memory:memory/2026-05-03.md:160:163",
+      "path": "memory/2026-05-03.md",
+      "startLine": 160,
+      "endLine": 163,
+      "source": "memory",
+      "snippet": "第一阶段：概念与命名 ✅: | 项目 | 结果 | |------|------| | App Store 名称 | ✅ MindWeaver 可用 | | Bundle ID | ✅ com.ggsheng.MindWeaver |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "com.ggsheng.mindweaver",
+        "第一",
+        "阶段",
+        "概念",
+        "命名",
+        "项目",
+        "结果",
+        "app"
+      ]
+    },
+    "memory:memory/2026-05-03.md:164:165": {
+      "key": "memory:memory/2026-05-03.md:164:165",
+      "path": "memory/2026-05-03.md",
+      "startLine": 164,
+      "endLine": 165,
+      "source": "memory",
+      "snippet": "第一阶段：概念与命名 ✅: | Display Name | ✅ MindWeaver | | 功能数量 | ✅ **72个**（≥60要求） |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "第一",
+        "阶段",
+        "概念",
+        "命名",
+        "display",
+        "name",
+        "mindweaver",
+        "功能"
+      ]
+    },
+    "memory:memory/2026-05-03.md:168:170": {
+      "key": "memory:memory/2026-05-03.md:168:170",
+      "path": "memory/2026-05-03.md",
+      "startLine": 168,
+      "endLine": 170,
+      "source": "memory",
+      "snippet": "已创建文档: `ios-MindWeaver/AppStore/Docs/SPEC.md` — 完整规格说明; `ios-MindWeaver/AppStore/Docs/FeatureList.md` — 72个功能清单; `CREATIVE_IDEAS.md` — 创意提案记录",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "creative-ideas.md",
+        "创建",
+        "ios",
+        "mindweaver",
+        "appstore",
+        "docs",
+        "spec.md",
+        "完整"
+      ]
+    },
+    "memory:memory/2026-05-03.md:174:177": {
+      "key": "memory:memory/2026-05-03.md:174:177",
+      "path": "memory/2026-05-03.md",
+      "startLine": 174,
+      "endLine": 177,
+      "source": "memory",
+      "snippet": "第二阶段：项目目录结构 ✅: `project.yml` — XcodeGen 配置; `Sources/App/AppDelegate.swift`; `Sources/App/SceneDelegate.swift`; `Sources/Views/MainTabBarController.swift`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "project.yml",
+        "sources/app/appdelegate.swift",
+        "sources/app/scenedelegate.swift",
+        "第二",
+        "阶段",
+        "项目",
+        "目录",
+        "结构"
+      ]
+    },
+    "memory:memory/2026-05-03.md:178:180": {
+      "key": "memory:memory/2026-05-03.md:178:180",
+      "path": "memory/2026-05-03.md",
+      "startLine": 178,
+      "endLine": 180,
+      "source": "memory",
+      "snippet": "第二阶段：项目目录结构 ✅: `Sources/Views/Home/HomeViewController.swift`; `Info.plist`, `MindWeaver.entitlements`; `.gitignore`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "info.plist",
+        "mindweaver.entitlements",
+        "第二",
+        "阶段",
+        "项目",
+        "目录",
+        "结构",
+        "sources"
+      ]
+    },
+    "memory:memory/2026-05-03.md:183:185": {
+      "key": "memory:memory/2026-05-03.md:183:185",
+      "path": "memory/2026-05-03.md",
+      "startLine": 183,
+      "endLine": 185,
+      "source": "memory",
+      "snippet": "⚠️ 待执行（老爷指出）: **Claude Code 审查** — 必须执行，未审查代码禁止提交; **XcodeGen 生成** — SSH 到 MacinCloud 执行; **Git push 到 GitHub** — 同步代码",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "执行",
+        "老爷",
+        "指出",
+        "claude",
+        "code",
+        "审查",
+        "必须",
+        "代码"
+      ]
+    },
+    "memory:memory/2026-05-03.md:191:194": {
+      "key": "memory:memory/2026-05-03.md:191:194",
+      "path": "memory/2026-05-03.md",
+      "startLine": 191,
+      "endLine": 194,
+      "source": "memory",
+      "snippet": "📊 MindWeaver App 信息: | 项目 | 值 | |------|-----| | App Name | MindWeaver | | Bundle ID | com.ggsheng.MindWeaver |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "com.ggsheng.mindweaver",
+        "mindweaver",
+        "app",
+        "信息",
+        "项目",
+        "name",
+        "bundle"
+      ]
+    },
+    "memory:memory/2026-05-03.md:195:198": {
+      "key": "memory:memory/2026-05-03.md:195:198",
+      "path": "memory/2026-05-03.md",
+      "startLine": 195,
+      "endLine": 198,
+      "source": "memory",
+      "snippet": "📊 MindWeaver App 信息: | 功能数 | 72 | | 目标市场 | 欧美青少年/青年/中年 | | 图标状态 | ✅ 19个尺寸已生成 | | UI 设计状态 | ✅ 3张设计稿已审核通过 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "欧美青少年/青年/中年",
+        "mindweaver",
+        "app",
+        "信息",
+        "功能",
+        "目标",
+        "市场",
+        "欧美"
+      ]
+    },
+    "memory:memory/2026-05-03.md:199:199": {
+      "key": "memory:memory/2026-05-03.md:199:199",
+      "path": "memory/2026-05-03.md",
+      "startLine": 199,
+      "endLine": 199,
+      "source": "memory",
+      "snippet": "📊 MindWeaver App 信息: | 开发状态 | 第二阶段完成，待 Claude Code 审查 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "mindweaver",
+        "app",
+        "信息",
+        "开发",
+        "状态",
+        "第二",
+        "阶段",
+        "完成"
+      ]
+    },
+    "memory:memory/2026-05-03.md:205:205": {
+      "key": "memory:memory/2026-05-03.md:205:205",
+      "path": "memory/2026-05-03.md",
+      "startLine": 205,
+      "endLine": 205,
+      "source": "memory",
+      "snippet": "⚠️ SOP 遵守提醒（老爷指出）: **问题**: AI Agent 经常忘记执行 SOP 要求的强制步骤",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "sop",
+        "遵守",
+        "提醒",
+        "老爷",
+        "指出",
+        "问题",
+        "经常",
+        "忘记"
+      ]
+    },
+    "memory:memory/2026-05-03.md:207:207": {
+      "key": "memory:memory/2026-05-03.md:207:207",
+      "path": "memory/2026-05-03.md",
+      "startLine": 207,
+      "endLine": 207,
+      "source": "memory",
+      "snippet": "⚠️ SOP 遵守提醒（老爷指出）: **SOP 强制要求**:",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "sop",
+        "遵守",
+        "提醒",
+        "老爷",
+        "指出",
+        "强制",
+        "要求"
+      ]
+    },
+    "memory:memory/2026-05-03.md:208:210": {
+      "key": "memory:memory/2026-05-03.md:208:210",
+      "path": "memory/2026-05-03.md",
+      "startLine": 208,
+      "endLine": 210,
+      "source": "memory",
+      "snippet": "⚠️ SOP 遵守提醒（老爷指出）: 必须执行 **Claude Code 审查+修复** — 未经审查代码禁止 commit; 图标+UI 设计必须先审核通过，才能开始开发; 所有 commit 前必须 Claude Code 审查+修复",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "sop",
+        "遵守",
+        "提醒",
+        "老爷",
+        "指出",
+        "必须",
+        "执行",
+        "claude"
+      ]
+    },
+    "memory:memory/2026-05-03.md:212:212": {
+      "key": "memory:memory/2026-05-03.md:212:212",
+      "path": "memory/2026-05-03.md",
+      "startLine": 212,
+      "endLine": 212,
+      "source": "memory",
+      "snippet": "⚠️ SOP 遵守提醒（老爷指出）: **解决方案**: 已更新 AGENTS.md，每次执行前必须读取 SOP 文档",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "sop",
+        "遵守",
+        "提醒",
+        "老爷",
+        "指出",
+        "解决",
+        "方案"
+      ]
+    },
+    "memory:memory/2026-05-03.md:218:221": {
+      "key": "memory:memory/2026-05-03.md:218:221",
+      "path": "memory/2026-05-03.md",
+      "startLine": 218,
+      "endLine": 221,
+      "source": "memory",
+      "snippet": "🔔 活跃提醒（18:43 更新）: | 优先级 | 提醒 | 状态 | |--------|------|------| | 🔴 P0 | MindWeaver Claude Code 审查 | 待执行 | | 🔴 P0 | MindWeaver XcodeGen 生成 | 待 SSH 到 MacinCloud |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "活跃",
+        "提醒",
+        "更新",
+        "优先",
+        "状态",
+        "mindweaver",
+        "claude",
+        "code"
+      ]
+    },
+    "memory:memory/2026-05-03.md:222:223": {
+      "key": "memory:memory/2026-05-03.md:222:223",
+      "path": "memory/2026-05-03.md",
+      "startLine": 222,
+      "endLine": 223,
+      "source": "memory",
+      "snippet": "🔔 活跃提醒（18:43 更新）: | 🟠 P1 | FakeChat/MindPal/UstiaGo VNC 截图 | 待老爷操作 | | 🟠 P1 | LuminaHealth/StretchFlow BUILD 测试 | 待操作 |",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "fakechat/mindpal/ustiago",
+        "luminahealth/stretchflow",
+        "活跃",
+        "提醒",
+        "更新",
+        "fakechat",
+        "mindpal",
+        "ustiago"
+      ]
+    },
+    "memory:memory/2026-05-03.md:227:227": {
+      "key": "memory:memory/2026-05-03.md:227:227",
+      "path": "memory/2026-05-03.md",
+      "startLine": 227,
+      "endLine": 227,
+      "source": "memory",
+      "snippet": "🔔 活跃提醒（18:43 更新）: *本文档由系统自动维护 | 最后更新: 2026-05-03 18:43*",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "c2bf0c07fdd1"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "活跃",
+        "提醒",
+        "更新",
+        "本文",
+        "系统",
+        "自动",
+        "维护",
+        "最后"
+      ]
+    },
+    "memory:memory/2026-05-02.md:3:4": {
+      "key": "memory:memory/2026-05-02.md:3:4",
+      "path": "memory/2026-05-02.md",
+      "startLine": 3,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "2026-05-02 Daily Log: > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "f110005857c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "log",
+        "系统",
+        "版本",
+        "elon",
+        "musk",
+        "聊天",
+        "记录"
+      ]
+    },
+    "memory:memory/2026-05-02.md:9:11": {
+      "key": "memory:memory/2026-05-02.md:9:11",
+      "path": "memory/2026-05-02.md",
+      "startLine": 9,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "📱 本地 App 项目（11个）: ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JustZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "f110005857c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "ios-aliencontact",
+        "ios-blastpop",
+        "ios-dailyiq",
+        "ios-habitgo",
+        "ios-justzengo",
+        "ios-luminahealth",
+        "ios-mindpal",
+        "ios-paradox"
+      ]
+    },
+    "memory:memory/2026-05-02.md:15:15": {
+      "key": "memory:memory/2026-05-02.md:15:15",
+      "path": "memory/2026-05-02.md",
+      "startLine": 15,
+      "endLine": 15,
+      "source": "memory",
+      "snippet": "定时任务: App项目每小时汇报：每2小时执行一次（北京时间6:00-23:00）",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "f110005857c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "00-23",
+        "任务",
+        "app",
+        "项目",
+        "小时",
+        "汇报",
+        "执行",
+        "一次"
+      ]
+    },
+    "memory:memory/2026-05-02.md:19:19": {
+      "key": "memory:memory/2026-05-02.md:19:19",
+      "path": "memory/2026-05-02.md",
+      "startLine": 19,
+      "endLine": 19,
+      "source": "memory",
+      "snippet": "定时任务: *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理*",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.62,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "f110005857c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "任务",
+        "elon",
+        "musk",
+        "聊天",
+        "记录",
+        "恢复",
+        "补充",
+        "清理"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:25:25": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:25:25",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 25,
+      "endLine": 25,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b506239fd1ca4c365e1a7250873c] ou_80ed67669d033510ee7cb5666c87c697: 审核通过",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "审核",
+        "通过"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:26:26": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:26:26",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 26,
+      "endLine": 26,
+      "source": "memory",
+      "snippet": "Assistant: 🎉 **PARADOX BUILD SUCCEEDED!** **已完成工作：** - ✅ 图标设计（1024px + 19个尺寸） - 已审核通过 - ✅ UI 设计稿 - 游戏化风格，已审核通过 - ✅ GitHub 仓库创建并同步 - ✅ project.yml 配置（4个 targets） - ✅ 核心代码编写（5个 Tab、75个工具、游戏化系统、Widget） - ✅ **BUILD SUCCEEDED** on MacinCloud **接下来需要老爷操作（VNC）：** 1. 打开 Xcode → Archive",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "project.yml",
+        "assistant",
+        "paradox",
+        "succeeded",
+        "完成",
+        "工作",
+        "设计",
+        "1024px"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:27:27": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:27:27",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 27,
+      "endLine": 27,
+      "source": "memory",
+      "snippet": "User: System (untrusted): [2026-05-02 11:08:35 GMT+8] Exec completed (faint-cr, code 0) :: 8F975D-039C-4247-B80C-92DA06723676, OS:26.3.1, name:iPhone 17 Pro Max } { platform:iOS Simulator, arch:arm64, id:BF00A094-9C4F-4B88-BD2B-D53DC695B271, OS:26.3.1, name:iPhone 17e }… An async",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "faint-cr",
+        "26.3.1",
+        "user",
+        "system",
+        "untrusted",
+        "gmt",
+        "exec",
+        "completed"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:28:28": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:28:28",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 28,
+      "endLine": 28,
+      "source": "memory",
+      "snippet": "Assistant: NO_REPLY",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "no-reply",
+        "assistant"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:29:29": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:29:29",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 29,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b506e5d5c7cb8c32ff18fb868dcf] ou_80ed67669d033510ee7cb5666c87c697: 执行截图",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "执行"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:30:30": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:30:30",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 30,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "Assistant: Let me try a different approach - run a simpler build test first to verify the app works:",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "let",
+        "try",
+        "different",
+        "approach",
+        "run",
+        "simpler",
+        "test"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:31:31": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:31:31",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 31,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "Assistant: 📸 **截图执行遇到问题** 测试过程中 Simulator 遇到 Swift 接口错误（Range requires lowerBound <= upperBound），这是 Xcode 26.2 SDK 的已知 bug，影响 Widget extension 的 Swift 接口验证。 **好消息：** - ✅ **BUILD SUCCEEDED** - App 编译成功 - ✅ App 功能代码完整 **问题：** - ❌ XCUITest 无法正常运行（Swift 接口 bug） **替代方案：** 由于截图需要 XCUI",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "26.2",
+        "assistant",
+        "执行",
+        "遇到",
+        "问题",
+        "测试",
+        "过程",
+        "simulator"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:32:32": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:32:32",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 32,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "Assistant: NO_REPLY",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "no-reply",
+        "assistant"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:33:33": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:33:33",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 33,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "User: System (untrusted): [2026-05-02 15:05:36 GMT+8] Exec completed (plaid-ha, code 0) :: Library/Developer/Xcode/DerivedData/PARADOX-bhmdqhrexcullvfxelazhdfmyaqh/Logs/Test/Test-PARADOX-2026.05.02_00-04-23--0700.xcresult Testing failed: PARADOX (52419) encountered an e… System (",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "plaid-ha",
+        "0700.xcresult",
+        "user",
+        "system",
+        "untrusted",
+        "gmt",
+        "exec",
+        "completed"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-02.txt:34:34": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-02.txt:34:34",
+      "path": "memory/.dreams/session-corpus/2026-05-02.txt",
+      "startLine": 34,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "Assistant: NO_REPLY",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "815cc1934125"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "no-reply",
+        "assistant"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:1:1": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:1:1",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 1,
+      "endLine": 1,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505dc7fe40a0b243a7e8eccc490] ou_80ed67669d033510ee7cb5666c87c697: 我发现一个问题，你总是会忘记我们之前的谈话或者你昨天执行的任务，如何才能让你不忘记呢",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "发现",
+        "一个",
+        "问题",
+        "总是",
+        "忘记",
+        "我们"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:2:2": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:2:2",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 2,
+      "endLine": 2,
+      "source": "memory",
+      "snippet": "Assistant: 我来检查一下我的记忆系统：",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "我来",
+        "检查",
+        "一下",
+        "我的",
+        "记忆",
+        "系统"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:3:3": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:3:3",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 3,
+      "endLine": 3,
+      "source": "memory",
+      "snippet": "Assistant: 老爷你提出了一个很关键的问题。让我坦白说： **当前记忆系统的问题：** 1. **没有 2026-05-02 和 2026-05-03 的日记文件** — 说明这两天根本没有创建日常记录，我无法知道我们谈了什么、做了什么任务 2. **每次 session 都是\"全新醒来\"** — 我依靠 startup context（MEMORY.md + 当天日记 + 上下文注入），如果没有当天的日记，我就完全没概念之前发生了什么 3. **即使有日记，也是粗略总结** — 不会像录音那样完整保留每次对话的每一个细节 --- **解决方案：",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "assistant",
+        "老爷",
+        "提出",
+        "一个",
+        "关键",
+        "问题",
+        "坦白说"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:4:4": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:4:4",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 4,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505df4da80a8b1082ef9ffe83ed] ou_80ed67669d033510ee7cb5666c87c697: 在 AGENTS.md 里添加了 Memory Protocol（强制执行） 包括： Before Ending Any Session — 必须追加到 memory/YYYY-MM-DD.md Startup Behavior — 每次启动检查今天的 memory 文件 Memory Search Rule — 回答前必须先查 memory How to Never F",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "agents.md",
+        "memory/yyyy-mm-dd.md",
+        "user",
+        "添加",
+        "protocol",
+        "强制",
+        "执行"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:5:5": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:5:5",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 5,
+      "endLine": 5,
+      "source": "memory",
+      "snippet": "Assistant: 我看到当前 AGENTS.md 里并没有 Memory Protocol 这个章节。你描述了你打算添加的内容，但文件目前还没有这部分。 你现在是想让我帮你把 Memory Protocol 加入到 AGENTS.md 里吗？如果是，我来帮你写进去：",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "assistant",
+        "我看到",
+        "当前",
+        "没有",
+        "protocol",
+        "这个",
+        "章节"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:6:6": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:6:6",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 6,
+      "endLine": 6,
+      "source": "memory",
+      "snippet": "Assistant: Memory Protocol 已写入 AGENTS.md，并已创建今天的第一条日记。 **现在状态：** - ✅ AGENTS.md 已更新（Memory Protocol） - ✅ memory/2026-05-03.md 已创建 - ✅ 已 commit **还需要你帮忙的一件事：** 2026-04-29 到昨天（2026-05-02）这 4-5 天的记忆是空的。这段时间我们肯定做过什么，但你比我更清楚。 **能不能简短告诉我：这期间我们做了什么？** 比如： - 哪些 App 上架了？ - 哪些项目有进展？ - 有什么重要",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "memory/2026-05-03.md",
+        "4-5",
+        "assistant",
+        "protocol",
+        "创建",
+        "今天",
+        "第一"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:7:7": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:7:7",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 7,
+      "endLine": 7,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505df32698a4b2a37c012583bbe] ou_80ed67669d033510ee7cb5666c87c697: 将记忆系统提升n个层次，最好一步达到企业级最高水平",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记忆",
+        "系统",
+        "提升",
+        "层次",
+        "最好",
+        "一步"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:8:8": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:8:8",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 8,
+      "endLine": 8,
+      "source": "memory",
+      "snippet": "Assistant: 好，我来设计一个企业级记忆系统，一步到位。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "我来",
+        "设计",
+        "一个",
+        "企业",
+        "记忆",
+        "系统",
+        "一步"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:9:9": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:9:9",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 9,
+      "endLine": 9,
+      "source": "memory",
+      "snippet": "Assistant: 好，我现在设计一个**企业级记忆系统**。让我先搞清楚现状，然后构建完整架构。 **当前问题分析：** 1. 缺少 2026-05-01、2026-05-02 日记（4天空白） 2. Session 结束前没有自动追加日记 3. 没有项目标签系统 4. 没有任务状态追踪 5. MEMORY.md 和 daily log 没有自动同步机制 6. 没有跨 session 的上下文追踪 **企业级记忆系统架构：** ``` memory/ ├── daily/ # 每日详细日志 │ ├── 2026-05-03.md │ ├── 2026",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "assistant",
+        "现在",
+        "设计",
+        "一个",
+        "企业",
+        "记忆",
+        "系统"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:10:10": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:10:10",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 10,
+      "endLine": 10,
+      "source": "memory",
+      "snippet": "Assistant: Now let me update AGENTS.md's Memory Protocol to integrate with the new system:",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "assistant",
+        "now",
+        "let",
+        "update",
+        "agents.md's",
+        "protocol",
+        "integrate"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:11:11": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:11:11",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 11,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "Assistant: 完成！企业级记忆系统 v2.0 已升级完毕。 --- **新增的核心文件：** | 文件 | 用途 | |------|------| | `memory/INDEX.md` | 中央索引，唯一真相来源 | | `memory/projects/` | 8个iOS项目状态追踪 | | `memory/decisions/` | 重大决策记录 | | `memory/people/pagebrin.md` | 老爷的完整人物档案 | | `memory/tasks/active.md` | 当前任务追踪 | | `memory/dai",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "memory/index.md",
+        "memory/projects",
+        "memory/decisions",
+        "memory/people/pagebrin.md",
+        "memory/tasks/active.md",
+        "memory/dai",
+        "assistant"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:12:12": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:12:12",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 12,
+      "endLine": 12,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505d8abd50a0b3768007df38825] ou_80ed67669d033510ee7cb5666c87c697: 🧠 Memory Protocol \\(MANDATORY\\)Every session must end with these actions. Not optional — required.Before Ending Any SessionAppend to memory/[YYYY\\-MM\\-DD.md](YYYY-MM-DD.md) — what happen",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "required.before",
+        "dd.md",
+        "yyyy-mm-dd.md",
+        "user",
+        "protocol",
+        "mandatory",
+        "must"
+      ]
+    },
+    "memory:memory/2026-05-01.md:3:4": {
+      "key": "memory:memory/2026-05-01.md:3:4",
+      "path": "memory/2026-05-01.md",
+      "startLine": 3,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "2026-05-01 Daily Log: > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "f16f2797a8f9"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "log",
+        "系统",
+        "版本",
+        "elon",
+        "musk",
+        "聊天",
+        "记录"
+      ]
+    },
+    "memory:memory/2026-05-01.md:9:11": {
+      "key": "memory:memory/2026-05-01.md:9:11",
+      "path": "memory/2026-05-01.md",
+      "startLine": 9,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "📱 本地 App 项目（11个）: ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JustZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "f16f2797a8f9"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "ios-aliencontact",
+        "ios-blastpop",
+        "ios-dailyiq",
+        "ios-habitgo",
+        "ios-justzengo",
+        "ios-luminahealth",
+        "ios-mindpal",
+        "ios-paradox"
+      ]
+    },
+    "memory:memory/2026-05-01.md:15:17": {
+      "key": "memory:memory/2026-05-01.md:15:17",
+      "path": "memory/2026-05-01.md",
+      "startLine": 15,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "定时任务创建: **时间**: 19:08; **任务**: 每小时汇报App项目整体情况; **执行时间**: 北京时间 6:00-23:00 每小时一次",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "f16f2797a8f9"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "00-23",
+        "任务",
+        "创建",
+        "时间",
+        "小时",
+        "汇报",
+        "app",
+        "项目"
+      ]
+    },
+    "memory:memory/2026-05-01.md:21:21": {
+      "key": "memory:memory/2026-05-01.md:21:21",
+      "path": "memory/2026-05-01.md",
+      "startLine": 21,
+      "endLine": 21,
+      "source": "memory",
+      "snippet": "定时任务创建: *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理*",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "f16f2797a8f9"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "任务",
+        "创建",
+        "elon",
+        "musk",
+        "聊天",
+        "记录",
+        "恢复",
+        "补充"
+      ]
+    },
+    "memory:memory/2026-04-30.md:3:4": {
+      "key": "memory:memory/2026-04-30.md:3:4",
+      "path": "memory/2026-04-30.md",
+      "startLine": 3,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "2026-04-30 Daily Log: > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "e757f9360616"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "log",
+        "系统",
+        "版本",
+        "elon",
+        "musk",
+        "聊天",
+        "记录"
+      ]
+    },
+    "memory:memory/2026-04-30.md:9:11": {
+      "key": "memory:memory/2026-04-30.md:9:11",
+      "path": "memory/2026-04-30.md",
+      "startLine": 9,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "重要更新: | App | 作者 | 状态 | 时间 | |------|------|------|------| | DailyIQ | Elon Musk | 🟢 审核通过 | 09:59 |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "e757f9360616"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "重要",
+        "更新",
+        "app",
+        "作者",
+        "状态",
+        "时间",
+        "dailyiq",
+        "elon"
+      ]
+    },
+    "memory:memory/2026-04-30.md:15:17": {
+      "key": "memory:memory/2026-04-30.md:15:17",
+      "path": "memory/2026-04-30.md",
+      "startLine": 15,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "本地实际存在的项目（11个）: ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JusZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "e757f9360616"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "ios-aliencontact",
+        "ios-blastpop",
+        "ios-dailyiq",
+        "ios-habitgo",
+        "ios-juszengo",
+        "ios-luminahealth",
+        "ios-mindpal",
+        "ios-paradox"
+      ]
+    },
+    "memory:memory/2026-04-30.md:22:22": {
+      "key": "memory:memory/2026-04-30.md:22:22",
+      "path": "memory/2026-04-30.md",
+      "startLine": 22,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "本地实际存在的项目（11个）: *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理*",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "e757f9360616"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "本地",
+        "实际",
+        "存在",
+        "项目",
+        "elon",
+        "musk",
+        "聊天",
+        "记录"
+      ]
+    },
+    "memory:memory/2026-04-29.md:3:4": {
+      "key": "memory:memory/2026-04-29.md:3:4",
+      "path": "memory/2026-04-29.md",
+      "startLine": 3,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "2026-04-29 Daily Log: > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "312dd0eab707"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "v2.0",
+        "log",
+        "系统",
+        "版本",
+        "elon",
+        "musk",
+        "聊天",
+        "记录"
+      ]
+    },
+    "memory:memory/2026-04-29.md:9:12": {
+      "key": "memory:memory/2026-04-29.md:9:12",
+      "path": "memory/2026-04-29.md",
+      "startLine": 9,
+      "endLine": 12,
+      "source": "memory",
+      "snippet": "Page 的项目: | App | 状态 | 备注 | |------|------|------| | JustZenGo | 🟢 已上架 | - | | HabitGo | 🟢 已上架 | - |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "312dd0eab707"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "page",
+        "项目",
+        "app",
+        "状态",
+        "备注",
+        "justzengo",
+        "上架",
+        "habitgo"
+      ]
+    },
+    "memory:memory/2026-04-29.md:13:13": {
+      "key": "memory:memory/2026-04-29.md:13:13",
+      "path": "memory/2026-04-29.md",
+      "startLine": 13,
+      "endLine": 13,
+      "source": "memory",
+      "snippet": "Page 的项目: | UstiaGo | 🔄 审核中 | 4月29日 15:17 提交 |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "312dd0eab707"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "page",
+        "项目",
+        "ustiago",
+        "审核",
+        "提交"
+      ]
+    },
+    "memory:memory/2026-04-29.md:16:18": {
+      "key": "memory:memory/2026-04-29.md:16:18",
+      "path": "memory/2026-04-29.md",
+      "startLine": 16,
+      "endLine": 18,
+      "source": "memory",
+      "snippet": "Elon Musk 的项目: | App | 状态 | 备注 | |------|------|------| | DailyIQ | 🟡 开发中 | - |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "312dd0eab707"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "elon",
+        "musk",
+        "项目",
+        "app",
+        "状态",
+        "备注",
+        "dailyiq",
+        "开发"
+      ]
+    },
+    "memory:memory/2026-04-29.md:22:22": {
+      "key": "memory:memory/2026-04-29.md:22:22",
+      "path": "memory/2026-04-29.md",
+      "startLine": 22,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "Elon Musk 的项目: *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理*",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "312dd0eab707"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "elon",
+        "musk",
+        "项目",
+        "聊天",
+        "记录",
+        "恢复",
+        "补充",
+        "清理"
+      ]
+    },
+    "memory:memory/2026-04-28.md:4:6": {
+      "key": "memory:memory/2026-04-28.md:4:6",
+      "path": "memory/2026-04-28.md",
+      "startLine": 4,
+      "endLine": 6,
+      "source": "memory",
+      "snippet": "永久记忆规则确认: 用户确认【强制规则】：所有会话内容必须永久记忆，不得在 session 结束后丢弃; 新 session 启动自动读取 MEMORY.md 继承所有规则和信息; 已更新到 MEMORY.md 行动准则第一条",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "1174d07d7efc"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "永久",
+        "记忆",
+        "规则",
+        "确认",
+        "用户",
+        "强制",
+        "所有"
+      ]
+    },
+    "memory:memory/2026-04-28.md:9:11": {
+      "key": "memory:memory/2026-04-28.md:9:11",
+      "path": "memory/2026-04-28.md",
+      "startLine": 9,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "插件安装: `memory-core` (bundled) 已安装 — 梦境记忆系统; dreaming 已激活（配置 enabled: true）; 定时: 每天 03:00 自动记忆整理",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "1174d07d7efc"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "memory-core",
+        "安装",
+        "core",
+        "bundled",
+        "梦境",
+        "记忆",
+        "系统",
+        "dreaming"
+      ]
+    },
+    "memory:memory/2026-04-27.md:6:6": {
+      "key": "memory:memory/2026-04-27.md:6:6",
+      "path": "memory/2026-04-27.md",
+      "startLine": 6,
+      "endLine": 6,
+      "source": "memory",
+      "snippet": "问题: iPad Pro 13\" M4 所有 Tab 截图 MD5 相同（都是首页），老爷要求每个 Tab 不同。",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "问题",
+        "ipad",
+        "pro",
+        "所有",
+        "tab",
+        "md5",
+        "相同",
+        "都是"
+      ]
+    },
+    "memory:memory/2026-04-27.md:9:9": {
+      "key": "memory:memory/2026-04-27.md:9:9",
+      "path": "memory/2026-04-27.md",
+      "startLine": 9,
+      "endLine": 9,
+      "source": "memory",
+      "snippet": "根因: iPad 有 floating tab bar 机制，每个 Tab 按钮会创建多个重叠元素（`_UIFloatingTabBarItemCell` 和 `_UIFloatingTabBarItemView`），导致 `app.buttons[\"Insights\"]` 匹配到多个元素，XCUITest 拒绝执行 tap。",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "app.buttons",
+        "根因",
+        "ipad",
+        "floating",
+        "tab",
+        "bar",
+        "机制",
+        "按钮"
+      ]
+    },
+    "memory:memory/2026-04-27.md:12:14": {
+      "key": "memory:memory/2026-04-27.md:12:14",
+      "path": "memory/2026-04-27.md",
+      "startLine": 12,
+      "endLine": 14,
+      "source": "memory",
+      "snippet": "解决方案: 在 `MainTabBarController.swift` 给每个 TabBarItem 设置 `accessibilityIdentifier`：; `tab_journal`, `tab_insights`, `tab_growth`, `tab_settings`; XCUITest 用 `NSPredicate(format: \"identifier == %@\", identifier)` + `firstMatch` 精确匹配",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "maintabbarcontroller.swift",
+        "tab-journal",
+        "tab-insights",
+        "tab-growth",
+        "tab-settings",
+        "解决",
+        "方案",
+        "tabbaritem"
+      ]
+    },
+    "memory:memory/2026-04-27.md:17:17": {
+      "key": "memory:memory/2026-04-27.md:17:17",
+      "path": "memory/2026-04-27.md",
+      "startLine": 17,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "文件: 调试文档：`/root/.openclaw/workspace/ios-MindPal/AppStore/ScreenshotDebugMemo.md`",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "文件",
+        "root",
+        "openclaw",
+        "ios",
+        "mindpal",
+        "appstore",
+        "screenshotdebugmemo.md"
+      ]
+    },
+    "memory:memory/2026-04-27.md:24:27": {
+      "key": "memory:memory/2026-04-27.md:24:27",
+      "path": "memory/2026-04-27.md",
+      "startLine": 24,
+      "endLine": 27,
+      "source": "memory",
+      "snippet": "已测试 Key（全部 403 CREATE not allowed）: | Key ID | 类型 | 结果 | |--------|------|------| | 7QJ8VTF4TQ | App Management | ❌ 403 FORBIDDEN | | H3973L93M5 | App Management | ❌ 403 FORBIDDEN |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "测试",
+        "key",
+        "全部",
+        "create",
+        "not",
+        "allowed",
+        "类型",
+        "结果"
+      ]
+    },
+    "memory:memory/2026-04-27.md:28:28": {
+      "key": "memory:memory/2026-04-27.md:28:28",
+      "path": "memory/2026-04-27.md",
+      "startLine": 28,
+      "endLine": 28,
+      "source": "memory",
+      "snippet": "已测试 Key（全部 403 CREATE not allowed）: | PP57R568AX | App Management | ❌ 403 FORBIDDEN |",
+      "recallCount": 0,
+      "dailyCount": 2,
+      "groundedCount": 0,
+      "totalScore": 1.24,
+      "maxScore": 0.62,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "6c24d11cf4d7"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "测试",
+        "key",
+        "全部",
+        "create",
+        "not",
+        "allowed",
+        "pp57r568ax",
+        "app"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:13:13": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:13:13",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 13,
+      "endLine": 13,
+      "source": "memory",
+      "snippet": "Assistant: 已同步老爷的 MANDATORY 版本。 **本次更新内容：** | 文件 | 操作 | |------|------| | AGENTS.md | 替换为老爷的 MANDATORY 版本（表格化、明确要求） | | memory/2026-05-03.md | 更新为完整日志格式（包含本次所有操作） | | commit | `8b5c04f` — 同步老爷版 Memory Protocol | **核心规则已固化：** - ✅ Every session ends with mandatory memory writes - ✅",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "memory/2026-05-03.md",
+        "assistant",
+        "同步",
+        "老爷",
+        "mandatory",
+        "版本",
+        "本次"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:14:14": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:14:14",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 14,
+      "endLine": 14,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505d891100a0b4b3e91b972e3f0] ou_80ed67669d033510ee7cb5666c87c697: 将记忆系统提升n个层次，最好一步达到企业级最高水平，如果可能，要继续优化！！",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记忆",
+        "系统",
+        "提升",
+        "层次",
+        "最好",
+        "一步"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:15:15": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:15:15",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 15,
+      "endLine": 15,
+      "source": "memory",
+      "snippet": "Assistant: **记忆系统 v3.0 企业级最高水平升级完成！** ✅ --- **🆕 新增的核心文件（7个）：** | 文件 | 用途 | |------|------| | `memory/sessions/SESSIONS.md` | 会话轨迹记录（每次session完整记录） | | `memory/hot/HOT.md` | 热文件追踪（最近7天活跃文件） | | `memory/hot/accessed.txt` | 访问日志 | | `memory/search/INDEX.md` | 全局搜索索引（关键词→文件映射） | | `",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v3.0",
+        "memory/sessions/sessions.md",
+        "memory/hot/hot.md",
+        "memory/hot/accessed.txt",
+        "memory/search/index.md",
+        "assistant",
+        "记忆",
+        "系统"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:16:16": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:16:16",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 16,
+      "endLine": 16,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505da92094acb365af43566a30c] ou_80ed67669d033510ee7cb5666c87c697: 将记忆系统提升n个层次，最好一步达到企业级最高水平，如果可能，要继续优化！！",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记忆",
+        "系统",
+        "提升",
+        "层次",
+        "最好",
+        "一步"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:17:17": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:17:17",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 17,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "Assistant: **记忆系统 v4.0 企业级最高水平增强完成！** ✅ --- **🆕 新增核心模块（7个）：** | 模块 | 文件 | 用途 | |------|------|------| | 审计追踪 | `audit/AUDIT.md` | 完整性审计，所有文件追踪 | | 完整性检查 | `integrity/integrity_check.py` | 自动验证文件存在和MD5 | | 灾难恢复 | `recovery/RECOVERY.md` | 3种崩溃场景的紧急恢复方案 | | 实时监控 | `dashboard/DASHBO",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v4.0",
+        "audit/audit.md",
+        "integrity/integrity-check.py",
+        "recovery/recovery.md",
+        "dashboard/dashbo",
+        "assistant",
+        "记忆",
+        "系统"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:18:18": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:18:18",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 18,
+      "endLine": 18,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505db7589ca8b21990bc0f594b4] ou_80ed67669d033510ee7cb5666c87c697: 检查你的记忆系统的完善性，包括文档、脚本、工具、定时器、钩子等等是否都存在？，是否都可用？这是必备的强制性要求。 如果电脑突然断电了，你如何让记忆损失最小？",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "检查",
+        "你的",
+        "记忆",
+        "系统",
+        "完善",
+        "包括"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:19:19": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:19:19",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 19,
+      "endLine": 19,
+      "source": "memory",
+      "snippet": "Assistant: ✅ **所有检查通过！记忆系统完整性 100%** --- ## 📊 系统完整报告 | 检查项 | 数量 | 状态 | |--------|------|------| | 核心文件（MEMORY.md, AGENTS.md） | 2 | ✅ | | Memory 核心文件 | 9 | ✅ | | 项目文件（8个） | 8 | ✅ | | 决策文件（3个） | 3 | ✅ | | 脚本文件（Python + Bash） | 3 | ✅ | | 子目录 | 17 | ✅ | --- ## 🔒 关于断电保护的核心问题 你说得对，这是",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "agents.md",
+        "assistant",
+        "所有",
+        "检查",
+        "通过",
+        "记忆",
+        "系统"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:20:20": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:20:20",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 20,
+      "endLine": 20,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 记忆系统完善性检查完成！** --- ## 📋 检查结果（2026-05-03 09:14 验证） ### 核心文件检查 | 文件 | 状态 | MD5 | |------|------|-----| | MEMORY.md | ✅ | 173cdee7f9fb | | AGENTS.md | ✅ | 83051c3868ef | | INDEX.md | ✅ | 62ccda9333ca | | ARCHITECTURE.md | ✅ | 0abb40bd12ba | | 2026-05-03.md | ✅ | 948f",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "agents.md",
+        "index.md",
+        "architecture.md",
+        "assistant",
+        "记忆",
+        "系统",
+        "完善"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:21:21": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:21:21",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 21,
+      "endLine": 21,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505e45db7cb0b37a9d9b2ab9b31] ou_80ed67669d033510ee7cb5666c87c697: 将记忆系统提升n个层次，最好一步达到AI企业级最高水平，如果可能，要继续优化！！",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记忆",
+        "系统",
+        "提升",
+        "层次",
+        "最好",
+        "一步"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:22:22": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:22:22",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 22,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "Assistant: **记忆系统 v5.0 AI Enterprise Level 完成！** ✅ --- ## 🆕 新增 AI 功能（共8个） | 功能 | 文件 | 用途 | |------|------|------| | 知识图谱 | `knowledge_graph/GRAPH.md` | 项目关系可视化、影响链追踪 | | AI推理引擎 | `knowledge_graph/inference.py` | 状态查询、异常检测、智能建议 | | 主动提醒 | `alerts/ALERTS.md` | 项目状态变化、定时提醒 | | 提醒管理",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "v5.0",
+        "knowledge-graph/graph.md",
+        "knowledge-graph/inference.py",
+        "alerts/alerts.md",
+        "assistant",
+        "记忆",
+        "系统",
+        "enterprise"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:23:23": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:23:23",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 23,
+      "endLine": 23,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505e6c1904a0b3dd6f48d91d0ce] ou_80ed67669d033510ee7cb5666c87c697: 还有每隔2个小时，就应该尽快对记忆系统做全面检查，回忆过去24-48小时，都有哪些事情没有被记忆，要自动补充及修复记忆。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "回忆过去24-48小时",
+        "user",
+        "还有",
+        "每隔",
+        "小时",
+        "就应该",
+        "尽快"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:24:24": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:24:24",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 24,
+      "endLine": 24,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 每2小时健康检查机制已部署！** --- ## 🆕 新增定时任务 | 任务 | 频率 | 脚本 | 状态 | |------|------|------|------| | 健康检查 | 每2小时 | `.cron/health_check.py` | ✅ 已验证运行 | | Runner | 包装器 | `.cron/health_check_runner.sh` | ✅ 语法正确 | --- ## 🔍 健康检查功能 **检查范围**: 过去 24-48 小时 **检查项目**: 1. ✅ 每日日记 — 检查 YYYY",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "cron/health-check.py",
+        "cron/health-check-runner.sh",
+        "24-48",
+        "assistant",
+        "小时",
+        "健康",
+        "检查",
+        "机制"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:1:1": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:1:1",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 1,
+      "endLine": 1,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bc283290a0b2bf9ee85003529] ou_80ed67669d033510ee7cb5666c87c697: 在？",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:2:2": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:2:2",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 2,
+      "endLine": 2,
+      "source": "memory",
+      "snippet": "Assistant: 在的！有什么可以帮你的？",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T11:43:18.138Z",
+      "lastRecalledAt": "2026-05-04T11:43:18.138Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "什么",
+        "可以",
+        "你的"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:25:25": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:25:25",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 25,
+      "endLine": 25,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505ec8dfb8a4b2079790da497bd] ou_80ed67669d033510ee7cb5666c87c697: 现在，4月29日-5月2日，哪天缺少记忆的，告诉我一下",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "4月29日-5月2日",
+        "user",
+        "现在",
+        "缺少",
+        "记忆",
+        "告诉",
+        "一下"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:26:26": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:26:26",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 26,
+      "endLine": 26,
+      "source": "memory",
+      "snippet": "Assistant: **📊 记忆缺失检查结果** | 日期 | 状态 | 说明 | |------|------|------| | 2026-04-29 | ✅ 有内容 | DailyIQ SOP 复盘审查报告 | | 2026-04-30 | ❌ **完全不存在** | 需老爷补充 | | 2026-05-01 | ⚠️ 空白模板 | 健康检查自动创建，待补充内容 | | 2026-05-02 | ⚠️ 空白模板 | 健康检查自动创建，待补充内容 | | 2026-05-03 | ✅ 有内容 | 今天，系统正常运行 | --- **🟡 需补充的",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "记忆",
+        "缺失",
+        "检查",
+        "结果",
+        "日期",
+        "状态",
+        "说明"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:27:27": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:27:27",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 27,
+      "endLine": 27,
+      "source": "memory",
+      "snippet": "User: [media attached: /root/.openclaw/media/inbound/Elon_Muskè_å_è_å½_20260429-20260502---ef1adf14-1fbb-4d19-baa5-b243553875c6 (application/octet-stream) | /root/.openclaw/media/inbound/Elon_Muskè_å_è_å½_20260429-20260502---ef1adf14-1fbb-4d19-baa5-b243553875c6] To send an image",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "application/octet-stream",
+        "user",
+        "media",
+        "attached",
+        "root",
+        "openclaw",
+        "inbound",
+        "elon-muskè-å-è-å"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:28:28": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:28:28",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 28,
+      "endLine": 28,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 历史记忆已全部补全！** --- ## 📊 恢复结果 | 日期 | 状态 | 关键事件 | |------|------|----------| | 2026-04-29 | ✅ 已恢复 | UstiaGo提交审核、DailyIQ开发中、App数量从18→19 | | 2026-04-30 | ✅ 已恢复 | DailyIQ审核通过、双子星新增4个App、App总数24个 | | 2026-05-01 | ✅ 已恢复 | 三笔还款已还、每小时App汇报定时任务创建 | | 2026-05-02 | ✅ 已恢复 | 日常还款",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "历史",
+        "记忆",
+        "全部",
+        "恢复",
+        "结果",
+        "日期",
+        "状态"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:29:29": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:29:29",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 29,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505fbc166474c451a5b9322be05] ou_80ed67669d033510ee7cb5666c87c697: 把还款记录删除掉，这不应该是你的聊天记录",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记录",
+        "删除",
+        "应该",
+        "你的",
+        "聊天"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:30:30": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:30:30",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 30,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 已删除** 2026-04-29 ~ 2026-05-02 的日记已更新为**纯App项目摘要**，移除了所有还款记录。 现在日记内容： - 每日App项目数量统计 - 新增/更新的App列表 - 定时任务设置情况 不含任何个人还款/财务信息。 已 commit: `4788d17`",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "新增/更新的app列表",
+        "不含任何个人还款/财务信息",
+        "assistant",
+        "删除",
+        "日记",
+        "更新",
+        "app",
+        "项目"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:31:31": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:31:31",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 31,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505893ebc8a4c4ec197841b58ec] ou_80ed67669d033510ee7cb5666c87c697: 还有和本地的以 ios 开头的项目比对，删除没有比对上的记录",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "还有",
+        "本地",
+        "ios",
+        "开头",
+        "项目",
+        "比对"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:32:32": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:32:32",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 32,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 清理完成** 对比本地 `ios-*` 目录与日记记录，删除了不存在项目的记录： **已删除（不存在的项目）：** - PetMatchAI, PlantPal, WealthPulse, SleepBetter, MealSnap - EQBoostAI, CatWiseAI, PawPals, FeatherFriends, DreamoraAiPro, PetHabit - StepQuest, FocusMusic, QuietBox, WaterDrinks, RandomPicker, DailyGratitud",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "清理",
+        "完成",
+        "对比",
+        "本地",
+        "ios",
+        "目录",
+        "日记"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:33:33": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:33:33",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 33,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50596af388a8c43c6d4e92ac605] ou_80ed67669d033510ee7cb5666c87c697: 在空闲这个时候，想想开发下一款全新的 App。 AI，平行，量子，反骨，逆向， 猎奇，工具，搞笑，幽默，未来，梦幻，破案，解密，破解，养成，对比，… 等等方面，越好玩越好。别忘了我们的 App 主要面向的是欧美客户 大部分青少年、青年、中年。 别忘了重新读取 SOP-iOS-AppStore-Launch.md 文档。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "sop-ios-appstore-launch.md",
+        "user",
+        "空闲",
+        "这个",
+        "时候",
+        "想想",
+        "开发"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:34:34": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:34:34",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 34,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "Assistant: **✅ SOP 已读取** 现在让我基于你的关键词生成几个创意方案，供你审核： --- ## 🎯 App 创意方案（面向欧美青少年/青年/中年） ### 方案 1：ParadoxAI — AI 悖论挑战 **概念**：用户提出任何问题/观点，AI 会从\"相反角度\"给出令人惊讶的反驳，同时展示\"平行思维\"——让你看到问题的另一面。 **核心玩法**： - 🔄 **悖论生成器** — 输入任何观点，AI 生成完全对立的论点 - 🧠 **平行思维图** — 可视化展示两种对立观点的思维导图 - ⚖️ **自我辩论赛** — AI 同",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "面向欧美青少年/青年/中年",
+        "用户提出任何问题/观点",
+        "assistant",
+        "sop",
+        "现在",
+        "基于",
+        "你的",
+        "关键"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:35:35": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:35:35",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 35,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505978b04ca0c2b6df24413743c] ou_80ed67669d033510ee7cb5666c87c697: 把你这些创意要写入到一个专门的文件中",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "这些",
+        "创意",
+        "要写",
+        "一个",
+        "专门",
+        "文件"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:36:36": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:36:36",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 36,
+      "endLine": 36,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 已保存到 `CREATIVE_IDEAS.md`** ``` commit a9839af feat: CREATIVE_IDEAS.md — App创意提案文件 ``` 文件内容包含： - 5个完整创意方案（ParadoxAI / MindWeaver / ReverseWorld / CipherCrack / EgoShift） - 每个方案的玩法、为什么好玩、预估功能数、开发难度 - 功能数量评估表 - 下一步操作流程 等待老爷选择一个方案，我将生成图标概念图供审核。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "creative-ideas.md",
+        "assistant",
+        "保存",
+        "commit",
+        "a9839af",
+        "feat",
+        "app",
+        "创意"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:3:3": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:3:3",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 3,
+      "endLine": 3,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bc25820788b37fa47830767cb] ou_80ed67669d033510ee7cb5666c87c697: 你现在都负责哪些项目？",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "现在",
+        "负责",
+        "哪些",
+        "项目"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:4:4": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:4:4",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 4,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "Assistant: 目前负责 **8 个 iOS App 项目**，全部是独立开发： | 项目 | Bundle ID | 状态 | 下一步 | |------|-----------|------|--------| | **DailyIQ** | com.ggsheng.DailyIQ | ✅ 已上架审核通过 | 🎉 线上 | | **ios-JustZenGo** | com.ggsheng.JustZen | ✅ 已提交审核 | 等待审核 | | **FakeChat** | com.ggsheng.FakeChat | ✅ BUILD通过",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "com.ggsheng.dailyiq",
+        "ios-justzengo",
+        "com.ggsheng.justzen",
+        "com.ggsheng.fakechat",
+        "assistant",
+        "目前",
+        "负责",
+        "ios"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:5:5": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:5:5",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 5,
+      "endLine": 5,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bcc9a054a8b22e05050d696a6] ou_80ed67669d033510ee7cb5666c87c697: JustZenGo 是 Page 负责的，你把JustZenGo项目，从你本地删除吧",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "justzengo",
+        "page",
+        "负责",
+        "项目",
+        "本地",
+        "删除"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:6:6": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:6:6",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 6,
+      "endLine": 6,
+      "source": "memory",
+      "snippet": "Assistant: 明白！不过先确认一下 — JustZenGo 的代码是存在 MacinCloud 云 Mac 和 GitHub 上的，我的 workspace 只是 agent 配置文件，不放 iOS 项目源码。 你是想让我从 **MacinCloud** 上删除，还是从 **GitHub** 上删除？请确认一下目标，我来执行。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "明白",
+        "不过",
+        "确认",
+        "一下",
+        "justzengo",
+        "代码",
+        "存在"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:7:7": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:7:7",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 7,
+      "endLine": 7,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bcc31af4acb25230dae81389c] ou_80ed67669d033510ee7cb5666c87c697: MacinCloud 和 GitHub 坚决不允许你删除。你只删除你本地的JustZenGo项目",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "macincloud",
+        "github",
+        "坚决",
+        "允许",
+        "删除",
+        "本地"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:8:8": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:8:8",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 8,
+      "endLine": 8,
+      "source": "memory",
+      "snippet": "Assistant: 已删除！同时更新一下 MEMORY.md 记录。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "memory.md",
+        "assistant",
+        "删除",
+        "同时",
+        "更新",
+        "一下",
+        "记录"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:9:9": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:9:9",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 9,
+      "endLine": 9,
+      "source": "memory",
+      "snippet": "Assistant: 已删除！本地 `ios-JustZenGo` 目录已移除，MEMORY.md 也已更新（删除了 JustZenGo 条目）。 MacinCloud 和 GitHub 保持不变。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "ios-justzengo",
+        "memory.md",
+        "assistant",
+        "删除",
+        "本地",
+        "ios",
+        "justzengo",
+        "目录"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:10:10": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:10:10",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 10,
+      "endLine": 10,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bcdd78b8a0b2dddcea4341e74] ou_80ed67669d033510ee7cb5666c87c697: HabitGo 也是 Page 负责的，和JustZenGo项目一样的处理方式。MacinCloud 和 GitHub 坚决不允许你删除。你只删除你本地的HabitGo项目",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "habitgo",
+        "也是",
+        "page",
+        "负责",
+        "justzengo",
+        "项目"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:11:11": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:11:11",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 11,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "Assistant: 搞定！本地 `ios-HabitGo` 已删除，MEMORY.md 已更新。MacinCloud 和 GitHub 保持不变。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "ios-habitgo",
+        "memory.md",
+        "assistant",
+        "搞定",
+        "本地",
+        "ios",
+        "habitgo",
+        "删除"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:12:12": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:12:12",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 12,
+      "endLine": 12,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50bd1d25c8acb4bbdf52ecd435f] ou_80ed67669d033510ee7cb5666c87c697: UstiaGo 也是 Page 负责的，和JustZenGo项目一样的处理方式。MacinCloud 和 GitHub 坚决不允许你删除。你只删除你本地的UstiaGo项目",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "ustiago",
+        "也是",
+        "page",
+        "负责",
+        "justzengo",
+        "项目"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-04.txt:13:13": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-04.txt:13:13",
+      "path": "memory/.dreams/session-corpus/2026-05-04.txt",
+      "startLine": 13,
+      "endLine": 13,
+      "source": "memory",
+      "snippet": "Assistant: 搞定！本地 `ios-UstiaGo` 已删除，MEMORY.md 已更新。 现在我本地只保留 **4 个项目**： - DailyIQ ✅ - FakeChat - ios-MindPal - ios-StretchFlow - ios-LuminaHealth JustZenGo、HabitGo、UstiaGo 三个已删除（Page 负责），MacinCloud 和 GitHub 保留不变。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "4d9d9fab6a07"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "ios-ustiago",
+        "memory.md",
+        "ios-mindpal",
+        "ios-stretchflow",
+        "ios-luminahealth",
+        "assistant",
+        "搞定",
+        "本地"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:37:37": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:37:37",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 37,
+      "endLine": 37,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50590f6a90a0c33cd35b9f7bda3] ou_80ed67669d033510ee7cb5666c87c697: 选第二个",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "第二个"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:38:38": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:38:38",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 38,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "Assistant: 好的，**MindWeaver — 思维编织器**。 让我生成图标概念（1024×1024 PNG）：",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "好的",
+        "mindweaver",
+        "思维",
+        "编织",
+        "生成",
+        "概念",
+        "png"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:39:39": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:39:39",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 39,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "Assistant: image-1---8fa8087a-af65-4e34-a052-53c7e9e105fe.png",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "image-1",
+        "assistant",
+        "image",
+        "8fa8087a",
+        "af65",
+        "4e34",
+        "a052",
+        "53c7e9e105fe.png"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:40:40": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:40:40",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 40,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 图标方案已发送** 已选择 **MindWeaver — 思维编织器**，图标概念图已发送到飞书。 设计理念：神秘的大脑由发光丝线编织而成，紫色+青色的神经网络，象征\"思维编织\"的概念。 请老爷审核图片是否满意，或需要调整风格/生成其他方案。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "网络",
+        "或需要调整风格/生成其他方案",
+        "assistant",
+        "方案",
+        "发送",
+        "选择",
+        "mindweaver",
+        "思维"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:41:41": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:41:41",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 41,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b50590602bcacc450caa6b258d56] ou_80ed67669d033510ee7cb5666c87c697: 要记住，每次把你的这些新创意都要写入到同一个专门的文件中。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "记住",
+        "每次",
+        "你的",
+        "这些",
+        "创意",
+        "都要"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:42:42": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:42:42",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 42,
+      "endLine": 42,
+      "source": "memory",
+      "snippet": "Assistant: **✅ 已更新 AGENTS.md** 新增规则： ``` #### 📝 New Creative Ideas Rule Whenever I generate new App creative ideas: 1. Always write to CREATIVE_IDEAS.md — the single source of truth 2. Never keep ideas only in memory — write before presenting 3. Update existing file — do not cre",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "creative-ideas.md",
+        "assistant",
+        "更新",
+        "新增",
+        "规则",
+        "new",
+        "creative"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:43:43": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:43:43",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 43,
+      "endLine": 43,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505a215184a8c49489730edfe11] ou_80ed67669d033510ee7cb5666c87c697: 图标方案不通过",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "方案",
+        "通过"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:44:44": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:44:44",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 44,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "Assistant: image-1---6e71feb2-691d-4f26-be1c-55e3724b79b5.png",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "image-1",
+        "assistant",
+        "image",
+        "6e71feb2",
+        "691d",
+        "4f26",
+        "be1c",
+        "55e3724b79b5"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:45:45": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:45:45",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 45,
+      "endLine": 45,
+      "source": "memory",
+      "snippet": "Assistant: **方案2 已发送** ✨ 新的设计方向：金色丝线 + 水晶大脑 + 宇宙背景 请老爷审核，不满意可以继续调整。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "方案",
+        "发送",
+        "新的",
+        "设计",
+        "方向",
+        "金色",
+        "水晶"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:46:46": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:46:46",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 46,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "User: [message_id: om_x100b505bd787d4a4c35de159cc2a6ba] ou_80ed67669d033510ee7cb5666c87c697: 继续",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "message-id",
+        "user",
+        "继续"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:47:47": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:47:47",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 47,
+      "endLine": 47,
+      "source": "memory",
+      "snippet": "Assistant: image-1---e7da3cc3-a895-42cc-b17f-f0de828f6b17.png",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "image-1",
+        "assistant",
+        "image",
+        "e7da3cc3",
+        "a895",
+        "42cc",
+        "b17f",
+        "f0de828f6b17"
+      ]
+    },
+    "memory:memory/.dreams/session-corpus/2026-05-03.txt:48:48": {
+      "key": "memory:memory/.dreams/session-corpus/2026-05-03.txt:48:48",
+      "path": "memory/.dreams/session-corpus/2026-05-03.txt",
+      "startLine": 48,
+      "endLine": 48,
+      "source": "memory",
+      "snippet": "Assistant: **方案3 已发送** — 极光编织风格 请审核，如仍不满意我会继续生成其他方向。",
+      "recallCount": 0,
+      "dailyCount": 1,
+      "groundedCount": 0,
+      "totalScore": 0.58,
+      "maxScore": 0.58,
+      "firstRecalledAt": "2026-05-04T19:00:01.051Z",
+      "lastRecalledAt": "2026-05-04T19:00:01.051Z",
+      "queryHashes": [
+        "b2bd51325196"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "assistant",
+        "方案",
+        "发送",
+        "极光",
+        "编织",
+        "风格",
+        "审核",
+        "满意"
       ]
     }
   }

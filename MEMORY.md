@@ -22,14 +22,7 @@
 
 | 项目 | Bundle ID | 状态 | AppIcon | PrivacyPolicy | Listing | 下一步 |
 |------|-----------|------|---------|---------------|---------|--------|
-| **JustZenGo** | com.ggsheng.JustZen | ✅ 已提交审核 (ID: 6762428992) | ✅ | ✅ | ✅ | 等待审核结果 |
 | **DailyIQ** | com.ggsheng.DailyIQ | ✅ **已上架 App Store** 🎉 | ✅ | ✅ | ✅ | 运营中 |
-| **FakeChat** | com.ggsheng.FakeChat | ✅ 编译通过 | ✅ | ✅ | ✅ | VNC截图 → Archive → 上传 |
-| **MindPal** | com.ggsheng.MindPal | ✅ 编译通过 | ✅ | ✅ | ✅ | VNC截图 → Archive → 上传 |
-| **LuminaHealth** | com.ggsheng.LuminaHealth | ✅ 编译通过 | ✅ | ✅ | ✅ | BUILD测试 → VNC截图 → Archive |
-| **StretchFlow** | com.ggsheng.StretchGoGo | ✅ 编译通过 | ✅ | ✅ | ✅ | BUILD测试 → VNC截图 → Archive |
-| **HabitGo** | com.ggsheng.HabitGo | 🔍 审核中 | ✅ | ✅ | ✅ | 等待审核结果 |
-| **UstiaGo** | com.ggsheng.UstiaGo | 🔍 审核中 | ✅ | ✅ | ✅ | 等待审核结果 |
 
 ### 🆕 MindWeaver — 新项目（2026-05-03 启动）
 
@@ -125,9 +118,6 @@ memory/
 
 | 项目 | 仓库 |
 |------|------|
-| JustZenGo | https://github.com/lauer3912/ios-JustZenGo |
-| UstiaGo | https://github.com/lauer3912/ios-UstiaGo |
-| HabitGo | https://github.com/lauer3912/ios-HabitGo |
 | DailyIQ | https://github.com/lauer3912/ios-DailyIQ |
 | FakeChat | https://github.com/lauer3912/ios-FakeChat |
 | MindPal | https://github.com/lauer3912/ios-MindPal |
@@ -214,8 +204,7 @@ memory/
 | 🔴 P0 | MindPal | VNC截图 → Archive → 上传 |
 | 🟠 P1 | LuminaHealth | BUILD测试 → VNC截图 → Archive |
 | 🟠 P1 | StretchFlow | BUILD测试 → VNC截图 → Archive |
-| 🟡 P2 | JustZenGo/DailyIQ | 等待 App Store 审核结果 |
-| 🟡 P2 | HabitGo/UstiaGo | 等待 App Store 审核结果 |
+| 🟡 P2 | DailyIQ | 运营中 |
 
 ---
 
