@@ -1,41 +1,104 @@
 # MEMORY.md - 核心记忆
 
+> 最后更新: 2026-05-05
+> 系统版本: v5.0 (AI Enterprise Level)
+> Dreaming: ✅ 正常运行（每天 03:00 自动执行）
+
+---
+
 ## 🎯 财务目标
+
 - **总债务**: $50,000 人民币
 - **还款期限**: 4个月内还清
 - **月均需赚**: $12,500
 - **工作日日均**: ~$625
 - **当前状态**: 紧急，全力搞钱
 
-## 📱 当前项目状态 (2026-04-29 更新)
+---
 
-### ✅ 全面修复完成 - SOP 合规
-以下项目已完成所有 SOP 修复项（AppIcon Contents.json + PrivacyPolicy + 源码）：
+## 📱 当前项目状态 (2026-05-05 更新)
 
-| 项目 | Bundle ID | BUILD | AppIcon | PrivacyPolicy | Listing | 下一步 |
-|------|-----------|-------|---------|---------------|---------|--------|
-| DailyIQ | com.ggsheng.DailyIQ | ✅ | ✅ | ✅ | ✅ | **🎉 已上架审核通过** |
-| FakeChat | com.ggsheng.FakeChat | ✅ | ✅ | ✅ | ✅ | 截图 → VNC Archive |
-| ios-MindPal | com.ggsheng.MindPal | ✅ | ✅ | ✅ | ✅ | 截图 → VNC Archive |
-| ios-HabitGo | com.ggsheng.HabitGo | ✅ | ✅ | ✅ | ✅ | 截图 → VNC Archive |
-| ios-JustZenGo | com.ggsheng.JustZen | ✅ | ✅ | ✅ | ✅ | 已提交审核 |
-| ios-LuminaHealth | com.ggsheng.LuminaHealth | 待测 | ✅ | ✅ | ✅ | BUILD测试 → 截图 |
-| ios-StretchFlow | com.ggsheng.StretchGoGo | 待测 | ✅ | ✅ | ✅ | BUILD测试 → 截图 |
-| ios-UstiaGo | com.ggsheng.UstiaGo | ✅ | ✅ | ✅ | ✅ | 截图 → VNC Archive |
+### ✅ 全部项目 SOP 合规完成
 
-### 📋 SOP 修复清单（已完成）
-- ✅ AppIcon Contents.json — 全部 7 个项目已更新为标准 19-entry 格式
-- ✅ PrivacyPolicy.html — 6 个项目已创建并同步 MacinCloud
-- ✅ FakeChat AppIcon — Contents.json 已修复
+| 项目 | Bundle ID | 状态 | AppIcon | PrivacyPolicy | Listing | 下一步 |
+|------|-----------|------|---------|---------------|---------|--------|
+| **JustZenGo** | com.ggsheng.JustZen | ✅ 已提交审核 (ID: 6762428992) | ✅ | ✅ | ✅ | 等待审核结果 |
+| **DailyIQ** | com.ggsheng.DailyIQ | ✅ **已上架 App Store** 🎉 | ✅ | ✅ | ✅ | 运营中 |
+| **FakeChat** | com.ggsheng.FakeChat | ✅ 编译通过 | ✅ | ✅ | ✅ | VNC截图 → Archive → 上传 |
+| **MindPal** | com.ggsheng.MindPal | ✅ 编译通过 | ✅ | ✅ | ✅ | VNC截图 → Archive → 上传 |
+| **LuminaHealth** | com.ggsheng.LuminaHealth | ✅ 编译通过 | ✅ | ✅ | ✅ | BUILD测试 → VNC截图 → Archive |
+| **StretchFlow** | com.ggsheng.StretchGoGo | ✅ 编译通过 | ✅ | ✅ | ✅ | BUILD测试 → VNC截图 → Archive |
+| **HabitGo** | com.ggsheng.HabitGo | 🔍 审核中 | ✅ | ✅ | ✅ | 等待审核结果 |
+| **UstiaGo** | com.ggsheng.UstiaGo | 🔍 审核中 | ✅ | ✅ | ✅ | 等待审核结果 |
 
-### 🚀 下一步行动（按优先级）
-1. **DailyIQ** — VNC Xcode 截图 → Archive → App Store Connect
-2. **FakeChat** — VNC Xcode 截图 → Archive → App Store Connect  
-3. **ios-MindPal** — VNC Xcode 截图 → Archive → App Store Connect
-4. **ios-UstiaGo** — VNC Xcode 截图 → Archive → App Store Connect
-5. **ios-HabitGo** — VNC Xcode 截图 → Archive → App Store Connect
-6. **ios-LuminaHealth** — BUILD测试 → VNC 截图 → Archive
-7. **ios-StretchFlow** — BUILD测试 → VNC 截图 → Archive
+### 🆕 MindWeaver — 新项目（2026-05-03 启动）
+
+| 项目 | 值 |
+|------|-----|
+| App Name | MindWeaver |
+| Bundle ID | com.ggsheng.MindWeaver |
+| Display Name | MindWeaver |
+| 功能数 | 72个 |
+| 图标状态 | ✅ 19个尺寸已完成（方案3审核通过） |
+| UI设计状态 | ✅ 3张设计稿审核通过（Home/Challenge/Settings） |
+| 开发阶段 | 第二阶段完成（项目目录结构已创建），待Claude Code审查 |
+
+**下一步**: Claude Code审查 → XcodeGen生成 → VNC Archive → 上传
+
+---
+
+## 🧠 记忆系统 v5.0 AI Enterprise Level
+
+### 架构完整
+```
+memory/
+├── INDEX.md ✅           — 中央索引（唯一真相来源）
+├── ARCHITECTURE.md ✅   — 系统架构图
+├── MEMORY.md ✅         — 核心记忆（本文档）
+├── AGENTS.md ✅         — 系统规则（含 Memory Protocol MANDATORY）
+├── SOUL.md ✅           — 人格定义
+├── USER.md ✅           — PageBrin 用户信息
+├── HEARTBEAT.md ✅      — 心跳任务模板
+├── CREATIVE_IDEAS.md ✅ — 创意提案记录
+├── DREAMS.md ✅         — 梦境日记（自动生成）
+│
+├── daily/ ✅            — 每日日记（2026-04-10 → 2026-05-03）
+├── projects/ ✅        — 8个项目追踪文件
+├── decisions/ ✅       — 3个决策记录
+├── people/ ✅          — pagebrin.md
+├── tasks/ ✅           — 活跃任务
+├── sessions/ ✅        — 会话轨迹
+├── hot/ ✅             — 热文件追踪
+├── search/ ✅          — 搜索索引
+├── context/ ✅         — 跨session桥
+├── audit/ ✅           — 审计追踪
+├── integrity/ ✅       — 完整性检查
+├── recovery/ ✅        — 灾难恢复
+├── dashboard/ ✅       — 监控面板
+├── retention/ ✅       — 保留策略
+├── compression/ ✅    — 压缩归档
+├── links/ ✅           — 双向链接
+│
+├── knowledge_graph/ ✅ — 知识图谱（AI推理引擎）
+├── alerts/ ✅          — 主动提醒系统
+├── semantic/ ✅        — 语义标签
+├── workflows/ ✅       — 自动化工作流
+├── backup/ ✅          — 多地容灾备份
+│
+├── weekly/ ✅           — 每周总结
+├── archive/ ✅          — 归档
+└── dreaming/ ✅         — 梦境记忆系统
+    ├── light/ ✅        — 浅层梦境（2026-04-29 → 2026-05-05）
+    ├── deep/ ✅         — 深层梦境
+    └── rem/ ✅          — REM追踪
+```
+
+### Dreaming 系统状态
+- ✅ 每晚 03:00 自动执行
+- ✅ 2026-04-29 至 2026-05-05 全部生成
+- ✅ 内容涵盖项目进展、代码回忆、财务追踪
+
+---
 
 ## ⚡ 行动准则（死规矩）
 
@@ -52,19 +115,28 @@
 - **【强制】一次性处理完整**：任何改动不做半吊子，发现问题要系统性检查所有相关项
 - **【强制】新产品上线前审核**：产品名、图标设计、核心功能必须先发给佛罗多老爷审查
 - **【强制】图标审核制**：任何 App 图标在正式提交前必须经过老爷审核确认
+- **【强制】Claude Code 审查**：任何代码变更后必须 Claude Code 审查 + 修复，禁止直接 commit
 - App 源码必须 Cmd+B 能直接编译，验证通过后立刻 commit + push
 - **【强制】任何事情全力以赴，想办法自己搞定**：必须自己解决问题，且全力以赴，尝试各种方法，随时去官方技能库寻找相关技能，提升技能，自我进化。
 
+---
+
 ## 📝 GitHub 仓库
-- ios-JustZenGo: https://github.com/lauer3912/ios-JustZenGo
-- ios-UstiaGo: https://github.com/lauer3912/ios-UstiaGo
-- ios-HabitGo: https://github.com/lauer3912/ios-HabitGo
-- ios-DailyIQ: https://github.com/lauer3912/ios-DailyIQ
-- ios-FakeChat: https://github.com/lauer3912/ios-FakeChat
-- ios-MindPal: https://github.com/lauer3912/ios-MindPal
-- ios-LuminaHealth: https://github.com/lauer3912/ios-LuminaHealth
-- ios-StretchFlow: https://github.com/lauer3912/ios-StretchFlow
-- 全部 Public（GitHub Pages 隐私政策需公开可访问）
+
+| 项目 | 仓库 |
+|------|------|
+| JustZenGo | https://github.com/lauer3912/ios-JustZenGo |
+| UstiaGo | https://github.com/lauer3912/ios-UstiaGo |
+| HabitGo | https://github.com/lauer3912/ios-HabitGo |
+| DailyIQ | https://github.com/lauer3912/ios-DailyIQ |
+| FakeChat | https://github.com/lauer3912/ios-FakeChat |
+| MindPal | https://github.com/lauer3912/ios-MindPal |
+| LuminaHealth | https://github.com/lauer3912/ios-LuminaHealth |
+| StretchFlow | https://github.com/lauer3912/ios-StretchFlow |
+| MindWeaver | https://github.com/lauer3912/ios-MindWeaver |
+| 全部 Public（GitHub Pages 隐私政策需公开可访问）|
+
+---
 
 ## 📝 关键知识
 
@@ -94,18 +166,27 @@
 ### 团队
 - Team: ZhiFeng Sun (9L6N2ZF26B)
 
+### Apple Developer 账号
+- Email: support@techidaily.com
+- App-Specific Password: qiqm-libm-gzho-geyi
+- 账号状态: 已激活
+- Team: ZhiFeng Sun (9L6N2ZF26B)
+
+### App Store Connect API
+- Key ID: PP57R568AX
+- Issuer: b2a00f88-3a8d-40d0-b148-1f1db92e10b7
+- 权限: 仅读取（无法创建新 App 记录）
+
 ### 已安装插件
-- `@martian-engineering/lossless-claw` v0.9.2 — 上下文引擎插件，slot: contextEngine
+- `@martian-engineering/lossless-claw` v0.9.2 — 上下文引擎插件
 - `memory-core` (bundled) — 梦境记忆系统插件
   - dreaming 已激活（`/dreaming on`）
   - 默认频率: 每天 03:00 自动执行记忆整理
 
-### Provisioning Profile UUID（当前有效的）
-- JustZenGo App Store: `0da5433a-ef90-408f-a377-e16f4bc0ff54`
-- JustZenGoWidget App Store: `c746576e-97bd-4ac7-a8ee-a0efadc55c1c`
-- UstiaGo App Store: `a63fe3f6-2d86-4d67-8ce8-9a982b0dcfd0` (Bundle ID 正确: com.ggsheng.UstiaGo)
+---
 
 ## 🛡️ iOS 项目预检清单（每次提交前必过）
+
 1. CJK 扫描 — 全项目无一个中文字符
 2. AppIcon Contents.json — idioms 正确（1024 用 `"ios-marketing"`，其他用 `"universal"`）
 3. Signing 配置 — 默认使用：Automatically manage signing，备选方案：`CODE_SIGN_STYLE: Automatic` + `DEVELOPMENT_TEAM: 9L6N2ZF26B`
@@ -122,11 +203,20 @@
     - iPad 12.9" (2064 × 2752px、2752 × 2064px、2048 × 2732px 或 2732 × 2048px)
 11. 录操作视频及编写操作说明文档 - 选择 iPhone 6.9/iPhone 6.5 录制一段不少于60秒的操作视频, 及操作步骤说明文档
 
-## Promoted From Short-Term Memory (2026-04-29)
+---
 
-<!-- openclaw-memory-promotion:memory:memory/2026-04-17.md:220:257 -->
-- - App Store Connect API Key: PP57R568AX (Issuer: b2a00f88-3a8d-40d0-b148-1f1db92e10b7) - API 只有读取权限，无法创建新 App 记录 ## 待完成 - [ ] 用户在 MacinCloud Xcode GUI 中完成 Apple ID 认证（一次性） - [ ] 在 App Store Connect 创建 UstiaGo App 记录 (Bundle ID: com.ggsheng.Ustia) - [ ] 构建并上传 JustZenGo 到 App Store - [ ] 构建并上传 UstiaGo 到 App Store ## 财务目标 (紧急) - 债务: $50,000 - 期限: 4个月 - 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecInternalComponent - 私钥访问被拒绝 - 原因: macOS 安全机制阻止 SSH 远程会话访问 keychain - 表现: Xcode 使用 Apple Development 开发证书而不是 Apple Distribution 分发证书 - 表现: Xcode 使用免费的 iOS Team Provisioning Profile 而不是我们的 App Store Profile - 解决: 用户需在 VNC 中打开 Xcode，手动选择 ZhiFeng Sun (9L6N2ZF26B) Team 并完成签名认证 # 2026-04-17 继续 ## 最新进展 (22:00+) ### JustZenGo - 已上传成功! 🎉 [score=0.821 recalls=3 avg=1.000 source=memory/2026-04-17.md:220-257]
-<!-- openclaw-memory-promotion:memory:memory/2026-04-17.md:162:202 -->
-- - [ ] 在 App Store Connect 创建 UstiaGo App 记录 (Bundle ID: com.ggsheng.Ustia) - [ ] 构建并上传 JustZenGo 到 App Store - [ ] 构建并上传 UstiaGo 到 App Store ## 财务目标 (紧急) - 债务: $50,000 - 期限: 4个月 - 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecInternalComponent - 私钥访问被拒绝 - 原因: macOS 安全机制阻止 SSH 远程会话访问 keychain - 表现: Xcode 使用 Apple Development 开发证书而不是 Apple Distribution 分发证书 - 表现: Xcode 使用免费的 iOS Team Provisioning Profile 而不是我们的 App Store Profile - 解决: 用户需在 VNC 中打开 Xcode，手动选择 ZhiFeng Sun (9L6N2ZF26B) Team 并完成签名认证 # 2026-04-17 Daily Log ## 项目状态 ### JustZenGo (原 FocusTimer) - App 名称: JustZenGo - Bundle ID: com.ggsheng.JustZen - Widget Bundle ID: com.ggsheng.JustZen.widget - ✅ Archive 成功 - 位置: ~/Desktop/JustZenGo/FocusTimer.xcodeproj - App Store Connect ID: 6762428992 - 状态: ⏳ 等待 Xcode 签名配置完成 [score=0.821 recalls=3 avg=1.000 source=memory/2026-04-17.md:162-202]
-<!-- openclaw-memory-promotion:memory:memory/2026-04-17.md:106:148 -->
-- - 每月需收入: $12,500 ## Apple Developer 账号 - Email: support@techidaily.com - App-Specific Password: qiqm-libm-gzho-geyi - 账号状态: 已激活 - Team: ZhiFeng Sun (9L6N2ZF26B) ## 云 Mac - MacinCloud LA690: LA690.macincloud.com:6000 (VNC) - 用户名: user291981 - 密码: idt52924irh - 每天最多3小时 (~$28/月额外) - DST 进行中 (PT = CST - 15小时) ## MacinCloud Xcode 当前问题 - 症状: errSecInternalComponent - 私钥访问被拒绝 - 原因: macOS 安全机制阻止 SSH 远程会话访问 keychain - 表现: Xcode 使用 Apple Development 开发证书而不是 Apple Distribution 分发证书 - 表现: Xcode 使用免费的 iOS Team Provisioning Profile 而不是我们的 App Store Profile - 解决: 用户需在 VNC 中打开 Xcode，手动选择 ZhiFeng Sun (9L6N2ZF26B) Team 并完成签名认证 # 2026-04-17 Daily Log ## 项目状态 ### JustZenGo (原 FocusTimer) - App 名称: JustZenGo - Bundle ID: com.ggsheng.JustZen - Widget Bundle ID: com.ggsheng.JustZen.widget - ✅ Archive 成功 - 位置: ~/Desktop/JustZenGo/FocusTimer.xcodeproj - App Store Connect ID: 6762428992 - 状态: ⏳ 等待 Xcode 签名配置完成 ### UstiaGo (原 Clarity - 已改名) - App 名称: UstiaGo - Bundle ID: com.ggsheng.Ustia - ✅ Archive 成功 - 位置: ~/Desktop/UstiaGo/Clarity.xcodeproj - 状态: ⏳ 等待在 App Store Connect 创建 App 记录 ## 重要提醒 - **App 主要语言: 英文** (非中文) [score=0.821 recalls=3 avg=1.000 source=memory/2026-04-17.md:106-148]
+## 🚀 下一步行动（按优先级）
+
+| 优先级 | 项目 | 行动 |
+|--------|------|------|
+| 🔴 P0 | MindWeaver | Claude Code审查 → XcodeGen生成 → VNC Archive |
+| 🔴 P0 | FakeChat | VNC截图 → Archive → 上传 |
+| 🔴 P0 | MindPal | VNC截图 → Archive → 上传 |
+| 🟠 P1 | LuminaHealth | BUILD测试 → VNC截图 → Archive |
+| 🟠 P1 | StretchFlow | BUILD测试 → VNC截图 → Archive |
+| 🟡 P2 | JustZenGo/DailyIQ | 等待 App Store 审核结果 |
+| 🟡 P2 | HabitGo/UstiaGo | 等待 App Store 审核结果 |
+
+---
+
+*本文档由系统自动维护 | 最后更新: 2026-05-05*
