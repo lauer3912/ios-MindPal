@@ -20,6 +20,8 @@
 > - 禁止跳过设计审核直接开发
 >
 > ⚠️ **【强制】涉及 AI 技术的 App**：必须使用设备端 ML（推荐）或在隐私政策中明确说明云端 AI 处理，详见 §8.5
+> 
+> ⚠️ **【强制】特殊功能必须完整实现**：如果 App 包含通知、相机、位置、健康、Apple Watch、Siri、iCloud、Connect Mac 等功能，必须实现完整功能，详见 §8.6
 >
 > ⚠️ **【重要】录屏是可选的，不是必选项**。如果 App 功能无法通过截图展示清楚，再考虑录屏。
 
@@ -64,12 +66,89 @@
 
 | 原则 | 说明 |
 |------|------|
-| **AI Agent 操作不需要询问人类** | 标注为 🤖 AI Agent 执行的步骤，**直接执行，不需要询问人类**（除非明确标注需要人类审核） |
+| **🤖 Agent 直接执行，不需要询问人类** | 标注为 🤖 AI Agent 的任务，**直接执行，不需要询问人类确认**。除非遇到错误或需要 Human 审核的步骤（见下方），否则 Agent 自己搞定 |
 | **Claude Code 审查 + 修复** | **每次代码变更后必须执行**。所有 commit 前必须先 Claude Code 审查，发现问题立即修复 |
 | **必须人类审核的** | AI 输出 → 人类审核 → 通过后继续 |
 | **人类肉眼审核时** | Agent 必须发送**真实图片/视频文件**，**禁止发送链接或口述内容** |
 | **必须人类操作的** | AI 无法完成（如 VNC 桌面操作、App Store Connect 审核点击）|
 | **禁止 AI 擅自提交的** | 未经 Claude Code 审查和修复的代码禁止 commit |
+| **App 功能完整性** | Agent 必须验证：① Privacy Policy 界面有相关内容 ② Contact Support Email 为 `lauer3912@qq.com` ③ 所有按钮功能正常 ④ 声音播放正常 ⑤ Connect Mac 功能（如适用）⑥ App 界面显示名称与 App 名称一致 |
+| **功能完整性审查** | **每次代码变更后 Agent 必须自动执行至少 3 次**，发现问题立即修复，**确保整个 App 功能完备正常**，**主动执行，不需要询问人类** |
+| **出口合规预先配置** | **必须预先在 Info.plist 配置 `ITSAppUsesNonExemptEncryption = NO`**，避免每次提交被问到加密问题 |
+| **Git 默认分支必须为 main** | **所有项目必须以 `main` 作为默认分支**。如果项目中存在 `master` 或 `github-actions` 等非 main 分支，必须由 **👨 Human 审核迁移方案** 后，Agent 才能执行合并。**禁止在非 main 分支上进行开发或提交** |
+| **禁止 GitHub Actions 单独分支** | **禁止创建 `github-actions` 等单独分支存放 CI/CD 配置**。`.github/workflows/` 必须放在 main 分支，作为源码的一部分管理。GitHub Actions 通过 trigger 条件（push/PR/tag）控制何时运行，不需要单独分支 |
+| **App 项目目录必须以 `ios-` 开头** | 所有 iOS 项目文件夹名称**必须以 `ios-` 为前缀**（如 `ios-FocusTimer`、`ios-HabitGo`），禁止使用其他前缀或无前缀 |
+
+---
+
+### 🤖 Agent 可独立执行的任务汇总
+
+> ⚠️ **以下任务由 AI Agent 直接执行，不需要询问人类，自己搞定**
+
+| 阶段 | 任务 | 说明 |
+|------|------|------|
+| **第零阶段** | 0.1.1 生成图标方案 | 使用 §4.5 prompt 模板生成 1024×1024 PNG |
+| | 0.1.3 提交 Git 等待审核 | commit 到 `AppStore/Assets/Icon/` |
+| | 0.1.5 生成 19 个尺寸图标 | 审核通过后使用 `ios-app-icon-generator` skill |
+| | 0.2.1 展示 UI 设计稿 | 直接发送设计稿图片文件给 Human 审核 |
+| | 0.2.2 提交 Git 等待审核 | commit 到 `AppStore/Assets/UI/` |
+| **第一阶段** | 1.1 核查 App Store 名称 | 执行 curl 命令查询是否被占用 |
+| | 1.2 确定三层命名方案 | 根据名称查询结果确定 |
+| | 1.3 输出功能清单 + Capabilities 推荐 | 输出 `Docs/FeatureList.md`（包含 Identifier Capabilities 推荐）|
+| **第二阶段** | 2.1 创建目录结构 | 执行 mkdir 命令 |
+| | 2.2 初始化 Git，提交初始结构 | git init, add, commit |
+| **第三阶段** | 3.1 编写 project.yml | 配置 4 个 targets |
+| | 3.2 审查 project.yml | Claude Code 审查 + 修复 |
+| **第四阶段** | 4.1 编写 Info.plist、Entitlements | 按模板生成 |
+| | 4.2 审查配置文件 | Claude Code 审查 + 修复 |
+| | 4.3 编写 Widget Info.plist | 按模板生成 |
+| | 4.4 编写 Widget Entitlements | 按模板生成 |
+| | 4.5 编写 AppIcon 图标设计规范 | 从 ggsheng-app-icon-design-SKILL.md 同步 |
+| **第五阶段** | 5.1 执行 XcodeGen 生成项目 | SSH 到 MacinCloud 执行 |
+| | 5.2 验证生成结果 | 检查文件是否完整 |
+| | 5.3 Git 提交 + 同步到 MacinCloud | git push + SSH 到 MacinCloud 执行 |
+| **第六阶段** | 6.2 编写 + 审查截图代码 | 生成 `ScreenshotTests.swift`，Claude Code 审查 + 修复 |
+| | 6.3 添加 Tab identifier + 审查 | 修改 App 源码添加 identifier，Claude Code 审查 + 修复 |
+| | 6.5 下载截图到本地 | scp 下载 |
+| | 6.6 验证截图尺寸 + 肉眼检查 | MD5 + sips 命令，人类确认每张截图不同页面 |
+| | 6.7 编写 + 审查 Unit Tests | 编写功能测试代码，Claude Code 审查 + 修复 |
+| | 6.8 编写 + 审查 E2E 测试 | 编写 UI 测试代码，Claude Code 审查 + 修复 |
+| | 6.9 录屏制作 | 编写 XCUITest 截图代码 + ffmpeg 合成视频 |
+| | 6.10 执行测试 | SSH 到 MacinCloud 执行 xcodebuild test，scp 下载结果 |
+| | 6.11 功能完整性审查及修复 | **每次代码变更后 Agent 必须自动执行至少 3 次** |
+| **第七阶段** | 7.1 配置 App Groups | 修改 entitlements |
+| | 7.4 修复 Bug | 根据反馈修改代码 |
+| **第八阶段** | 8.4 创建隐私政策 HTML | 生成 `PrivacyPolicy.html` |
+| | 8.5 部署隐私政策到 GitHub Pages | git push 后自动部署 |
+| | 8.6 写隐私政策 AI 相关条款 | 生成 AI 相关隐私政策条款 |
+| **第九阶段** | 9.1 提交前最终检查 + Capabilities 复查 | 输出检查清单 + Capabilities 最终复查，给出上架前指导意见 |
+| **操作地点** | 同步代码到 MacinCloud | SSH 到 MacinCloud 执行 `git pull origin main` |
+| | XcodeGen 生成 | SSH 到 MacinCloud 执行 |
+| | xcodebuild build/test | SSH 到 MacinCloud 执行 |
+| | 截图（XCUITest）| SSH 到 MacinCloud 执行 xcodebuild test |
+| | 模拟器管理 | SSH 到 MacinCloud 执行 xcrun simctl |
+| | 下载截图/录屏到本地 | scp 从 MacinCloud 下载 |
+
+### 👨 Human 必须操作的任务
+
+> ⚠️ **以下任务 AI Agent 无法完成，必须由人类执行**
+
+| 阶段 | 任务 | 说明 |
+|------|------|------|
+| **第零阶段** | 0.1.2 展示图标方案图片给 Human | **看图后**给出 approved 意见 |
+| | 0.1.4 审核图标方案 | **看图后**给出至少 1 个 approved 意见 |
+| | 0.2.3 审核 UI 方案 | **看图后**给出至少 1 个 approved 意见 |
+| **第一阶段** | 1.4 审核功能清单 + Capabilities | 确认功能数量达标 **同时确认 Capabilities 推荐方案** |
+| **第七阶段** | 7.2 Archive 上传 TestFlight | **必须通过 VNC 桌面操作** |
+| | 7.3 Beta 测试 | 人类测试员执行 |
+| **第八阶段** | 8.1 Archive + Sign and Upload | **必须通过 VNC 桌面操作** |
+| | 8.2 填写 App Store Connect 信息 | 人类在网页上填写 |
+| | 8.3 配置 App 隐私 | 根据 App 实际功能选择"是"或"否" |
+| | 8.7 审核隐私政策 | 人类审核 AI 写的隐私政策条款 |
+| **第九阶段** | 9.2 填写清单核查 | 人类逐项确认 |
+| | 9.3 在 App Store Connect 新建 App | 点击"新建 App"，从下拉列表中选择 Bundle ID |
+| | 9.4 点击提交审核 | 在 App Store Connect 点击 |
+| | 9.5 关注审核状态 | 提交后状态变为"等待审核" |
 
 ---
 
@@ -100,15 +179,15 @@
 |------|------|---------|------|
 | 1.1 | 核查 App Store 名称是否被占用 | 🤖 AI Agent | 执行 curl 命令查询（**Agent 直接执行**）|
 | 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定（**Agent 直接执行**）|
-| 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md`（**Agent 直接执行**）|
-| 1.4 | 审核功能清单 | 👨 Human | 确认功能数量达标 |
+| 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md`（包含 **Identifier Capabilities 推荐**）（**Agent 直接执行**）|
+| 1.4 | 审核功能清单 + Capabilities | 👨 Human | 确认功能数量达标 **同时确认 Capabilities 推荐方案（供 Agent 后续通过 Xcode 配置）** |
 
 #### 第二阶段：创建项目目录结构
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 2.1 | 创建目录结构 | 🤖 AI Agent | 执行 mkdir 命令（**Agent 直接执行**）|
-| 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | git init, add, commit（**Agent 直接执行**）|
+| 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | `git init && git branch -M main && git add && git commit -m "Initial structure"`（**Agent 直接执行，必须使用 main 作为默认分支**）|
 
 #### 第三阶段：project.yml 配置
 
@@ -158,6 +237,7 @@
 | 6.8 | 编写 + 审查 E2E 测试 | 🤖 AI Agent | 编写 UI 测试代码，**Claude Code 审查 + 修复**（Agent 直接执行）|
 | 6.9 | 录屏制作 | 🤖 AI Agent | 编写 XCUITest 截图代码 + ffmpeg 合成视频（**Agent 直接执行**）|
 | 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果（**Agent 直接执行**）|
+| 6.11 | **功能完整性审查及修复** | 🤖 AI Agent | **每次代码变更后 Agent 必须自动执行至少 3 次**，确保所有功能完备正常（**Agent 直接执行，不需要询问人类**）|
 
 #### 第七阶段：Widget 数据共享 / Beta 测试
 
@@ -177,15 +257,16 @@
 | 8.3 | 配置 App 隐私 | 👨 Human | 根据 App 实际功能选择"是"或"否"（参考 §8.3 配置表）|
 | 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html`（**Agent 直接执行**）|
 | 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | git push 后自动部署（**Agent 直接执行**）|
-| 8.6 | AI 相关配置 | 🤖 AI Agent + 👨 Human | AI 写隐私政策条款，人类审核 |
+| 8.6 | 写隐私政策 AI 相关条款 | 🤖 AI Agent | 生成 AI 相关隐私政策条款（**Agent 直接执行**）|
+| 8.7 | 审核隐私政策 | 👨 Human | 人类审核 AI 写的隐私政策条款 |
 
 #### 第九阶段：提交审核
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
-| 9.1 | 提交前最终检查 + 生成审核回复模板 | 🤖 AI Agent | 输出检查清单 + 生成 Apple 审核回复模板（**Agent 直接执行**）|
+| 9.1 | 提交前最终检查 + Capabilities 复查 | 🤖 AI Agent | 输出检查清单 **+ Capabilities 最终复查**，给出上架前 Capabilities 指导意见（**Agent 直接执行**）|
 | 9.2 | 填写清单核查 | 👨 Human | 人类逐项确认 |
-| 9.3 | **创建 App + 选择 Bundle ID** | 👨 Human | 人类在 App Store Connect 点击"新建 App"，**必须手动选择正确的 Bundle ID** |
+| 9.3 | **在 App Store Connect 新建 App** | 👨 Human | 点击"新建 App"，从下拉列表中选择由 Xcode 自动创建的 Bundle ID（**无需手动创建 Portal**）|
 | 9.4 | **点击提交审核** | 👨 Human | 人类在 App Store Connect 点击 |
 | 9.5 | 关注审核状态 | 👨 Human | 提交后状态变为"等待审核"，首次审核通常7-14个工作日 |
 
@@ -204,6 +285,8 @@
 | 声称 XCUITest 需要 VNC GUI 才能运行 | XCUITest 只需 booted simulator，通过 SSH 即可执行 | 先 `xcrun simctl boot` 启动模拟器，再用 SSH 执行 xcodebuild test |
 | 胡说八道或歪曲 SOP 规定 | 故意曲解或编造规则是违反 SOP 的行为 | 以 SOP 文档为准，不确定时查阅 SOP |
 | Tab 切换失败时不思考直接问人类 | Agent 必须自己想办法解决 | **必须修改优化截图代码直到成功**，不能询问人类 |
+| 要求 Human 在 VNC 上执行截图 | **严重违反 SOP**！截图是 Agent 通过 SSH 执行，不需要 VNC | Agent **必须自己通过 SSH 执行 xcodebuild test 捕获截图** |
+| 跳过功能完整性审查 | App 可能存在隐藏 bug 或功能缺陷 | **Agent 必须对所有功能做代码级别审核，多测试几遍确保功能完备正常** |
 
 ---
 
@@ -236,6 +319,8 @@
 | **git add/commit** | 🤖 AI Agent 服务器 | 本地提交 |
 | **git push** | 🤖 AI Agent 服务器 | 推送到 GitHub |
 | **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main`（**不需要询问人类，直接执行**）|
+
+> ⚠️ **【强制】Agent 每次 SSH 到 MacinCloud 前必须先 git pull**，确保 MacinCloud 本地是最新代码，避免覆盖或冲突 |
 | **XcodeGen 生成** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 `~/tools/xcodegen/bin/xcodegen generate`（**Agent 直接执行**）|
 | **xcodebuild build/test** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行（**Agent 直接执行，不需要询问人类**）|
 | **截图（XCUITest）** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 xcodebuild test（**Agent 直接执行，不需要询问人类**）|
@@ -512,15 +597,61 @@ Text("Focus Session")
 |---|---------|------|--------|
 | 51 | Settings | 设置页面 | P1 |
 ...
+
+## Identifier Capabilities 推荐
+
+| 功能 | 推荐 Enable 的 Capability | 说明 |
+|------|-------------------------|------|
+| 有 Widget | ✅ App Groups | 必须和主 App 一致 |
+| 有推送通知 | ✅ Push Notifications | 需要配置 APNs |
+| 有内购 | ✅ In-App Purchase | 需要配置 Agreements |
+| 有 Apple Sign In | ✅ Sign in with Apple | 必须配合隐私政策 |
+| 有 AI/ML 功能 | ⚠️ 隐私政策说明 | 无需额外 Capability |
+| ... | ... | ... |
+
+### 按需配置
+- **按需配置**：根据 App 实际功能配置 Capabilities，避免不必要的配置
+- **过多配置**：可能导致审核更严格
 ```
 
 **规则**：
 - 必须在开发前完成并提交 Git
 - 标记 P0（核心功能）和 P1（辅助功能）
 - 提交前必须审核确认功能数量 ≥60
+- **Capabilities 推荐必须同时审核**（关系到 Identifier 创建）
 - 开发过程中新增功能必须同步更新此文档
 
-### 1.5 App 审核准备（需要登录的 App）
+### ⚠️ 功能变更必须通知 Capabilities 变更
+🤖 **AI Agent 规则**：
+- **任何 App 功能变更**，必须立即评估是否影响 Capabilities
+- **发现 Capabilities 需要变更时**：必须主动通知 👨 Human
+- **典型场景**：
+  - 新增 Widget → 需要 App Groups
+  - 新增推送通知 → 需要 Push Notifications
+  - 新增内购 → 需要 In-App Purchase
+  - 新增 Apple Sign In → 需要 Sign in with Apple
+- **通知方式**：在变更 commit 时明确说明，并更新 `Docs/Capabilities.md`
+
+```markdown
+## Identifier Capabilities 推荐
+
+| 功能 | 推荐 Enable 的 Capability | 说明 |
+|------|-------------------------|------|
+| 有 Widget | ✅ App Groups | 必须和主 App 一致 |
+| 有推送通知 | ✅ Push Notifications | 需要配置 APNs |
+| 有内购 | ✅ In-App Purchase | 需要配置 Agreements |
+| 有 Apple Sign In | ✅ Sign in with Apple | 必须配合隐私政策 |
+| 有 AI/ML 功能 | ⚠️ 隐私政策说明 | 无需额外 Capability |
+| 有分享/社交 | ✅ Share Extensions | 如需要跨 App 分享 |
+| 有 HealthKit | ✅ HealthKit | 需要隐私政策说明 |
+| ... | ... | ... |
+
+### 按需配置
+- **按需配置**：根据 App 实际功能配置 Capabilities，避免不必要的配置
+- **过多配置**：可能导致审核更严格
+```
+
+### 1.7 App 审核准备（需要登录的 App）
 
 **如果 App 需要登录才能使用完整功能，必须准备测试账号和 Demo 数据**：
 
@@ -1146,6 +1277,11 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
+│  ⚠️ **【强制】每次 SSH 到 MacinCloud 前必须先 git pull** │
+│  确保 MacinCloud 本地是最新代码，避免覆盖或冲突         │
+└─────────────────┬───────────────────────────────────┘
+                  ▼
+┌─────────────────────────────────────────────────────┐
 │  MacinCloud: git pull origin main                   │
 │  ~/tools/xcodegen/bin/xcodegen generate             │
 │  rm -rf ~/Library/Developer/Xcode/DerivedData/*    │
@@ -1165,7 +1301,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
-│  打开 Xcode → Archive                              │
+│  👨 Human：打开 Xcode → Archive                      │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -1182,27 +1318,27 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 ### 6.0 截图工作流概述
 
-> ⚠️ **【强制】截图数量 = App页面数 × 5个设备**
-> - **最少数量**：每个上传区域1张（5区域共5张）
-> - **建议数量**：每个App页面 × 5个设备（如App有5个Tab，则5×5=25张）
-> - **最多**：每个上传区域10张
+> ⚠️ **【强制】截图数量 = App页面数 × 2个设备**
+> - **最少数量**：每个上传区域 3 张（2区域共6张）
+> - **建议数量**：每个 App 页面 × 2 个设备（如 App 有 5 个 Tab，则 5×2=10 张）
 
-**截图设备清单：**
+**截图设备清单（仅2个）：**
 
 | 设备 | 模拟器 | 分辨率 | 上传区域 |
 |------|--------|--------|---------|
 | iPhone 16 Pro Max | iPhone 16 Pro Max | 1320×2868 | 6.9" |
-| iPhone 14 Plus | iPhone 14 Plus | 1284×2778 | 6.5" |
-| iPhone 16 Pro | iPhone 16 Pro | 1206×2622 | 6.3" |
 | iPad Pro 13" (M4) | iPad Pro 13-inch (M4) | 2048×2732 | 13" |
-| iPad Pro 11" (M4) | iPad Pro 11-inch (M4) | 1668×2388 | 11" |
+
+> ⚠️ **【强制】截图只保留这 2 个设备**，不再需要 iPhone 14 Plus、iPhone 16 Pro、iPad Pro 11" (M4)
+
+🤖 **AI Agent 操作**：
 
 **工作流：**
 1. **创建专用 XCUITest 文件**（`ScreenshotTests.swift`），每个设备单独测试函数
-2. **启动5个模拟器**（分别 boot 上述5个设备）
+2. **启动2个模拟器**（分别 boot 上述2个设备）
 3. **运行测试并截图**（保存到 `/tmp/` 目录）
 4. **验证截图内容不同**（使用 MD5 哈希确保每张截图内容不同）
-5. **复制到 AppStoreScreenshots 目录**（按分辨率子目录分类，如 `iPhone_69_1320x2868/`）
+5. **复制到 AppStore/Screenshots 目录**（按分辨率子目录分类，如 `iPhone_69_1320x2868/`）
 6. **提交到 GitHub**
 
 > ⚠️ **常见问题：所有截图都是首页** — 这是最容易犯的错误。Tab 切换代码写错、UI 定位失败、等待时间不足等原因，都会导致所有截图都是首页。**必须用 MD5 哈希 + 发送真实截图文件给 Human 肉眼确认**，确保每张截图确实不同页面。
@@ -1211,17 +1347,14 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 > Apple 随时可能更新要求，提交前以 App Store Connect 页面显示的尺寸为准。
 
-**必需尺寸（5 个上传区域，每个最多 10 张截图）：**
+**必需尺寸（2 个上传区域，每个最少 3 张截图）：**
 
 | 上传区域 | 接受分辨率（px）| 方向 | 推荐模拟器 |
 |---------|----------------|------|-----------|
-| iPhone 6.9"（合并 6.5"/6.7"/6.9"）| 1260×2736, 2736×1260, 1320×2868, 2868×1320, 1290×2796, 2796×1290 | 竖 / 横 | iPhone 16 Pro Max |
-| iPhone 6.5" | 1242×2688, 2688×1242, 1284×2778, 2778×1284 | 竖 / 横 | iPhone 14 Plus |
-| iPhone 6.3" | 1206×2622, 2622×1206, 1179×2556, 2556×1179 | 竖 / 横 | iPhone 16 Pro |
+| iPhone 6.9" | 1260×2736, 2736×1260, 1320×2868, 2868×1320, 1290×2796, 2796×1290 | 竖 / 横 | iPhone 16 Pro Max |
 | iPad 13" | 2064×2752, 2752×2064, 2048×2732, 2732×2048 | 竖 / 横 | iPad Pro 13" (M4) |
-| iPad 11" | 1668×2420, 2420×1668, 1668×2388, 2388×1668, 1640×2360, 2360×1640, 2266×1488, 1488×2266 | 竖 / 横 | iPad Pro 11" (M4) |
 
-> ⚠️ **每个上传区域最多 10 张截图。** 同一区域内的不同分辨率截图可混用（如 6.9" 区域可用 iPhone 16 Pro Max 截的 1320×2868）。
+> ⚠️ **每个上传区域最少 3 张截图。**
 >
 > ⚠️ **严禁 resize / upscale / 拉伸 截图。** 截图必须从对应尺寸的模拟器或真机实截。
 >
@@ -1317,60 +1450,6 @@ final class ScreenshotTests: XCTestCase {
         capture("iPhone_69_portrait_05_Settings")
     }
 
-    // MARK: - iPhone 截图（6.5" - 1284×2778）
-    // 模拟器：iPhone 14 Plus
-
-    func testiPhone_65_01_Home() {
-        capture("iPhone_65_portrait_01_Home")
-    }
-
-    func testiPhone_65_02_History() {
-        tapTab(identifier: "tab_history")
-        capture("iPhone_65_portrait_02_History")
-    }
-
-    func testiPhone_65_03_Stats() {
-        tapTab(identifier: "tab_stats")
-        capture("iPhone_65_portrait_03_Stats")
-    }
-
-    func testiPhone_65_04_Achievements() {
-        tapTab(identifier: "tab_achievements")
-        capture("iPhone_65_portrait_04_Achievements")
-    }
-
-    func testiPhone_65_05_Settings() {
-        tapTab(identifier: "tab_settings")
-        capture("iPhone_65_portrait_05_Settings")
-    }
-
-    // MARK: - iPhone 截图（6.3" - 1206×2622）
-    // 模拟器：iPhone 16 Pro
-
-    func testiPhone_63_01_Home() {
-        capture("iPhone_63_portrait_01_Home")
-    }
-
-    func testiPhone_63_02_History() {
-        tapTab(identifier: "tab_history")
-        capture("iPhone_63_portrait_02_History")
-    }
-
-    func testiPhone_63_03_Stats() {
-        tapTab(identifier: "tab_stats")
-        capture("iPhone_63_portrait_03_Stats")
-    }
-
-    func testiPhone_63_04_Achievements() {
-        tapTab(identifier: "tab_achievements")
-        capture("iPhone_63_portrait_04_Achievements")
-    }
-
-    func testiPhone_63_05_Settings() {
-        tapTab(identifier: "tab_settings")
-        capture("iPhone_63_portrait_05_Settings")
-    }
-
     // MARK: - iPad 截图（13" - 2048×2732）
     // 模拟器：iPad Pro 13-inch (M4)
 
@@ -1396,33 +1475,6 @@ final class ScreenshotTests: XCTestCase {
     func testiPad_13_05_Settings() {
         tapTab(identifier: "tab_settings")
         capture("iPad_13_portrait_05_Settings")
-    }
-
-    // MARK: - iPad 截图（11" - 1668×2388）
-    // 模拟器：iPad Pro 11-inch (M4)
-
-    func testiPad_11_01_Home() {
-        capture("iPad_11_portrait_01_Home")
-    }
-
-    func testiPad_11_02_History() {
-        tapTab(identifier: "tab_history")
-        capture("iPad_11_portrait_02_History")
-    }
-
-    func testiPad_11_03_Stats() {
-        tapTab(identifier: "tab_stats")
-        capture("iPad_11_portrait_03_Stats")
-    }
-
-    func testiPad_11_04_Achievements() {
-        tapTab(identifier: "tab_achievements")
-        capture("iPad_11_portrait_04_Achievements")
-    }
-
-    func testiPad_11_05_Settings() {
-        tapTab(identifier: "tab_settings")
-        capture("iPad_11_portrait_05_Settings")
     }
 }
 ```
@@ -1463,30 +1515,6 @@ xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_69_04_Achievements \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_69_05_Settings
 
-# ── iPhone 6.5" (iPhone 14 Plus) ─────────────────────────────
-xcrun simctl boot 'iPhone 14 Plus' 2>/dev/null || true
-sleep 3
-
-xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
-  -destination 'platform=iOS Simulator,id={UDID_iPhone_14_Plus}' \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_65_01_Home \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_65_02_History \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_65_03_Stats \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_65_04_Achievements \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_65_05_Settings
-
-# ── iPhone 6.3" (iPhone 16 Pro) ───────────────────────────────
-xcrun simctl boot 'iPhone 16 Pro' 2>/dev/null || true
-sleep 3
-
-xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
-  -destination 'platform=iOS Simulator,id={UDID_iPhone_16_Pro}' \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_63_01_Home \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_63_02_History \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_63_03_Stats \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_63_04_Achievements \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPhone_63_05_Settings
-
 # ── iPad 13" (iPad Pro 13-inch M4) ────────────────────────────
 xcrun simctl boot 'iPad Pro 13-inch (M4)' 2>/dev/null || true
 sleep 3
@@ -1498,46 +1526,25 @@ xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPad_13_03_Stats \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPad_13_04_Achievements \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPad_13_05_Settings
-
-# ── iPad 11" (iPad Pro 11-inch M4) ───────────────────────────
-xcrun simctl boot 'iPad Pro 11-inch (M4)' 2>/dev/null || true
-sleep 3
-
-xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
-  -destination 'platform=iOS Simulator,id={UDID_iPad_Pro_11_M4}' \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPad_11_01_Home \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPad_11_02_History \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPad_11_03_Stats \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPad_11_04_Achievements \
-  -only-testing:{AppName}UITests/ScreenshotTests/testiPad_11_05_Settings
 ```
 
 #### Step 5: 验证截图内容不同（MD5）
 ```bash
 # 查看截图文件
 ls -la /tmp/iPhone_69_portrait_*.png
-ls -la /tmp/iPhone_65_portrait_*.png
-ls -la /tmp/iPhone_63_portrait_*.png
 ls -la /tmp/iPad_13_portrait_*.png
-ls -la /tmp/iPad_11_portrait_*.png
 
 # MD5 验证 - 每张截图必须有不同哈希
 md5 /tmp/iPhone_69_portrait_*.png
-md5 /tmp/iPhone_65_portrait_*.png
-md5 /tmp/iPhone_63_portrait_*.png
 md5 /tmp/iPad_13_portrait_*.png
-md5 /tmp/iPad_11_portrait_*.png
 
 # 截图尺寸验证
 sips -g pixelHeight -g pixelWidth /tmp/iPhone_69_portrait_01_Home.png
-sips -g pixelHeight -g pixelWidth /tmp/iPhone_65_portrait_01_Home.png
-sips -g pixelHeight -g pixelWidth /tmp/iPhone_63_portrait_01_Home.png
 sips -g pixelHeight -g pixelWidth /tmp/iPad_13_portrait_01_Home.png
-sips -g pixelHeight -g pixelWidth /tmp/iPad_11_portrait_01_Home.png
 ```
 
 > ⚠️ **⚠️ 最重要的一步：MD5 通过 ≠ 截图正确！** MD5 只验证文件大小/压缩不同，**不验证内容是否真的是不同页面**。必须：
-> 1. **肉眼检查**：用 `scp` 把截图下载到本地，肉眼确认每张是不同的页面
+> 1. **发送真实截图文件给 Human 肉眼确认**：用 `scp` 把截图下载到本地，直接发送截图文件给 Human 确认每张是不同的页面
 > 2. **常见错误**：所有截图都是首页 → Tab 切换代码失败（参考 §6.3 排查）
 > 3. **不要跳过这一步**，否则提交后 App Store 会因截图不符合要求被拒
 
@@ -1675,22 +1682,6 @@ iPhone_69_portrait_02_History.png
 iPhone_69_portrait_03_Stats.png
 iPhone_69_portrait_04_Achievements.png
 iPhone_69_portrait_05_Settings.png
-...                                 # 有多少页面就放多少张
-
-# iPhone 6.5" (1284×2778) - iPhone 14 Plus
-iPhone_65_portrait_01_Home.png
-iPhone_65_portrait_02_History.png
-iPhone_65_portrait_03_Stats.png
-iPhone_65_portrait_04_Achievements.png
-iPhone_65_portrait_05_Settings.png
-...
-
-# iPhone 6.3" (1206×2622) - iPhone 16 Pro
-iPhone_63_portrait_01_Home.png
-iPhone_63_portrait_02_History.png
-iPhone_63_portrait_03_Stats.png
-iPhone_63_portrait_04_Achievements.png
-iPhone_63_portrait_05_Settings.png
 ...
 
 # iPad 13" (2048×2732) - iPad Pro 13-inch (M4)
@@ -1700,53 +1691,20 @@ iPad_13_portrait_03_Stats.png
 iPad_13_portrait_04_Achievements.png
 iPad_13_portrait_05_Settings.png
 ...
-
-# iPad 11" (1668×2388) - iPad Pro 11-inch (M4)
-iPad_11_portrait_01_Home.png
-iPad_11_portrait_02_History.png
-iPad_11_portrait_03_Stats.png
-iPad_11_portrait_04_Achievements.png
-iPad_11_portrait_05_Settings.png
-...
 ```
 
-**文件夹结构：**
+**文件夹结构（2个上传区域）：**
 ```
-AppStoreScreenshots/
+AppStore/Screenshots/
 ├── iPhone_69_1320x2868/        # 上传区域1：6.9"（1320×2868 iPhone 16 Pro Max 截）
 │   ├── 01_Home.png
 │   ├── 02_History.png
 │   ├── 03_Stats.png
-│   ├── 04_Achievements.png
-│   ├── 05_Settings.png
-│   └── ...                    # 有多少页面就放多少张
-├── iPhone_65_1284x2778/        # 上传区域2：6.5"（1284×2778 iPhone 14 Plus 截）
-│   ├── 01_Home.png
-│   ├── 02_History.png
-│   ├── 03_Stats.png
-│   ├── 04_Achievements.png
-│   ├── 05_Settings.png
 │   └── ...
-├── iPhone_63_1206x2622/        # 上传区域3：6.3"（1206×2622 iPhone 16 Pro 截）
+├── iPad_13_2048x2732/          # 上传区域2：13"（2048×2732 iPad Pro 13" M4 截）
 │   ├── 01_Home.png
 │   ├── 02_History.png
 │   ├── 03_Stats.png
-│   ├── 04_Achievements.png
-│   ├── 05_Settings.png
-│   └── ...
-├── iPad_13_2048x2732/          # 上传区域4：13"（2048×2732 iPad Pro 13" M4 截）
-│   ├── 01_Home.png
-│   ├── 02_History.png
-│   ├── 03_Stats.png
-│   ├── 04_Achievements.png
-│   ├── 05_Settings.png
-│   └── ...
-├── iPad_11_1668x2388/          # 上传区域5：11"（1668×2388 iPad Pro 11" M4 截）
-│   ├── 01_Home.png
-│   ├── 02_History.png
-│   ├── 03_Stats.png
-│   ├── 04_Achievements.png
-│   ├── 05_Settings.png
 │   └── ...
 ```
 
@@ -1761,10 +1719,7 @@ AppStoreScreenshots/
 | 模拟器 | 输出分辨率 | 对应上传区域 |
 |--------|-----------|-------------|
 | iPhone 16 Pro Max | 1320×2868 | iPhone_69_1320x2868 |
-| iPhone 14 Plus | 1284×2778 | iPhone_65_1284x2778 |
-| iPhone 16 Pro | 1206×2622 | iPhone_63_1206x2622 |
 | iPad Pro 13" (M4) | 2048×2732 | iPad_13_2048x2732 |
-| iPad Pro 11" (M4) | 1668×2388 | iPad_11_1668x2388 |
 
 ### 6.5 下载截图
 
@@ -1773,21 +1728,15 @@ AppStoreScreenshots/
 # 使用通配符限定只下载 App 相关的截图文件
 sshpass -p 'idt52924irh' scp user291981@LA690.macincloud.com:/tmp/*.png ./
 
-# 按分辨率创建子目录（根据你使用的模拟器调整分辨率）
-mkdir -p Screenshots/iPhone_69_1320x2868
-mkdir -p Screenshots/iPhone_65_1284x2778
-mkdir -p Screenshots/iPhone_63_1206x2622
-mkdir -p Screenshots/iPad_13_2048x2732
-mkdir -p Screenshots/iPad_11_1668x2388
+# 按分辨率创建子目录
+mkdir -p AppStore/Screenshots/iPhone_69_1320x2868
+mkdir -p AppStore/Screenshots/iPad_13_2048x2732
 
 # 自动将截图按设备分类移动到对应子目录（并去除设备前缀，只保留序号_页面名）
-for f in iPhone_69_portrait_*.png iPhone_65_portrait_*.png iPhone_63_portrait_*.png iPad_13_portrait_*.png iPad_11_portrait_*.png; do
+for f in iPhone_69_portrait_*.png iPad_13_portrait_*.png; do
     case "$f" in
-        iPhone_69_portrait_*)   mv "$f" "Screenshots/iPhone_69_1320x2868/${f#iPhone_69_portrait_}" ;;
-        iPhone_65_portrait_*)   mv "$f" "Screenshots/iPhone_65_1284x2778/${f#iPhone_65_portrait_}" ;;
-        iPhone_63_portrait_*)   mv "$f" "Screenshots/iPhone_63_1206x2622/${f#iPhone_63_portrait_}" ;;
-        iPad_13_portrait_*)     mv "$f" "Screenshots/iPad_13_2048x2732/${f#iPad_13_portrait_}" ;;
-        iPad_11_portrait_*)      mv "$f" "Screenshots/iPad_11_1668x2388/${f#iPad_11_portrait_}" ;;
+        iPhone_69_portrait_*)   mv "$f" "AppStore/Screenshots/iPhone_69_1320x2868/${f#iPhone_69_portrait_}" ;;
+        iPad_13_portrait_*)     mv "$f" "AppStore/Screenshots/iPad_13_2048x2732/${f#iPad_13_portrait_}" ;;
     esac
 done
 ```
@@ -1800,10 +1749,7 @@ import struct, os
 # 子目录 → 期望分辨率（宽×高）
 expected_sizes = {
     'iPhone_69_1320x2868': (1320, 2868),
-    'iPhone_65_1284x2778': (1284, 2778),
-    'iPhone_63_1206x2622': (1206, 2622),
     'iPad_13_2048x2732':    (2048, 2732),
-    'iPad_11_1668x2388':    (1668, 2388),
 }
 
 errors = []
@@ -2112,11 +2058,15 @@ let data = sharedDefaults?.data(forKey: "habits")
 
 ### 7.2 Beta 测试（TestFlight）
 
+👨 **Human 操作**：
+
 **提交审核前必须进行 Beta 测试**：
 1. Archive 打包后，通过 Xcode Organizer 上传 TestFlight
 2. 邀请内部测试员（至少 1 名）进行功能验证
-3. 修复 Beta 测试发现的 Bug
 4. Beta 测试通过后才能提交 App Store 审核
+
+🤖 **AI Agent 操作**：
+3. 修复 Beta 测试发现的 Bug
 
 **TestFlight 要求**：
 - 必须有至少 1 名内部测试员
@@ -2128,6 +2078,8 @@ let data = sharedDefaults?.data(forKey: "habits")
 ## 第八阶段：App Store Connect 上传
 
 ### 8.1 Archive 操作（VNC 桌面）
+
+👨 **Human 操作**（必须通过 VNC 桌面执行）：
 
 1. 通过 VNC 连接 MacinCloud 桌面
 2. Xcode 打开 `{AppName}.xcodeproj`
@@ -2284,6 +2236,859 @@ You can disable this feature in Settings at any time.</p>
 4. **AI 生成内容必须有审核机制**
 5. **不要夸大 AI 能力**，Apple 审核会验证功能真实性
 
+### 8.6 特殊功能要求（如适用）
+
+> ⚠️ **如果当前 App 包含以下功能会更好，必须实现完整功能，否则 Apple 审核会被拒绝**
+
+| 特殊功能 | 必须实现要求 | 审核重点 |
+|---------|------------|---------|
+| **本地消息通知** | 必须实现完整的本地通知功能，包括：请求通知权限、调度通知、处理通知点击回调 | 通知权限描述必须准确说明用途 |
+| **相机/相册访问** | 必须实现 Photo Library 访问权限正确请求，遵守 iOS 隐私政策 | 权限描述必须准确说明用途 |
+| **位置服务** | 必须实现位置权限正确请求（仅使用时/始终），遵守位置隐私政策 | 权限描述必须准确说明用途 |
+| **健康数据** | 使用 HealthKit 必须实现完整的读写功能，不能只是空壳 | 必须有明确的隐私政策说明 |
+| **Apple Watch 同步** | 必须实现 WatchConnectivity 完整同步功能 | 必须验证数据同步正常 |
+| **Siri 集成** | 必须实现完整的 Siri 意图和快捷指令 | 必须正确处理 Intents |
+| **iCloud 同步** | 必须实现 CloudKit 完整同步功能 | 必须验证数据一致性 |
+| **Connect Mac** | 必须实现 Mac 与 iOS App 数据同步功能 | 必须验证双向同步正常 |
+| **家庭 App 集成** | 必须实现 HomeKit 完整功能 | 必须验证设备控制正常 |
+
+#### 通知功能必须实现清单
+
+如果 App 需要本地通知功能，必须：
+
+1. **请求权限**：`UNUserNotificationCenter.current().requestAuthorization`
+2. **调度通知**：`UNNotificationCenter.current().add`
+3. **处理通知点击**：`UNUserNotificationCenterDelegate`
+4. **处理后台通知**：`application(_:didReceiveRemoteNotification:)`
+5. **权限描述（Info.plist）**：必须准确说明通知用途（如"提醒您完成习惯"）
+
+#### 功能完整性检查
+
+> ⚠️ **Agent 必须在每次代码变更后验证以下内容**：
+> 1. 所有声明的功能都实现了完整代码（不能是空壳）
+> 2. 所有权限请求都有正确的用途描述
+> 3. 所有回调/代理都正确实现
+> 4. 所有特殊功能都经过至少 3 次测试验证
+
+### 8.7 内购 (In-App Purchase) 实现要求（如适用）
+
+> ⚠️ **如果 App 包含内购功能，必须实现完整的 StoreKit 功能，否则 Apple 审核会被拒绝**
+
+#### 必须实现的组件
+
+| 组件 | 说明 | 必须实现 |
+|------|------|---------|
+| **IAP 产品配置** | 在 App Store Connect 创建内购产品（消耗型/非消耗型/订阅） | ✅ |
+| **StoreKit 初始化** | `SKPaymentQueue.default().restoreCompletedTransactions()` | ✅ |
+| **购买请求** | `SKPaymentQueue.default().add(payment)` | ✅ |
+| **交易监听** | `SKPaymentTransactionObserver` 协议实现 | ✅ |
+| **恢复购买** | 实现 `restorePurchases()` 方法 | ✅ |
+| **收据验证** | App Store Connect  receipt validation | ✅ |
+
+#### Info.plist 配置
+
+```xml
+<key>NSUserTrackingUsageDescription</key>
+<string>Used for personalized ad experience</string>
+<!-- IAP 不需要特殊 Info.plist 配置，但产品 ID 必须与 App Store Connect 一致 -->
+```
+
+#### 代码实现模板
+
+```swift
+import StoreKit
+
+class IAPManager: NSObject, SKPaymentTransactionObserver {
+    static let shared = IAPManager()
+    
+    override init() {
+        super.init()
+        SKPaymentQueue.default().add(self)
+    }
+    
+    // MARK: - 购买
+    func purchase(productId: String) {
+        let productRequest = SKProductsRequest(productIdentifiers: [productId])
+        productRequest.delegate = self
+        productRequest.start()
+    }
+    
+    // MARK: - 恢复购买
+    func restorePurchases() {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    // MARK: - SKPaymentTransactionObserver
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                // 解锁功能
+                self.finishTransaction(transaction)
+            case .restored:
+                self.finishTransaction(transaction)
+            case .failed:
+                self.finishTransaction(transaction)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func finishTransaction(_ transaction: SKPaymentTransaction) {
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+}
+```
+
+#### App Store Connect 配置
+
+1. 签署 **付费应用协议**（Agreement）
+2. 创建 **内购产品**（产品 ID 格式：`com.ggsheng.{AppName}.{product}`）
+3. 测试：**沙盒测试账号** 必须准备
+4. 提交审核时选择正确的 **内购审核截图**
+
+#### 常见被拒原因
+
+| 拒绝原因 | 解决方案 |
+|---------|---------|
+| "IAP not implemented correctly" | 必须实现完整的交易监听和恢复购买 |
+| "Cannot restore purchases" | 必须提供恢复购买按钮 |
+| "Product ID mismatch" | 产品 ID 必须与 App Store Connect 完全一致 |
+
+---
+
+### 8.8 推送通知 (Push Notifications) 实现要求
+
+> ⚠️ **如果 App 需要推送通知（包括本地和远程），必须实现完整功能**
+
+#### 必须实现的组件
+
+| 组件 | 说明 | 必须实现 |
+|------|------|---------|
+| **请求权限** | `UNUserNotificationCenter.current().requestAuthorization` | ✅ |
+| **获取 Device Token** | `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)` | ✅ |
+| **处理通知** | `UNUserNotificationCenterDelegate` | ✅ |
+| **远程通知** | APNs 配置（需要 Push Notifications capability） | 如需要远程推送 |
+| **后台通知** | `application(_:didReceiveRemoteNotification:)` | 如需要后台处理 |
+
+#### Info.plist 配置
+
+```xml
+<!-- 本地通知权限描述 -->
+<key>NSUserNotificationAlertStyle</key>
+<string>banner</string>
+
+<!-- 远程推送不需要特殊 Info.plist，但必须配置 Capability: Push Notifications -->
+```
+
+#### 代码实现模板
+
+```swift
+// AppDelegate.swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // 请求通知权限
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+        if granted {
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+    UNUserNotificationCenter.current().delegate = self
+    return true
+}
+
+// 获取 Device Token（用于远程推送）
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+    print("Device Token: \(token)")
+    // 发送到服务器
+}
+
+// 处理本地/远程通知
+func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    completionHandler([.banner, .badge, .sound])
+}
+```
+
+#### 通知权限描述要求
+
+> ⚠️ **权限描述必须准确说明通知用途，否则 Apple 审核会被拒**
+
+| App 类型 | 权限描述示例 |
+|---------|-------------|
+| 习惯追踪 | "用于提醒您完成每日的习惯目标" |
+| 闹钟 | "用于发送闹钟提醒通知" |
+| 消息 | "用于通知您收到的新消息" |
+| 电商 | "用于通知您订单状态变更和促销活动" |
+
+---
+
+### 8.9 后台模式 (Background Modes) 实现要求
+
+> ⚠️ **如果 App 需要在后台运行特定功能，必须启用对应 Background Mode**
+
+#### 必须实现的 Background Modes
+
+| Mode | 用途 | 必须实现场景 |
+|------|------|------------|
+| **audio** | 音频播放 | 音乐播放器、播客 |
+| **location** | 位置更新 | 导航、健身追踪 |
+| **voip** | VoIP 通话 | 通话 App |
+| **fetch** | 后台获取 | 数据同步 |
+| **processing** | 后台处理 | 长任务 |
+| **remote-notification** | 静默推送 | 消息推送 |
+
+#### Info.plist 配置
+
+```xml
+<key>UIBackgroundModes</key>
+<array>
+    <string>audio</string>
+    <string>location</string>
+    <string>fetch</string>
+</array>
+```
+
+#### Capability 配置
+
+在 project.yml 中添加：
+```yaml
+targets:
+  {AppName}:
+    entitlements:
+      com.apple.developer.associated-domains: [applinks:yourdomain.com]
+```
+
+---
+
+### 8.10 Keychain 安全存储要求
+
+> ⚠️ **如果 App 需要安全存储敏感数据（密码、Token、API Key），必须正确使用 Keychain**
+
+#### Keychain 正确用法
+
+| 场景 | 正确做法 |
+|------|---------|
+| 存储 API Token | 使用 `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` |
+| 存储密码 | 使用 KeychainAccess 库或原生 Security framework |
+| 登录 Session | 使用 `kSecAttrAccessibleAfterFirstUnlock` |
+| SSH Key | 使用 `security unlock-keychain` 解锁后使用 |
+
+#### 代码实现模板
+
+```swift
+import Security
+
+func saveToKeychain(key: String, data: Data) -> Bool {
+    let query: [String: Any] = [
+        kSecClass as String: kSecClassGenericPassword,
+        kSecAttrAccount as String: key,
+        kSecValueData as String: data,
+        kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ]
+    
+    SecItemDelete(query as CFDictionary)
+    let status = SecItemAdd(query as CFDictionary, nil)
+    return status == errSecSuccess
+}
+
+func loadFromKeychain(key: String) -> Data? {
+    let query: [String: Any] = [
+        kSecClass as String: kSecClassGenericPassword,
+        kSecAttrAccount as String: key,
+        kSecReturnData as String: true,
+        kSecMatchLimit as String: kSecMatchLimitOne
+    ]
+    
+    var result: AnyObject?
+    let status = SecItemCopyMatching(query as CFDictionary, &result)
+    
+    if status == errSecSuccess {
+        return result as? Data
+    }
+    return nil
+}
+```
+
+#### 常见错误
+
+| 错误 | 原因 | 解决 |
+|------|------|------|
+| `errSecItemNotFound` | 密钥不存在 | 先检查是否存在 |
+| `errSecAuthFailed` | Keychain 被锁定 | SSH 环境使用 `security unlock-keychain` |
+| `errSecInternalComponent` | Keychain 访问被拒 | 确保正确的 keychain path |
+
+---
+
+### 8.11 数据持久化策略要求
+
+> ⚠️ **所有 App 数据必须正确持久化，不能丢失用户数据**
+
+#### 数据存储选择指南
+
+| 数据类型 | 推荐存储方式 | 说明 |
+|---------|-------------|------|
+| 用户偏好设置 | UserDefaults | 简单键值对 |
+| 结构化数据 | SQLite | 大量数据、关系查询 |
+| 敏感数据 | Keychain | 密码、Token |
+| 大文件 | FileManager | 文档、图片、视频 |
+| 跨 App 共享 | App Groups (UserDefaults/SQLite) | Widget 数据共享 |
+
+#### SQLite 实现模板
+
+```swift
+import SQLite
+
+class DatabaseManager {
+    static let shared = DatabaseManager()
+    private var db: Connection?
+    
+    init() {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("app.sqlite3").path
+        db = try? Connection(path)
+        createTables()
+    }
+    
+    private func createTables() {
+        let habits = Table("habits")
+        let id = Expression<Int64>("id")
+        let name = Expression<String>("name")
+        let completed = Expression<Bool>("completed")
+        
+        try? db?.run(habits.create(ifNotExists: true) { t in
+            t.column(id, primaryKey: .autoincrement)
+            t.column(name)
+            t.column(completed)
+        })
+    }
+    
+    func insertHabit(_ name: String) {
+        let habits = Table("habits")
+        try? db?.run(habits.insert(name <- name))
+    }
+}
+```
+
+---
+
+### 8.12 深色模式 (Dark Mode) 实现要求
+
+> ⚠️ **所有 App 必须支持深色模式（欧美市场强制要求）**
+
+#### 实现要求
+
+| 要求 | 说明 |
+|------|------|
+| **颜色适配** | 使用 `Color(asset:)` 或语义颜色（`foregroundColor`、`backgroundColor`） |
+| **图片适配** | 使用 `Image("icon").renderingMode(.template)` 或创建深色版本 |
+| **系统跟随** | `UITraitCollection.current.userInterfaceStyle` 自动跟随系统 |
+| **手动切换** | 可以在设置中提供手动切换选项 |
+
+#### 正确实现示例
+
+```swift
+// SwiftUI - 使用语义颜色
+VStack {
+    Text("Hello")
+        .foregroundColor(.primary)  // 自动适配深色模式
+    Image("app_icon")
+        .renderingMode(.template)  // 自动变色
+}
+
+// UIKit - 使用 traitCollection
+override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+        updateColors()
+    }
+}
+```
+
+---
+
+### 8.13 无障碍功能 (Accessibility) 实现要求
+
+> ⚠️ **所有 App 必须支持 VoiceOver（欧美市场强制要求，否则 App Store 审核会被拒）**
+
+#### 必须实现的 Accessibility 功能
+
+| 功能 | 实现要求 |
+|------|---------|
+| **VoiceOver 标签** | 所有可交互元素必须设置 `accessibilityLabel` |
+| **图片描述** | 所有图片必须设置 `accessibilityLabel` |
+| **动态字体** | 使用 `.dynamicTypeSize()` 支持系统字体大小 |
+| **按钮热区** | 按钮最小 44×44pt 热区 |
+| **对比度** | 文本与背景对比度 ≥ 4.5:1 |
+
+#### 代码实现模板
+
+```swift
+// SwiftUI
+Button(action: {}) {
+    Image("settings")
+}
+.accessibilityLabel("Settings")
+.accessibilityHint("Double tap to open settings")
+
+// UIKit
+button.accessibilityLabel = "Settings"
+button.accessibilityHint = "Double tap to open settings"
+imageView.isAccessibilityElement = true
+imageView.accessibilityLabel = "App logo"
+```
+
+---
+
+### 8.14 Apple Watch App 实现要求（如适用）
+
+> ⚠️ **如果 App 有 Apple Watch 配套功能，必须实现完整的 WatchConnectivity**
+
+#### 必须实现的功能
+
+| 功能 | 说明 |
+|------|------|
+| **WCSession 初始化** | `WCSession.default().activate()` |
+| **数据同步** | `transferUserInfo()` / `sendMessage()` |
+| **心率数据** | 使用 HealthKit 读取 |
+| **表盘复杂功能** | 使用 ClockKit |
+
+#### 代码实现模板
+
+```swift
+import WatchConnectivity
+
+class WatchSessionManager: NSObject, WCSessionDelegate {
+    static let shared = WatchSessionManager()
+    
+    func activateSession() {
+        guard WCSession.isSupported() else { return }
+        WCSession.default().delegate = self
+        WCSession.default().activate()
+    }
+    
+    // 发送数据到 Watch
+    func sendToWatch(_ data: [String: Any]) {
+        if WCSession.default().isReachable {
+            WCSession.default().sendMessage(data, replyHandler: nil)
+        } else {
+            WCSession.default().transferUserInfo(data)
+        }
+    }
+    
+    // 接收来自 Watch 的数据
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+        // 处理接收的数据
+    }
+}
+```
+
+---
+
+### 8.15 数据备份与恢复要求
+
+> ⚠️ **如果 App 包含用户重要数据，必须实现数据备份和恢复功能**
+
+#### 必须实现的功能
+
+| 功能 | 说明 |
+|------|------|
+| **数据导出** | 导出用户数据为 JSON/CSV |
+| **数据导入** | 从备份文件恢复数据 |
+| **iCloud 备份** | 使用 CloudKit 或 iCloud Documents |
+
+#### 实现要求
+
+1. 用户可以导出所有个人数据（GDPR 要求）
+2. 用户可以导入/恢复数据
+3. 卸载 App 后重新安装可以恢复数据（如果使用 iCloud）
+
+---
+
+### 8.16 App 冷启动优化与 Scene Delegate 要求
+
+> ⚠️ **所有 App 必须正确实现冷启动流程，避免用户等待时间过长**
+
+#### App 生命周期（iOS 13+）
+
+| 阶段 | 说明 | 优化重点 |
+|------|------|---------|
+| **cold launch** | App 未在内存中，完全启动 | 减少 initializers、避免同步网络 |
+| **warm launch** | App 在内存但未激活 | 缓存数据、延迟加载 |
+| **hot launch** | App 已在后台 | 快速恢复状态 |
+
+#### AppDelegate 必须实现
+
+```swift
+@main
+struct AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // 1. 初始化核心服务（如数据库、Keychain）
+        initializeCoreServices()
+        
+        // 2. 恢复 App 状态（如未完成任务）
+        restoreAppState()
+        
+        return true
+    }
+    
+    // MARK: - Scene Configuration (iOS 13+)
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    private func initializeCoreServices() {
+        // 初始化数据库
+        _ = DatabaseManager.shared
+        // 初始化 IAP
+        _ = IAPManager.shared
+    }
+    
+    private func restoreAppState() {
+        // 恢复用户上次离开时的状态
+    }
+}
+```
+
+#### SceneDelegate 实现（iOS 13+ 多窗口支持）
+
+```swift
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = MainTabBarController()
+        window?.makeKeyAndVisible()
+    }
+    
+    func sceneDidDisconnect(_ scene: UIScene) {
+        // 保存状态
+    }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        // 刷新 UI、恢复暂停的任务
+    }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+        // 暂停任务、保存状态
+    }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        // 准备 UI 显示
+    }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        // 保存持久化数据
+        UserDefaults.standard.synchronize()
+    }
+}
+```
+
+#### Info.plist Scene 配置
+
+```xml
+<key>UIApplicationSceneManifest</key>
+<dict>
+    <key>UIApplicationSupportsMultipleScenes</key>
+    <false/>
+    <key>UISceneConfigurations</key>
+    <dict>
+        <key>UIWindowSceneSessionRoleApplication</key>
+        <array>
+            <dict>
+                <key>UISceneConfigurationName</key>
+                <string>Default Configuration</string>
+                <key>UISceneDelegateClassName</key>
+                <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+            </dict>
+        </array>
+    </dict>
+</dict>
+```
+
+#### 冷启动优化原则
+
+| 优化项 | 做法 |
+|--------|------|
+| **减少 `@main` 初始化** | 避免在 struct initializer 中执行耗时操作 |
+| **延迟加载** | 非核心功能在 appDidBecomeActive 后加载 |
+| **避免同步网络** | 启动时不能有同步网络请求 |
+| **预加载数据** | 预先加载需要显示的数据 |
+| **闪屏优化** | 使用 `launchStoryboardName` 或 `LSUILaunchStoryboardName` |
+
+---
+
+### 8.17 Sign in with Apple 完整实现要求
+
+> ⚠️ **如果 App 有任何形式的登录功能，强烈建议使用 Sign in with Apple（欧美市场强制要求，部分 App 类型）**
+
+#### 必须实现的组件
+
+| 组件 | 说明 | 必须实现 |
+|------|------|---------|
+| **Apple ID 按钮** | ASAuthorizationAppleIDButton | ✅ |
+| **请求权限** | 请求 fullName 和 email | ✅ |
+| **处理回调** | ASAuthorizationControllerDelegate | ✅ |
+| **Keychain 存储** | 存储 userIdentifier | ✅ |
+| **状态恢复** | 检查当前登录状态 | ✅ |
+
+#### 代码实现模板
+
+```swift
+import AuthenticationServices
+
+class SignInWithAppleManager: NSObject {
+    static let shared = SignInWithAppleManager()
+    
+    func setupAppleSignIn() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: UserDefaults.standard.string(forKey: "apple_user_id") ?? "") { state, error in
+            switch state {
+            case .authorized:
+                // 用户已授权，可以登录
+                break
+            case .revoked:
+                // 授权被撤销，需要重新登录
+                break
+            case .notFound:
+                // 未登录
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func signInWithApple(from viewController: UIViewController) {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = viewController as? ASAuthorizationControllerPresentationContextProviding
+        controller.performRequests()
+    }
+    
+    private func saveToKeychain(userID: String) {
+        // 存储 userID 到 Keychain
+        let data = Data(userID.utf8)
+        _ = saveToKeychain(key: "apple_user_id", data: data)
+    }
+}
+
+extension SignInWithAppleManager: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userID = appleIDCredential.user
+            let fullName = appleIDCredential.fullName?.givenName ?? ""
+            let email = appleIDCredential.email ?? ""
+            
+            // 保存 userID 到 Keychain
+            saveToKeychain(userID: userID)
+            
+            // 发送到服务器验证
+            // ...
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Sign in with Apple failed: \(error.localizedDescription)")
+    }
+}
+```
+
+#### Info.plist 配置
+
+```xml
+<key>com.apple.developer.applesignin</key>
+<array>
+    <string>Default</string>
+</array>
+```
+
+#### Capability 配置
+
+在 project.yml 中添加：
+```yaml
+entitlements:
+  com.apple.developer.applesignin: [Default]
+```
+
+---
+
+### 8.18 Universal Links 与 URL Scheme 配置要求
+
+> ⚠️ **如果 App 需要处理深度链接，必须正确配置 URL Scheme 或 Universal Links**
+
+#### URL Scheme 配置（自定义协议）
+
+```xml
+<!-- Info.plist -->
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>com.ggsheng.AppName</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>appname</string>
+        </array>
+    </dict>
+</array>
+```
+
+#### 处理 URL Scheme
+
+```swift
+// SceneDelegate
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard let url = URLContexts.first?.url else { return }
+    handleDeepLink(url)
+}
+
+// AppDelegate
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+    handleDeepLink(url)
+    return true
+}
+
+private func handleDeepLink(_ url: URL) {
+    // appname://action?param=value
+    guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+          let host = components.host else { return }
+    
+    switch host {
+    case "action1":
+        // 处理 action1
+        break
+    case "action2":
+        // 处理 action2
+        if let param = components.queryItems?.first(where: { $0.name == "param" })?.value {
+            // 使用 param
+        }
+        break
+    default:
+        break
+    }
+}
+```
+
+#### Universal Links 配置（推荐）
+
+```xml
+<!-- Entitlement -->
+<key>com.apple.developer.associated-domains</key>
+<array>
+    <string>applinks:yourdomain.com</string>
+</array>
+```
+
+```swift
+// 处理 Universal Links
+func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+    guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+          let url = userActivity.webpageURL else { return }
+    
+    handleUniversalLink(url)
+}
+
+private func handleUniversalLink(_ url: URL) {
+    // https://yourdomain.com/app/action
+    // 处理逻辑
+}
+```
+
+---
+
+### 8.19 SiriKit 与 Shortcuts 完整实现要求
+
+> ⚠️ **如果 App 需要 Siri 集成或 Shortcuts 支持，必须实现完整的 Intents Extension**
+
+#### 必须实现的功能
+
+| 功能 | 说明 |
+|------|------|
+| **自定义 Intent** | 定义 App 特定的 Siri 意图 |
+| **Shortcuts** | 提供建议的 Shortcuts |
+| **Donation** | 记录用户习惯以改进 Suggestions |
+
+#### Intent 定义示例
+
+```swift
+// IntentDefinition 文件 (IntentDefinition.intentdefinition)
+import Intents
+
+class StartTimerIntentHandler: NSObject, INStartTimerIntentHandling {
+    func handle(intent: INStartTimerIntent, completion: @escaping (INStartTimerIntentResponse) -> Void) {
+        guard let timerName = intent.timerName?.spokenPhrase else {
+            completion(INStartTimerIntentResponse(code: .failure, userActivity: nil))
+            return
+        }
+        
+        // 启动计时器
+        TimerManager.shared.startTimer(name: timerName)
+        
+        let response = INStartTimerIntentResponse(code: .success, userActivity: nil)
+        completion(response)
+    }
+    
+    func resolveTimerName(for intent: INStartTimerIntent, with completion: @escaping (INTextIntentEntityResolutionResult) -> Void) {
+        if let timerName = intent.timerName {
+            completion(INTextIntentEntityResolutionResult.success(with: timerName))
+        } else {
+            completion(INTextIntentEntityResolutionResult.needsValue())
+        }
+    }
+}
+```
+
+#### Shortcuts 提供
+
+```swift
+import Intents
+
+class ShortcutsProvider {
+    static func provideShortcuts() -> [INIntent] {
+        let startTimerIntent = INStartTimerIntent()
+        startTimerIntent.suggestedPhrase = "Start a focus timer"
+        
+        let donateIntent = INStartTimerIntent(intentIdentifier: "com.app.startTimer", phrase: "Start focus session", response: nil)
+        
+        return [donateIntent]
+    }
+}
+
+// 在 AppDelegate 中
+func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+    if let shortcut = userActivity.shortcutItem {
+        // 处理 Quick Actions
+        handleShortcutItem(shortcut)
+        return true
+    }
+    return false
+}
+```
+
+#### Info.plist 配置
+
+```xml
+<key>NSUserActivityTypes</key>
+<array>
+    <string>INStartTimerIntent</string>
+    <string>com.app.intent.startTimer</string>
+</array>
+```
+
+---
+
 **隐私政策模板结构**（`ios-{AppName}/Docs/PrivacyPolicy.html`）：
 ```html
 <!DOCTYPE html>
@@ -2401,7 +3206,7 @@ Image(systemName: achievement.icon) // ✅ 正确渲染 SF Symbol
 | 层级 | 位置 | 能否改 | 说明 |
 |------|------|--------|------|
 | App Store 名称 | App Store Connect 填写 | ✅ 随时改 | Human 在网页上填写 |
-| Bundle ID | **打包进二进制 + Apple Developer Portal** | ❌ 上传后不能改 | 👨 Human 必须先在 Apple Developer Portal 创建 Bundle ID，再在 App Store Connect 选择 |
+| Bundle ID | **打包进二进制 + App Store Connect** | ❌ 上传后不能改 | 🤖 Agent 通过 Xcode 自动创建 App ID（**无需手动操作 Portal**）|
 | Display Name | Info.plist / PRODUCT_NAME | ✅ 可以改 | 只改手机显示名 |
 
 ---
@@ -2494,10 +3299,7 @@ App Store 名称未被占用？
 | `{RepoFolder}` | 本地仓库文件夹名 | ios-FocusTimer |
 | `{UDID}` | 模拟器 UDID | 59030A31-... |
 | `{UDID_iPhone_16_Pro_Max}` | iPhone 16 Pro Max 模拟器 UDID | 需用 `xcrun simctl list devices booted` 查询 |
-| `{UDID_iPhone_14_Plus}` | iPhone 14 Plus 模拟器 UDID | 同上 |
-| `{UDID_iPhone_16_Pro}` | iPhone 16 Pro 模拟器 UDID | 同上 |
 | `{UDID_iPad_Pro_13_M4}` | iPad Pro 13" (M4) 模拟器 UDID | 同上 |
-| `{UDID_iPad_Pro_11_M4}` | iPad Pro 11" (M4) 模拟器 UDID | 同上 |
 
 > **获取 UDID 方法**：在 MacinCloud 上运行 `xcrun simctl list devices booted`，找到对应模拟器的 UUID 列。
 
@@ -2521,6 +3323,41 @@ App Store 名称未被占用？
 
 **所有描述用纯 ASCII 字符**，破折号 `--` 代替 emoji bullet
 
+### 9.1.1 提交前 Capabilities 最终复查（🤖 AI Agent 必须执行）
+
+> ⚠️ **【强制】Agent 必须在提交审核前进行全面复查，给出最终的 Capabilities 指导意见**
+
+🤖 **AI Agent 执行**：
+
+```markdown
+## 提交前 Capabilities 最终复查报告
+
+### 当前 App 功能确认
+（基于最新的 FeatureList.md）
+
+### 当前 Identifier Capabilities 状态
+| Capability | 当前状态 | 是否正确 |
+|------------|---------|---------|
+| App Groups | ✅/❌ | 正确/需要添加 |
+| Push Notifications | ✅/❌ | 正确/需要添加 |
+| ... | ... | ... |
+
+### 最终建议
+- **必须添加**：xxx（原因）
+- **可以移除**：xxx（原因）
+- **注意事项**：xxx
+
+### 上架通过率评估
+- 高风险项：xxx
+- 建议优先修复：xxx
+```
+
+**规则**：
+- 必须读取最新的 `Docs/FeatureList.md` 和 `Docs/Capabilities.md`
+- 必须对比当前 Identifier 配置与实际功能是否匹配
+- 必须主动告知 Human 任何不一致的地方
+- **必须给出明确的"可以提交"或"需要修复"的结论**
+
 ### 9.2 App Store Connect 填写清单
 
 > 以中文版 App Store Connect 为例
@@ -2529,30 +3366,30 @@ App Store 名称未被占用？
 
 > ⚠️ **【强制】此步骤必须由 👨 Human 人类操作**，AI Agent 无法创建 App
 
+**Xcode 会自动创建 Bundle ID**（通过 Automatically manage signing），Human 只需在 App Store Connect 从下拉列表中确认选择。
+
 **操作步骤**：
 
 1. 👨 Human 打开浏览器，登录 https://appstoreconnect.apple.com
 2. 👨 Human 点击 **"我的 App"** → **"+"** → **"新建 App"**
-3. 👨 Human 在下拉列表中**手动选择正确的 Bundle ID**（必须是 `com.ggsheng.{AppName}`）
+3. 👨 Human 在下拉列表中**选择正确的 Bundle ID**（必须是 `com.ggsheng.{AppName}`）
 
 | 字段 | 填写内容 |
 |------|---------|
 | 平台 | ✅ **iOS** |
 | 名称 | `{AppName}`（App Store 显示名称）|
 | 主语言 | **English** |
-| Bundle ID | 👨 Human **必须手动选择** `com.ggsheng.{AppName}` |
+| Bundle ID | 👨 Human **从下拉列表选择** `com.ggsheng.{AppName}` |
 | SKU | `{AppName}-100`（随便填，唯一即可）|
 
-> ⚠️ **如果 Bundle ID 下拉为空**：说明 Bundle ID 尚未在 Apple Developer Portal 创建。👨 Human 必须先登录 https://developer.apple.com 创建 Bundle ID，再返回 App Store Connect。
+> ⚠️ **Xcode Automatically manage signing 会自动创建 App ID**（无需手动操作 Portal）
 
-**Bundle ID 创建步骤（Apple Developer Portal）**：
-1. 👨 Human 登录 https://developer.apple.com
-2. 👨 Human 进入 **"Certificates, Identifiers & Profiles"**
-3. 👨 Human 点击 **"Identifiers"** → **"+"**
-4. 👨 Human 选择 **"App IDs"** → **"App"**
-5. 👨 Human 填写 Description 和 Bundle ID（格式：`com.ggsheng.{AppName}`）
-6. 👨 Human 选择 App Services（如需要）
-7. 👨 Human 点击 **"Continue"** → **"Register"**
+🤖 **Agent 操作**：开启 Xcode 的 `Automatically manage signing`，Xcode 会自动：
+- 创建 App ID（如果不存在）
+- 配置所需 Capabilities
+- 更新签名证书和 Provisioning Profile
+
+> 如果 Bundle ID 下拉仍为空，在 App Store Connect 点击"新建 App"时系统会自动引导创建
 
 #### 第五步：App 隐私（左菜单）
 
@@ -2655,15 +3492,12 @@ focus timer, productivity, focus, concentration, study, work
 
 #### 第八步：App Store 截图（左菜单）
 
-**必需尺寸（5 个上传区域，每个最多 10 张截图）：**
+**必需尺寸（2 个上传区域，每个最少 3 张截图）：**
 
 | 上传区域 | 接受分辨率（px）| 方向 |
 |---------|----------------|------|
 | iPhone 6.9"（合并 6.5"/6.7"/6.9"）| 1260×2736, 2736×1260, 1320×2868, 2868×1320, 1290×2796, 2796×1290 | 竖 / 横 |
-| iPhone 6.5" | 1242×2688, 2688×1242, 1284×2778, 2778×1284 | 竖 / 横 |
-| iPhone 6.3" | 1206×2622, 2622×1206, 1179×2556, 2556×1179 | 竖 / 横 |
 | iPad 13" | 2064×2752, 2752×2064, 2048×2732, 2732×2048 | 竖 / 横 |
-| iPad 11" | 1668×2420, 2420×1668, 1668×2388, 2388×1668, 1640×2360, 2360×1640, 2266×1488, 1488×2266 | 竖 / 横 |
 
 **操作：** 点击每个尺寸下方的 **"+"** 按钮，上传截图文件
 
@@ -2744,13 +3578,17 @@ if UserDefaults.standard.array(forKey: "habits")?.isEmpty ?? true {
 
 #### 第十一步：出口合规（左菜单）
 
+> ⚠️ **【强制】必须预先配置出口合规，避免每次提交都被问到加密问题**
+
 > **如果 Info.plist 已配置 `ITSAppUsesNonExemptEncryption = NO`，此步骤会自动跳过。**
 
 如果仍出现，答：
 - 问：你的 App 是否使用了加密？
-- 答：**否**
+- 答：**否**（选择"否"并说明 App 不使用任何加密）
 
 ### 9.3 提交审核
+
+👨 **Human 操作**（在 App Store Connect 网页操作）：
 
 确认所有必填项后：
 1. 点左侧顶部或底部的 **"添加至审核"** / **"提交以供审核"**
@@ -2765,7 +3603,49 @@ if UserDefaults.standard.array(forKey: "habits")?.isEmpty ?? true {
 | "名称已被使用" | App Store 名称被占 | 换名称，或用 §A.2 Display Name 策略 |
 | "截图尺寸不对" | 尺寸不符合要求 | 用对应尺寸的模拟器重新实截，不得 resize |
 | "描述包含禁止词汇" | 用了 Pomodoro 等词 | 移除并替换为替代词 |
-| **Bundle ID 下拉为空** | Bundle ID 尚未在 Apple Developer 创建 | 👨 Human 先在 Apple Developer Portal 创建 Bundle ID |
+| **Bundle ID 下拉为空** | App ID 尚未创建 | 在 App Store Connect 新建 App 时系统会自动创建 App ID，无需手动在 Portal 创建 |
+
+### A.3 Xcode 自动签名失效排查指南
+
+> 🤖 **Agent 可独立解决**：🤖 标注的任务，Agent 直接通过 SSH 执行，**不需要询问人类**
+
+#### 一、自动签名失效的核心原因
+
+| 原因 | 🤖 | 说明 |
+|------|-----|------|
+| **开发者账号权限问题** | ❌ | Human 检查 Xcode → Preferences → Accounts |
+| **Bundle ID 冲突** | ❌ | Human 协调或联系 Apple Support |
+| **证书过期或被吊销** | 🤖 | Agent 可通过 SSH 清理钥匙串并重新下载证书 |
+| **网络或 Apple 服务端问题** | ❌ | 等待 Apple 服务恢复 |
+| **钥匙串访问权限** | 🤖 | Agent 可通过 SSH 执行 `security unlock-keychain` 解锁 |
+
+#### 二、排查步骤
+
+**1. 检查账号与团队**（❌ Human 操作）
+- 确认 Xcode → Preferences → Accounts 中已登录正确的 Apple ID
+- 检查 Team 下拉菜单是否选择了付费开发者团队（非 Personal Team）
+- 确认账号有创建证书和 App ID 的权限
+
+**2. 验证 Bundle Identifier**（❌ Human 操作）
+- 登录 Apple Developer Portal 检查该 Bundle ID 是否已被占用
+- 若被 Personal Team 占用，需联系 Apple Developer Support 删除
+- 考虑修改 Bundle ID 为唯一值
+
+**3. 清理与重置**（🤖 Agent 可独立执行）
+- 🤖 执行 Product → Clean Build Folder
+- 🤖 删除 `~/Library/Developer/Xcode/DerivedData` 缓存
+- 🤖 在钥匙串中删除过期或无效的证书，重新下载
+
+#### 三、常用解决方案
+
+| 问题 | 🤖 | 解决方案 |
+|------|-----|---------|
+| **Personal Team 占用 Bundle ID** | ❌ | Human 提交工单给 Apple Developer Support，或更换 Bundle ID |
+| **证书显示有效但无法使用** | 🤖 | Agent 检查钥匙串中是否有对应私钥，重新生成 CSR 并创建新证书 |
+| **自动签名长时间 "Waiting to repair"** | ❌ | Human 切换为手动签名，或等待 Apple 服务端恢复 |
+| **Xcode 14+ 签名失败** | 🤖 | Agent 检查 entitlements 文件匹配，确保 Capabilities 配置正确 |
+| **Keychain 被锁定**（SSH 环境） | 🤖 | Agent SSH 登录后执行：`security unlock-keychain -p "idt52924irh" ~/Library/Keychains/login.keychain-db` |
+| **DerivedData 缓存导致签名失败** | 🤖 | Agent 删除 `~/Library/Developer/Xcode/DerivedData` 后重新 Archive |
 
 ### 9.5 提交后
 

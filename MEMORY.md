@@ -114,11 +114,12 @@ memory/
 
 ---
 
-## 📝 GitHub 仓库
+## 📝 GitHub
 
 | 项目 | 仓库 |
 |------|------|
-| DailyIQ | https://github.com/lauer3912/ios-DailyIQ |
+| Token | `ghp_***REDACTED***` （已在 GitHub Secret Scanner 报告后处理）|
+| 全部 Public（GitHub Pages 隐私政策需公开可访问）|
 | FakeChat | https://github.com/lauer3912/ios-FakeChat |
 | MindPal | https://github.com/lauer3912/ios-MindPal |
 | LuminaHealth | https://github.com/lauer3912/ios-LuminaHealth |
@@ -209,3 +210,27 @@ memory/
 ---
 
 *本文档由系统自动维护 | 最后更新: 2026-05-05*
+
+## Promoted From Short-Term Memory (2026-05-07)
+
+<!-- openclaw-memory-promotion:memory:memory/2026-05-01.md:9:11 -->
+- ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JustZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo [score=0.819 recalls=0 avg=0.620 source=memory/2026-05-01.md:9-11]
+
+## Promoted From Short-Term Memory (2026-05-08)
+
+<!-- openclaw-memory-promotion:memory:memory/2026-05-02.md:9:11 -->
+- ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JustZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo [score=0.888 recalls=0 avg=0.620 source=memory/2026-05-02.md:9-11]
+<!-- openclaw-memory-promotion:memory:memory/2026-05-01.md:3:4 -->
+- > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历 [score=0.856 recalls=0 avg=0.620 source=memory/2026-05-01.md:3-4]
+<!-- openclaw-memory-promotion:memory:memory/2026-04-30.md:3:4 -->
+- > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历 [score=0.849 recalls=0 avg=0.620 source=memory/2026-04-30.md:3-4]
+<!-- openclaw-memory-promotion:memory:memory/2026-04-30.md:9:11 -->
+- | App | 作者 | 状态 | 时间 | |------|------|------|------| | DailyIQ | Elon Musk | 🟢 审核通过 | 09:59 | [score=0.849 recalls=0 avg=0.620 source=memory/2026-04-30.md:9-11]
+<!-- openclaw-memory-promotion:memory:memory/2026-04-30.md:15:17 -->
+- ios-AlienContact, ios-BlastPop, ios-DailyIQ, ios-HabitGo, ios-JusZenGo, ios-LuminaHealth, ios-MindPal, ios-PARADOX, ios-ReverseWorld, ios-StretchFlow, ios-UstiaGo [score=0.849 recalls=0 avg=0.620 source=memory/2026-04-30.md:15-17]
+<!-- openclaw-memory-promotion:memory:memory/2026-04-30.md:22:22 -->
+- *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理* [score=0.849 recalls=0 avg=0.620 source=memory/2026-04-30.md:22-22]
+<!-- openclaw-memory-promotion:memory:memory/2026-05-01.md:21:21 -->
+- *从 Elon Musk 聊天记录恢复 | 2026-05-03 补充并清理* [score=0.849 recalls=0 avg=0.620 source=memory/2026-05-01.md:21-21]
+<!-- openclaw-memory-promotion:memory:memory/2026-05-02.md:3:4 -->
+- > 系统版本: v2.0 | 从 Elon Musk 聊天记录恢复 > 注：以下内容为 PageBrin 与 Elon Musk 的对话摘要，非本人直接经历 [score=0.837 recalls=0 avg=0.620 source=memory/2026-05-02.md:3-4]
