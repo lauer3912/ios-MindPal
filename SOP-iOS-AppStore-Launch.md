@@ -2348,13 +2348,89 @@ class IAPManager: NSObject, SKPaymentTransactionObserver {
 3. 测试：**沙盒测试账号** 必须准备
 4. 提交审核时选择正确的 **内购审核截图**
 
-#### 常见被拒原因
+#### 订阅型内购 App Store Connect 填写指南（§8.7.1）
 
-| 拒绝原因 | 解决方案 |
+> ⚠️ **如果 App 包含自动续费订阅（如 StretchGoGo $0.99/月 Premium），除了常规填写外，还必须完成以下配置**
+
+##### 第一步：签署付费应用协议 + 配置银行 + 税务
+
+| 操作 | 位置 | 说明 |
+|------|------|------|
+| 签署协议 | App Store Connect → 协议、税务和银行 → 付费应用 | 必签，否则无法创建内购 |
+| 配置银行 | 同上 → 添加银行账户 | 收款用，验证可能需要1-2天 |
+| 配置税务 | 同上 → 税务 | 美国填 W-8BEN/W-9，其他国家按提示 |
+
+##### 第二步：创建订阅产品
+
+1. App Store Connect → 我的 App → 选择 App
+2. 左侧菜单点击 **内购**（In-App Purchases）
+3. 点击 **"+"** → 选择 **自动续费订阅**
+
+| 字段 | 填写内容 |
+|------|---------|
+| 产品 ID | `com.ggsheng.{AppName}.PremiumMonthly` |
+| 参考名称 | `{AppName} Premium Monthly` |
+| 订阅时长 | 1 个月 |
+| 价格 | $0.99 USD（或当地等价）|
+| 订阅类型 | 非公开订阅 |
+
+本地化（多语言）：
+
+| 语言 | 本地化名称 | 描述 |
+|------|-----------|------|
+| English | Premium Monthly | Unlock all sessions, advanced stats, voice guidance, iCloud sync. |
+| Chinese (Simplified) | 高级会员月卡 | 解锁全部课程、高级统计、语音指导、iCloud同步。 |
+
+##### 第三步：订阅 App Store Connect 页面配置
+
+| 字段 | 值 |
+|------|-----|
+| 类别 | Health & Fitness |
+| 价格 | Free（内购变现）|
+| 隐私政策 URL | `https://lauer3912.github.io/ios-{AppName}/docs/PrivacyPolicy.html` |
+
+##### 第四步：App 隐私配置
+
+在 App Store Connect → App 隐私：
+
+| 数据类型 | 选择 |
+|---------|------|
+| 从 App 购买（Purchase History）| **是** |
+
+> ⚠️ **隐私政策必须包含内购和订阅条款**，参考格式：
+> ```html
+> <h2>In-App Purchases and Subscriptions</h2>
+> <p>{AppName} offers auto-renewing subscriptions. Premium Monthly: $0.99/month. 
+> Subscriptions auto-renew unless cancelled 24h before period end. 
+> Manage via iOS Settings > Apple ID > Subscriptions.</p>
+> ```
+
+##### 第五步：内购审核截图
+
+提交含内购的 App **必须提供内购界面截图**：
+
+| 类型 | 尺寸 | 说明 |
+|------|------|------|
+| 内购截图 | 与 App 截图尺寸相同 | 显示订阅墙、价格、功能列表 |
+
+##### 第六步：提交审核
+
+1. Xcode → Archive → Distribute → App Store Connect → Sign and Upload
+2. App Store Connect → 版本 → 选择刚上传的版本
+3. 确认内购产品已添加（"内购"标签页）
+4. 上传内购截图
+5. **提交审核**
+
+> ⚠️ **协议生效前无法提交内购 App**。协议状态可在"协议、税务和银行"页面查看。
+
+##### 常见被拒原因
+
+| 被拒原因 | 解决方案 |
 |---------|---------|
-| "IAP not implemented correctly" | 必须实现完整的交易监听和恢复购买 |
+| "IAP not implemented correctly" | 必须实现完整的 StoreKit 购买+恢复逻辑 |
 | "Cannot restore purchases" | 必须提供恢复购买按钮 |
 | "Product ID mismatch" | 产品 ID 必须与 App Store Connect 完全一致 |
+| "App crashes on purchase" | 使用沙盒账号完整测试购买流程 |
 
 ---
 
