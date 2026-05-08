@@ -81,33 +81,49 @@
 
 ---
 
+### 🗺️ 阶段总览
+
+| 阶段 | 主要输出产物 | 关键负责人 |
+|------|------------|-----------|
+| **Stage 0: 设计审核** | 图标方案 + UI 设计稿 | 👨 Human 审核 |
+| **Stage 1: 概念与命名** | 功能清单 `Docs/FeatureList.md` | 🤖 Agent |
+| **Stage 2: 创建目录结构** | Git 仓库 + 目录骨架 | 🤖 Agent |
+| **Stage 3: project.yml** | `project.yml` 配置 | 🤖 Agent |
+| **Stage 4: 必需文件** | Info.plist / Entitlements / AppIcon | 🤖 Agent |
+| **Stage 5: XcodeGen** | `.xcodeproj` 生成 | 🤖 Agent (MacinCloud SSH) |
+| **Stage 6: 截图与测试** | 截图 / Unit Tests / E2E | 🤖 Agent |
+| **Stage 7: Widget / Beta** | App Groups / TestFlight | 👨 Human (VNC) |
+| **Stage 8: 上传** | App Store Connect 上传 | 👨 Human (VNC) |
+| **Stage 9: 提交审核** | App Store 提交 | 👨 Human |
+
 ### 🤖 Agent 可独立执行的任务汇总
 
 > ⚠️ **以下任务由 AI Agent 直接执行，不需要询问人类，自己搞定**
 
 | 阶段 | 任务 | 说明 |
 |------|------|------|
-| **第零阶段** | 0.1.1 生成图标方案 | 使用 §4.5 prompt 模板生成 1024×1024 PNG |
+| **Stage 0** | 0.1.1 生成图标方案 | 使用 §4.5 prompt 模板生成 1024×1024 PNG |
 | | 0.1.3 提交 Git 等待审核 | commit 到 `AppStore/Assets/Icon/` |
 | | 0.1.5 生成 19 个尺寸图标 | 审核通过后使用 `ios-app-icon-generator` skill |
 | | 0.2.1 展示 UI 设计稿 | 直接发送设计稿图片文件给 Human 审核 |
 | | 0.2.2 提交 Git 等待审核 | commit 到 `AppStore/Assets/UI/` |
-| **第一阶段** | 1.1 核查 App Store 名称 | 执行 curl 命令查询是否被占用 |
+| **Stage 1** | 1.1 核查 App Store 名称 | 执行 curl 命令查询是否被占用 |
 | | 1.2 确定三层命名方案 | 根据名称查询结果确定 |
 | | 1.3 输出功能清单 + Capabilities 推荐 | 输出 `Docs/FeatureList.md`（包含 Identifier Capabilities 推荐）|
-| **第二阶段** | 2.1 创建目录结构 | 执行 mkdir 命令 |
+| | 1.8 生成 App Store 元数据文件 | 写入 `AppStore/Listing.md`（含内购产品配置），替换所有占位符为当前 App 具体值 |
+| **Stage 2** | 2.1 创建目录结构 | 执行 mkdir 命令 |
 | | 2.2 初始化 Git，提交初始结构 | git init, add, commit |
-| **第三阶段** | 3.1 编写 project.yml | 配置 4 个 targets |
+| **Stage 3** | 3.1 编写 project.yml | 配置 4 个 targets |
 | | 3.2 审查 project.yml | Claude Code 审查 + 修复 |
-| **第四阶段** | 4.1 编写 Info.plist、Entitlements | 按模板生成 |
+| **Stage 4** | 4.1 编写 Info.plist、Entitlements | 按模板生成 |
 | | 4.2 审查配置文件 | Claude Code 审查 + 修复 |
 | | 4.3 编写 Widget Info.plist | 按模板生成 |
 | | 4.4 编写 Widget Entitlements | 按模板生成 |
 | | 4.5 编写 AppIcon 图标设计规范 | 从 ggsheng-app-icon-design-SKILL.md 同步 |
-| **第五阶段** | 5.1 执行 XcodeGen 生成项目 | SSH 到 MacinCloud 执行 |
+| **Stage 5** | 5.1 执行 XcodeGen 生成项目 | SSH 到 MacinCloud 执行 |
 | | 5.2 验证生成结果 | 检查文件是否完整 |
 | | 5.3 Git 提交 + 同步到 MacinCloud | git push + SSH 到 MacinCloud 执行 |
-| **第六阶段** | 6.2 编写 + 审查截图代码 | 生成 `ScreenshotTests.swift`，Claude Code 审查 + 修复 |
+| **Stage 6** | 6.2 编写 + 审查截图代码 | 生成 `ScreenshotTests.swift`，Claude Code 审查 + 修复 |
 | | 6.3 添加 Tab identifier + 审查 | 修改 App 源码添加 identifier，Claude Code 审查 + 修复 |
 | | 6.5 下载截图到本地 | scp 下载 |
 | | 6.6 验证截图尺寸 + 肉眼检查 | MD5 + sips 命令，人类确认每张截图不同页面 |
@@ -116,12 +132,12 @@
 | | 6.9 录屏制作 | 编写 XCUITest 截图代码 + ffmpeg 合成视频 |
 | | 6.10 执行测试 | SSH 到 MacinCloud 执行 xcodebuild test，scp 下载结果 |
 | | 6.11 功能完整性审查及修复 | **每次代码变更后 Agent 必须自动执行至少 3 次** |
-| **第七阶段** | 7.1 配置 App Groups | 修改 entitlements |
+| **Stage 7** | 7.1 配置 App Groups | 修改 entitlements |
 | | 7.4 修复 Bug | 根据反馈修改代码 |
-| **第八阶段** | 8.4 创建隐私政策 HTML | 生成 `PrivacyPolicy.html` |
+| **Stage 8** | 8.4 创建隐私政策 HTML | 生成 `PrivacyPolicy.html` |
 | | 8.5 部署隐私政策到 GitHub Pages | git push 后自动部署 |
 | | 8.6 写隐私政策 AI 相关条款 | 生成 AI 相关隐私政策条款 |
-| **第九阶段** | 9.1 提交前最终检查 + Capabilities 复查 | 输出检查清单 + Capabilities 最终复查，给出上架前指导意见 |
+| **Stage 9** | 9.1 提交前最终检查 + Capabilities 复查 | 输出检查清单 + Capabilities 最终复查，给出上架前指导意见 |
 | **操作地点** | 同步代码到 MacinCloud | SSH 到 MacinCloud 执行 `git pull origin main` |
 | | XcodeGen 生成 | SSH 到 MacinCloud 执行 |
 | | xcodebuild build/test | SSH 到 MacinCloud 执行 |
@@ -135,17 +151,17 @@
 
 | 阶段 | 任务 | 说明 |
 |------|------|------|
-| **第零阶段** | 0.1.2 展示图标方案图片给 Human | **看图后**给出 approved 意见 |
+| **Stage 0** | 0.1.2 展示图标方案图片给 Human | **看图后**给出 approved 意见 |
 | | 0.1.4 审核图标方案 | **看图后**给出至少 1 个 approved 意见 |
 | | 0.2.3 审核 UI 方案 | **看图后**给出至少 1 个 approved 意见 |
-| **第一阶段** | 1.4 审核功能清单 + Capabilities | 确认功能数量达标 **同时确认 Capabilities 推荐方案** |
-| **第七阶段** | 7.2 Archive 上传 TestFlight | **必须通过 VNC 桌面操作** |
+| **Stage 1** | 1.4 审核功能清单 + Capabilities | 确认功能数量达标 **同时确认 Capabilities 推荐方案** |
+| **Stage 7** | 7.2 Archive 上传 TestFlight | **必须通过 VNC 桌面操作** |
 | | 7.3 Beta 测试 | 人类测试员执行 |
-| **第八阶段** | 8.1 Archive + Sign and Upload | **必须通过 VNC 桌面操作** |
+| **Stage 8** | 8.1 Archive + Sign and Upload | **必须通过 VNC 桌面操作** |
 | | 8.2 填写 App Store Connect 信息 | 人类在网页上填写 |
 | | 8.3 配置 App 隐私 | 根据 App 实际功能选择"是"或"否" |
 | | 8.7 审核隐私政策 | 人类审核 AI 写的隐私政策条款 |
-| **第九阶段** | 9.2 填写清单核查 | 人类逐项确认 |
+| **Stage 9** | 9.2 填写清单核查 | 人类逐项确认 |
 | | 9.3 在 App Store Connect 新建 App | 点击"新建 App"，从下拉列表中选择 Bundle ID |
 | | 9.4 点击提交审核 | 在 App Store Connect 点击 |
 | | 9.5 关注审核状态 | 提交后状态变为"等待审核" |
@@ -154,7 +170,7 @@
 
 ### 📋 任务分工表
 
-#### 第零阶段：设计审核
+#### Stage 0：设计审核
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -173,7 +189,7 @@
 > - 禁止只发送描述性文字或文件路径而不展示实际图片
 > - Human 必须用肉眼审核图片后才能给出 approved 意见
 
-#### 第一阶段：概念与命名
+#### Stage 1：概念与命名
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -181,22 +197,23 @@
 | 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定（**Agent 直接执行**）|
 | 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md`（包含 **Identifier Capabilities 推荐**）（**Agent 直接执行**）|
 | 1.4 | 审核功能清单 + Capabilities | 👨 Human | 确认功能数量达标 **同时确认 Capabilities 推荐方案（供 Agent 后续通过 Xcode 配置）** |
+| 1.8 | 生成 App Store 元数据文件 | 🤖 AI Agent | 写入 `AppStore/Listing.md`（所有字段含内购产品配置），替换所有占位符为当前 App 具体值（**Agent 直接执行**）|
 
-#### 第二阶段：创建项目目录结构
+#### Stage 2：创建项目目录结构
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 2.1 | 创建目录结构 | 🤖 AI Agent | 执行 mkdir 命令（**Agent 直接执行**）|
 | 2.2 | 初始化 Git，提交初始结构 | 🤖 AI Agent | `git init && git branch -M main && git add && git commit -m "Initial structure"`（**Agent 直接执行，必须使用 main 作为默认分支**）|
 
-#### 第三阶段：project.yml 配置
+#### Stage 3：project.yml 配置
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 3.1 | 编写 project.yml | 🤖 AI Agent | 配置 4 个 targets（**Agent 直接执行**）|
 | 3.2 | 审查 project.yml | 🤖 AI Agent | **Claude Code 审查 + 修复**（Agent 直接执行）|
 
-#### 第四阶段：必需的文件
+#### Stage 4：必需的文件
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -206,7 +223,7 @@
 | 4.4 | 编写 Widget Entitlements | 🤖 AI Agent | 按模板生成（**Agent 直接执行**）|
 | 4.5 | 编写 AppIcon 图标设计规范 | 🤖 AI Agent | 从 ggsheng-app-icon-design-SKILL.md 同步（**Agent 直接执行**）|
 
-#### 第五阶段：XcodeGen 生成项目
+#### Stage 5：XcodeGen 生成项目
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -214,9 +231,9 @@
 | 5.2 | 验证生成结果 | 🤖 AI Agent | 检查文件是否完整（**Agent 直接执行**）|
 | 5.3 | Git 提交 + 同步到 MacinCloud | 🤖 AI Agent | git push + SSH 到 MacinCloud 执行（**Agent 直接执行，不需要询问人类**）|
 
-#### 第六阶段：App Store 截图制作
+#### Stage 6：App Store 截图制作
 
-> ⚠️ **【强制】截图 + 视频必须在 Archive + Upload 之前完成**（第七/八阶段之前）
+> ⚠️ **【强制】截图 + 视频必须在 Archive + Upload 之前完成**（Stage 7 / Stage 8 之前）
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -229,7 +246,7 @@
 | 6.5.2 | XCUITest 截图代码模板 | 🤖 AI Agent | 生成 `ScreenshotTests.swift` 模板（**Agent 直接执行，不需要询问人类**）|
 | 6.6 | **展示截图图片给 Human 审核** | 🤖 AI Agent | **直接展示 3 张不同 Tab 页面的真实截图文件**（**必须发图片文件，不是链接或口述**）|
 
-#### 第六阶段附加：测试
+#### Stage 6 附加：测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -239,7 +256,7 @@
 | 6.10 | 执行测试 | 🤖 AI Agent | SSH 到 MacinCloud 执行 xcodebuild test，然后 scp 下载结果（**Agent 直接执行**）|
 | 6.11 | **功能完整性审查及修复** | 🤖 AI Agent | **每次代码变更后 Agent 必须自动执行至少 3 次**，确保所有功能完备正常（**Agent 直接执行，不需要询问人类**）|
 
-#### 第七阶段：Widget 数据共享 / Beta 测试
+#### Stage 7：Widget 数据共享 / Beta 测试
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -248,7 +265,7 @@
 | 7.3 | Beta 测试 | 👨 Human | 人类测试员执行（**可选操作**）|
 | 7.4 | 修复 Bug | 🤖 AI Agent | 根据反馈修改代码（**Agent 直接执行**）|
 
-#### 第八阶段：App Store Connect 上传
+#### Stage 8：App Store Connect 上传
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -260,7 +277,7 @@
 | 8.6 | 写隐私政策 AI 相关条款 | 🤖 AI Agent | 生成 AI 相关隐私政策条款（**Agent 直接执行**）|
 | 8.7 | 审核隐私政策 | 👨 Human | 人类审核 AI 写的隐私政策条款 |
 
-#### 第九阶段：提交审核
+#### Stage 9：提交审核
 
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
@@ -352,7 +369,7 @@
 
 ---
 
-## 第零阶段：设计审核（必须先完成）
+## Stage 0：设计审核（必须先完成）
 
 > ⚠️ **必须先完成设计审核，才能进入开发阶段**。未审核的设计直接开发会导致返工。
 
@@ -378,7 +395,7 @@
    - 交互流程是否符合 iOS 原生设计模式
    - 是否符合西方用户习惯
 4. **审核通过标准**：至少获得 1 个明确 approved 意见
-5. **通过后**：才能进入第三阶段开始编写代码
+5. **通过后**：才能进入 Stage 2（开发阶段）开始编写代码
 
 ### 0.3 审核流程
 
@@ -397,12 +414,12 @@
 └─────────────────┬───────────────────────────────────┘
                   ▼
 ┌─────────────────────────────────────────────────────┐
-│  ✅ UI 审核通过 → 进入第一阶段（开发）              │
+│  ✅ UI 审核通过 → 进入 Stage 1（开发阶段）              │
 │  ❌ UI 审核拒绝 → 修改后重新提交                    │
 └─────────────────────────────────────────────────────┘
 ```
 
-## 第一阶段：概念与命名
+## Stage 1：概念与命名
 
 ### 1.1 提前核查 App Store 名称
 
@@ -683,16 +700,195 @@ func insertDemoDataIfNeeded() {
 - 涵盖 App 主要功能，让审核人员快速理解
 - 数据量适中（3-10 条记录即可）
 
+### 1.8 生成 App Store 元数据文件（🤖 Agent 直接执行）
+
+> ⚠️ **【强制】Agent 必须在 Stage 1 确定名称和功能清单后，立即生成 `AppStore/Listing.md`**，包含**所有** App Store Connect 填写内容（含内购产品配置），以**具体值（非占位符）写入**。Human 后续直接对照此文件操作，无需查阅其他文件。
+
+**生成规则**：
+- 所有 `{变量}` 必须替换为当前 App 的实际值
+- 如果某个字段的值尚未确定，使用 `[待确认：说明]` 标记
+- 后续 Stage 8/9 如果修改了数值，同步更新此文件
+- **不要写入占位符模板**，全部写入已渲染的具体值
+
+**文件必须覆盖以下所有步骤的字段**（按 App Store Connect 左侧菜单顺序）：
+
+```markdown
+# {AppName} App Store 提交清单
+> ⚠️ **直接对照本文件填写 App Store Connect，无需查阅其他文档。**
+>
+> 由 Agent 在 Stage 1.8 生成，如有更新联系 Agent 修改此文件
+
 ---
 
-## 第二阶段：创建项目目录结构
+## 第四步：创建 App（左侧菜单 → "我的 App" → "+" → "新建 App"）
+
+| App Store Connect 字段 | 填写值 | 操作说明 |
+|----------------------|-------|---------|
+| 平台 | iOS | 勾选 iOS |
+| 名称 | {AppStoreName} | 输入 App Store 显示名称 |
+| 主语言 | English | 下拉选择 English |
+| Bundle ID | com.ggsheng.{AppName} | 从下拉列表中选择（Xcode 自动创建）|
+| SKU | {AppName}-100 | 输入唯一标识（随便填）|
+
+## 第五步：App 隐私（左侧菜单 → "App 隐私"）
+
+| App Store Connect 问题 | 选择 | 说明 |
+|----------------------|------|------|
+| 健康与健身 | {是/否} | {原因} |
+| 位置 | {是/否} | {原因} |
+| 联系信息 | {是/否} | {原因} |
+| 标识符 | {是/否} | {原因} |
+| 浏览历史与搜索 | 否 | App 不收集浏览数据 |
+| 购买行为 | {是/否} | 有内购选"是" |
+| 崩溃日志 | 否 | 未集成崩溃统计 SDK |
+| 性能数据 | {是/否} | 有分析 SDK 选"是" |
+| 广告 | {是/否} | 有广告 SDK 选"是" |
+| **隐私政策网址** | https://lauer3912.github.io/ios-{AppName}/docs/PrivacyPolicy.html | 粘贴到底部输入框 |
+| → 点**"存储"**按钮保存
+
+## 第六步：定价与范围（左侧菜单 → "定价与范围"）
+
+| App Store Connect 字段 | 填写值 |
+|----------------------|-------|
+| 价格 | {Free / $金额}（如果免费下载+内购选 Free）|
+| 可用性 | 全部地区（勾选所有地区）|
+| → 点**"存储"**按钮保存
+
+## 第七步：App Store 信息（左侧菜单 → "App Store 信息"）
+
+| App Store Connect 字段 | 填写值 |
+|----------------------|-------|
+| **名称** | {AppStoreName} |
+| **副标题** | {Subtitle}（最多30字符）|
+| **隐私政策网址** | （已在第五步填写，跳过）|
+| **技术支持网址** | https://lauer3912.github.io/ios-{AppName}/ |
+| **营销网址** | {留空 / URL} |
+| **版本** | {AppStoreVersion}（须与 project.yml 一致）|
+| **新版本内容** | 见下方 |
+| **描述** | 见下方（最多4000字符）|
+| **关键词** | {keyword1}, {keyword2}, {keyword3}, {keyword4}, {keyword5}（最多100字符）|
+| **促销文本** | {AppStoreName} -- {简短促销}. ${price} one-time. Try today.（最多170字符，可选）|
+| **App Store 图标** | 上传文件：AppStore/Assets/Icon/Icon-1024@1x.png（点击"+"选择文件）|
+| **版权** | © {Year} {DeveloperName} - {AppName} |
+| **内容权利** | 否（所有内容均为原创）|
+| **年龄分级** | 4+（点"设置年龄分级"选择）|
+| **主类别** | {类别，如 Productivity} |
+| **次类别** | （不选）|
+| **广告标识符** | 否（不使用 Advertising Identifier）|
+
+### 新版本内容（复制粘贴）
+```
+Initial release of {AppStoreName}.
+
+- {Feature1}
+- {Feature2}
+- {Feature3}
+```
+
+### 描述（复制粘贴）
+```
+{完整的描述文本，用具体内容替换}
+```
+
+| → 点**"存储"**按钮保存
+
+## 第八步：截图（左侧菜单 → "App Store 截图"）
+
+截图文件位置：`AppStore/Screenshots/` 目录下
+
+| 上传区域 | 上传文件目录 | 张数 |
+|---------|------------|------|
+| iPhone 6.9" | AppStore/Screenshots/iPhone_69_1320x2868/ | {N} 张 |
+| iPad 13" | AppStore/Screenshots/iPad_13_2048x2732/ | {N} 张 |
+
+操作：点击每个尺寸下方的 **"+"** 按钮，从对应目录选择文件上传
+
+文件清单：
+```
+AppStore/Screenshots/iPhone_69_1320x2868/01_Home.png
+AppStore/Screenshots/iPhone_69_1320x2868/02_History.png
+AppStore/Screenshots/iPhone_69_1320x2868/03_Stats.png
+AppStore/Screenshots/iPad_13_2048x2732/01_Home.png
+AppStore/Screenshots/iPad_13_2048x2732/02_History.png
+AppStore/Screenshots/iPad_13_2048x2732/03_Stats.png
+```
+
+## 第九步：Build（左侧菜单 → "Build"）
+
+选择最新上传的 Build：**{MARKETING_VERSION}** (Build **{CURRENT_PROJECT_VERSION}**)
+
+## 第十步：审核信息（左侧菜单 → "审核信息"）
+
+| App Store Connect 字段 | 填写值 |
+|----------------------|-------|
+| 是否需要登录 | {是/否} |
+| 测试账号 | {test@example.com}（选"是"时必填）|
+| 密码 | {Test123456} |
+| Demo 数据说明 | 账号内已预置 {说明预置了哪些数据} |
+| 备注 | {AI 功能说明/特殊说明} |
+
+## 第十一步：出口合规（左侧菜单 → "出口合规"）
+
+| App Store Connect 问题 | 答案 |
+|----------------------|------|
+| 是否使用加密 | **否**（Info.plist 已配置 ITSAppUsesNonExemptEncryption = NO）|
+
+## 内购产品配置（左侧菜单 → "内购"）
+
+> ⚠️ **仅当 App 包含内购/订阅功能时需要。以下所有字段直接在此填写，无需查阅其他文件。**
+
+### 一、协议准备（必须先在 App Store Connect 完成）
+- [ ] 签署 **付费应用协议** → 协议 → 付费应用协议
+- [ ] 填写 **银行信息** → 协议 → 税务与银行
+- [ ] 填写 **税务信息** → 协议 → 税务与银行
+
+### 二、消耗型产品（Consumable）
+| 参考名称 | 产品 ID | 价格等级 | 显示名称(EN) | 描述(EN) | 审核截图 |
+|---------|--------|---------|-------------|---------|---------|
+| {管理用名} | com.ggsheng.{AppName}.{product_id} | Tier {N} | {用户可见名} | {描述文字} | {需要/不需要} |
+
+### 三、自动续期订阅（Subscription）
+| 订阅组名称 | 组内包含的产品 ID |
+|-----------|------------------|
+| {GroupName} | {ProductId1}、{ProductId2} |
+
+| 参考名称 | 产品 ID | 价格等级 | 显示名称(EN) | 描述(EN) | 时长 | 订阅组 |
+|---------|--------|---------|-------------|---------|------|--------|
+| {管理名} | com.ggsheng.{AppName}.premium_monthly | Tier {N} | Premium Monthly | Unlock all features | 1 Month | PremiumGroup |
+
+#### 试用/折扣方案（Introductory Offers）
+| 产品 ID | 优惠类型 | 时长 | 价格 |
+|--------|---------|------|------|
+| {AppName}.premium_yearly | Free Trial | 7 Days | Free |
+
+### 四、沙盒测试账号
+> 操作路径：App Store Connect → 用户与访问 → 沙盒测试员
+| 邮箱 | 密码 | 地区 |
+|-----|------|------|
+| sandbox_test@example.com | Test123456 | United States |
+
+### 五、提交前确认
+- [ ] 所有内购产品状态为 **"准备提交"**
+- [ ] 每款产品已上传审核截图
+- [ ] 订阅已配置订阅组
+
+---
+
+**注意**：
+- 内购产品配置已**直接包含在 `AppStore/Listing.md` 中**（内购产品配置章节），无需单独文件
+- 如果 App 不需要某些功能（如 IAP、登录），相关字段填"不适用"并注明原因
+
+---
+
+## Stage 2：创建项目目录/文件结构
 
 ```bash
 mkdir -p ios-{AppName}/{AppName,AppNameWidget,AppNameTests,AppNameUITests,AppStore}
 mkdir -p ios-{AppName}/AppName/{App,Models,Views,ViewModels}
 mkdir -p ios-{AppName}/AppName/Assets.xcassets/{AppIcon.appiconset,AccentColor.colorset}
 mkdir -p ios-{AppName}/AppNameWidget/Assets.xcassets
-mkdir -p ios-{AppName}/AppStore/{Screenshots,AppPreview,Listing.md}
+mkdir -p ios-{AppName}/AppStore/{Screenshots,AppPreview}
+touch ios-{AppName}/AppStore/Listing.md # 审核文档
 mkdir -p ios-{AppName}/AppStore/Assets/{Icon,UI}  # 图标源文件、设计文件
 mkdir -p ios-{AppName}/Docs
 ```
@@ -702,11 +898,11 @@ mkdir -p ios-{AppName}/Docs
 **AppStore/Assets/UI** = 界面设计稿（Sketch/Figma/PDF）
 **Docs** = 项目文档目录，详细记录项目变更、功能等相关信息
 
-> ⚠️ **所有产物必须纳入 Git**：AppStore/Assets/ 下的设计文件、图标源文件、Docs/ 下的文档都必须 commit，**不许本地留存未提交的设计产物**。
+> ⚠️ **所有产物必须纳入 Git**：AppStore/ 下的所有文件（例如：设计文件、图标源文件）、Docs/ 下的文档都必须 commit，**不许本地留存未提交的设计产物**。
 
 ---
 
-## 第三阶段：project.yml 完整配置
+## Stage 3：project.yml 完整配置
 
 ### 3.1 完整模板
 
@@ -921,7 +1117,7 @@ settings:
 
 ---
 
-## 第四阶段：必需的文件 + Info.plist 预配置
+## Stage 4：必需的文件 + Info.plist 预配置
 
 > **⚠️ 所有 Info.plist 字段必须在开发阶段就配好，不能等到提交前才填。**
 
@@ -982,7 +1178,7 @@ settings:
         <dict>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>appname</string>   <!-- 小写，用于 URL scheme -->
+                <string>{AppNameLower}</string>   <!-- 小写，用于 URL scheme，必须替换为实际小写 App 名称 -->
             </array>
         </dict>
     </array>
@@ -1101,7 +1297,6 @@ settings:
 | 缩略图当源文件 | 放大后模糊 | 始终使用 1024×1024 源图 |
 | 忽略 Apple HIG | 审核被拒 | 遵循 HIG 设计规范 |
 | 堆叠太多效果 | 小尺寸杂乱 | 选择2-3个核心效果，克制使用 |
-| 过于写实3D | 失去可辨识度 | 保持抽象微妙，审核可能被拒 |
 
 #### ✅ 正确设计规范
 
@@ -1221,7 +1416,7 @@ Design: [描述具体设计]
 
 ---
 
-## 第五阶段：XcodeGen 生成项目
+## Stage 5：XcodeGen 生成项目
 
 ### 5.1 生成命令
 
@@ -1257,7 +1452,38 @@ grep -B2 -A5 'buildConfiguration.*Release' {AppName}.xcodeproj/project.pbxproj \
 grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 ```
 
-### 5.3 完整变更流程（必须遵守）
+### 5.4 XcodeGen 生成失败处理
+
+> ⚠️ **如果 XcodeGen 生成失败，Agent 按以下流程排查修复，不需要询问人类**
+
+| 错误症状 | 排查步骤 |
+|---------|---------|
+| **YAML 格式错误** | 在本地执行 `python3 -c "import yaml; yaml.safe_load(open('project.yml'))"` 检查 YAML 语法，修复缩进/冒号/引号问题后重新 commit |
+| **路径引用错误** | 检查 project.yml 中的 `path:` 字段是否与实际文件夹名完全一致（区分大小写），特别是 target 名与源码文件夹名 |
+| **xcodegen 版本不匹配** | 在 MacinCloud 执行 `~/tools/xcodegen/bin/xcodegen --version`，确认版本 ≥ 2.25。版本过低则升级：`~/tools/xcodegen/bin/xcodegen update` |
+| **pbxproj 损坏** | 删除旧 `.xcodeproj` 后重新生成：`rm -rf {AppName}.xcodeproj && ~/tools/xcodegen/bin/xcodegen generate` |
+| **依赖 target 未找到** | 检查 dependency 块中的 target 名称是否与实际 target 名一致，Widget target 名称拼写是否正确 |
+
+### 5.5 版本号管理规则
+
+> ⚠️ **版本号必须按规则递增，避免 App Store 版本冲突**
+
+| 场景 | MARKETING_VERSION（用户可见） | CURRENT_PROJECT_VERSION（内部递增） |
+|------|:--|:---|
+| 首次提交 | 1.0.0 | 1 |
+| Bug 修复（Hotfix） | 1.0.1 | 2 |
+| 新增功能（Minor） | 1.1.0 | 3 |
+| 重大更新（Major） | 2.0.0 | 4 |
+| TestFlight 修复（无功能变更）| 不变 | 递增 |
+| 截图/描述更新（无 Code 变更）| 不变 | 不变 |
+
+**规则**：
+- `CURRENT_PROJECT_VERSION`：每次 Archive 时必须 +1（即使只是 TestFlight 修复）
+- `MARKETING_VERSION`：仅在功能/内容变更时递增，遵循语义化版本（SemVer）
+- 每次 commit 前 Agent 必须确认版本号是否合理
+- 如果 App 已上架，MARKETING_VERSION 必须大于 App Store 当前版本
+
+### 5.6 完整变更流程（必须遵守）
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -1314,7 +1540,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 ---
 
-## 第六阶段：App Store 截图制作
+## Stage 6：App Store 截图制作
 
 ### 6.0 截图工作流概述
 
@@ -1337,7 +1563,7 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 1. **创建专用 XCUITest 文件**（`ScreenshotTests.swift`），每个设备单独测试函数
 2. **启动2个模拟器**（分别 boot 上述2个设备）
 3. **运行测试并截图**（保存到 `/tmp/` 目录）
-4. **验证截图内容不同**（使用 MD5 哈希确保每张截图内容不同）
+4. **验证截图内容不同**（MD5 确保每张文件唯一 + SSIM 图像相似度验证确保确实是不同页面）
 5. **复制到 AppStore/Screenshots 目录**（按分辨率子目录分类，如 `iPhone_69_1320x2868/`）
 6. **提交到 GitHub**
 
@@ -1528,7 +1754,10 @@ xcodebuild test -project {AppName}.xcodeproj -scheme {AppName} \
   -only-testing:{AppName}UITests/ScreenshotTests/testiPad_13_05_Settings
 ```
 
-#### Step 5: 验证截图内容不同（MD5）
+#### Step 5: 验证截图内容不同（MD5 + SSIM）
+
+> ⚠️ **推荐同时使用 MD5 和 SSIM（图像相似度）两种验证方式**
+
 ```bash
 # 查看截图文件
 ls -la /tmp/iPhone_69_portrait_*.png
@@ -1543,10 +1772,36 @@ sips -g pixelHeight -g pixelWidth /tmp/iPhone_69_portrait_01_Home.png
 sips -g pixelHeight -g pixelWidth /tmp/iPad_13_portrait_01_Home.png
 ```
 
-> ⚠️ **⚠️ 最重要的一步：MD5 通过 ≠ 截图正确！** MD5 只验证文件大小/压缩不同，**不验证内容是否真的是不同页面**。必须：
+**SSIM 图像相似度验证**（在本地 AI Agent 服务器执行）：
+```bash
+# 先下载截图到本地
+sshpass -p '${SSH_PASSWORD}' scp user291981@LA690.macincloud.com:/tmp/iPhone_69_portrait_*.png ./screenshots/
+sshpass -p '${SSH_PASSWORD}' scp user291981@LA690.macincloud.com:/tmp/iPad_13_portrait_*.png ./screenshots/
+
+# 安装依赖（首次使用）
+pip install scikit-image opencv-python
+
+# 执行 SSIM 对比脚本（见 §6.6 验证截图尺寸完整脚本）
+python3 -c "
+from skimage.metrics import structural_similarity as ssim
+import cv2, os, glob
+
+for folder in ['iPhone_69_portrait', 'iPad_13_portrait']:
+    files = sorted(glob.glob(f'./screenshots/{folder}*.png'))
+    for i in range(len(files) - 1):
+        img1 = cv2.imread(files[i], cv2.IMREAD_GRAYSCALE)
+        img2 = cv2.imread(files[i+1], cv2.IMREAD_GRAYSCALE)
+        if img1 is not None and img2 is not None:
+            score = ssim(img1, img2)
+            status = '⚠️ 可能同一页面' if score > 0.95 else '✅ 不同页面'
+            print(f'{os.path.basename(files[i])} vs {os.path.basename(files[i+1])}: SSIM={score:.3f} {status}')
+"
+
+> ⚠️ **⚠️ 最重要的一步：MD5 + SSIM 通过 ≠ 截图完全正确！** MD5 只验证文件二进制不同，SSIM 可检测内容相似度，但仍然不能保证截图内容是预期的页面。必须：
 > 1. **发送真实截图文件给 Human 肉眼确认**：用 `scp` 把截图下载到本地，直接发送截图文件给 Human 确认每张是不同的页面
-> 2. **常见错误**：所有截图都是首页 → Tab 切换代码失败（参考 §6.3 排查）
-> 3. **不要跳过这一步**，否则提交后 App Store 会因截图不符合要求被拒
+> 2. **SSIM 阈值建议**：如果 SSIM > 0.95，大概率是同一页面，需排查 Tab 切换代码（参考 §6.3）
+> 3. **常见错误**：所有截图都是首页 → Tab 切换代码失败（参考 §6.3 排查）
+> 4. **不要跳过这一步**，否则提交后 App Store 会因截图不符合要求被拒
 
 ### 6.3 Tab 切换失败问题排查（所有截图都是首页）
 
@@ -1774,9 +2029,44 @@ if errors:
     print('\n=== 错误 ===')
     for e in errors:
         print(e)
+
+#### SSIM 图像相似度自动验证
+
+> ⚠️ **MD5 只能验证文件不同，不能验证内容是否真的不同页面。建议增加 SSIM 对比验证**
+
+```python
+try:
+    from skimage.metrics import structural_similarity as ssim
+    import cv2
+    import numpy as np
+
+    def check_screenshots_different(dir_path, threshold=0.95):
+        """对比相邻两张截图，如果 SSIM > 0.95 则警告可能是同一页面"""
+        files = sorted([f for f in os.listdir(dir_path) if f.endswith('.png')])
+        warnings = []
+        for i in range(len(files) - 1):
+            img1 = cv2.imread(f'{dir_path}/{files[i]}', cv2.IMREAD_GRAYSCALE)
+            img2 = cv2.imread(f'{dir_path}/{files[i+1]}', cv2.IMREAD_GRAYSCALE)
+            if img1 is not None and img2 is not None:
+                score = ssim(img1, img2)
+                if score > threshold:
+                    warnings.append(f'⚠️  {files[i]} 与 {files[i+1]} 相似度 {score:.3f}，可能为同一页面')
+        return warnings
+
+    for subdir in expected_sizes:
+        dir_path = f'./Screenshots/{subdir}'
+        if os.path.isdir(dir_path):
+            warnings = check_screenshots_different(dir_path)
+            if warnings:
+                print(f'\n=== {subdir} SSIM 警告 ===')
+                for w in warnings:
+                    print(w)
+except ImportError:
+    print("SSIM 验证需要安装: pip install scikit-image opencv-python")
+
 ```
 
-## 第六阶段附加：功能测试、E2E 测试与录屏制作
+## Stage 6 附加：功能测试、E2E 测试与录屏制作
 
 ### 6.7 功能测试（Unit Tests）
 
@@ -2027,9 +2317,11 @@ sshpass -p 'idt52924irh' ssh user291981@LA690.macincloud.com "\
 > ⚠️ **必须验证项**：每次提交前确保 `xcodebuild test` 全部通过，否则 App Store 审核可能因功能缺陷被拒。
 
 
-## 第七阶段：Widget 数据共享 / Beta 测试
+## Stage 7：Widget 数据共享 / Beta 测试
 
 > ⚠️ **Widget 为可选功能**。如果 App 不需要 Widget（如噪音检测、饮水追踪等），跳过此阶段。
+>
+> 🤖 **AI Agent 必须在 Stage 1 输出功能清单时，明确给出是否需要 Widget 的建议**。如果 App 包含需要首页概览或快捷操作的功能（如习惯追踪、待办事项、天气等），建议添加 Widget；如果 App 为单一功能工具（如噪音检测、抉择器），建议跳过 Widget。
 
 ### 7.1 App Groups 配置
 
@@ -2075,7 +2367,7 @@ let data = sharedDefaults?.data(forKey: "habits")
 
 ---
 
-## 第八阶段：App Store Connect 上传
+## Stage 8：App Store Connect 上传
 
 ### 8.1 Archive 操作（VNC 桌面）
 
@@ -2179,6 +2471,39 @@ let data = sharedDefaults?.data(forKey: "habits")
 6. 儿童隐私：是否面向 13 岁以下儿童
 7. 第三方服务：如果有广告或分析，说明
 
+#### 8.4.1 GDPR / CCPA 合规要求
+
+> ⚠️ **面向欧美市场的 App，必须满足 GDPR（欧盟）和 CCPA（加州）的隐私合规要求**
+
+| 要求 | 地区 | 实现方式 |
+|------|------|---------|
+| **数据可携带权** | GDPR 第20条 | 提供用户数据导出功能（JSON/CSV），在设置页面提供"导出数据"按钮 |
+| **被遗忘权（删除权）** | GDPR 第17条 / CCPA | 提供账号删除功能或数据清除功能，在设置页面提供"删除所有数据"按钮 |
+| **知情权** | GDPR 第13-14条 / CCPA | 隐私政策中明确说明收集哪些数据、用途、存储方式 |
+| **选择退出权** | CCPA | 如果收集用户数据用于商业目的，必须提供"不出售我的个人信息"选项 |
+| **数据泄露通知** | GDPR 第33条 | 72小时内通知监管机构和用户 |
+| **儿童数据** | GDPR 第8条 / COPPA | 面向 13 岁以下儿童需家长同意 |
+| **数据处理记录** | GDPR 第30条 | 维护数据处理活动记录 |
+
+**代码实现示例（数据导出/删除）：**
+```swift
+// 在 SettingsView 中提供数据导出和删除功能
+func exportUserData() -> URL? {
+    // 将用户数据序列化为 JSON
+    let data = try? JSONEncoder().encode(allUserData)
+    let url = FileManager.default.temporaryDirectory.appendingPathComponent("export.json")
+    try? data?.write(to: url)
+    return url
+}
+
+func deleteAllUserData() {
+    // 清除 UserDefaults / SQLite / Keychain 中的所有数据
+    UserDefaults.standard.dictionaryRepresentation().keys.forEach { UserDefaults.standard.removeObject(forKey: $0) }
+    try? FileManager.default.removeItem(at: databaseURL)
+    // 重置 App 状态
+}
+```
+
 ### 8.5 AI 技术应用要求
 
 > ⚠️ **涉及 AI/机器学习技术的 App，Apple 有额外的审核要求，必须提前准备**
@@ -2251,6 +2576,44 @@ You can disable this feature in Settings at any time.</p>
 | **iCloud 同步** | 必须实现 CloudKit 完整同步功能 | 必须验证数据一致性 |
 | **Connect Mac** | 必须实现 Mac 与 iOS App 数据同步功能 | 必须验证双向同步正常 |
 | **家庭 App 集成** | 必须实现 HomeKit 完整功能 | 必须验证设备控制正常 |
+
+#### Connect Mac 功能实现模板
+
+如果 App 需要 Mac 与 iOS 数据同步，必须使用 SwiftUI 的 `@AppStorage` 或 App Group UserDefaults：
+
+```swift
+import SwiftUI
+
+// 📁 SharedDataManager.swift - 跨设备数据同步
+class SharedDataManager {
+    static let shared = SharedDataManager()
+    private let defaults = UserDefaults(suiteName: "group.com.ggsheng.{AppName}")!
+
+    // MARK: - 数据同步
+    func syncDataToMac(key: String, value: Any) {
+        defaults.set(value, forKey: key)
+        defaults.synchronize()
+        // Connect Mac 通过 App Group 自动同步
+        print("Data synced for key: \(key)")
+    }
+
+    func readDataFromMac(key: String) -> Any? {
+        return defaults.object(forKey: key)
+    }
+
+    // MARK: - 双向同步验证
+    func verifyBiDirectionalSync() -> Bool {
+        let testKey = "__sync_test__"
+        let testValue = UUID().uuidString
+        syncDataToMac(key: testKey, value: testValue)
+        let readBack = readDataFromMac(key: testKey) as? String
+        defaults.removeObject(forKey: testKey)
+        return readBack == testValue
+    }
+}
+```
+
+> **Info.plist 配置**：Connect Mac 不需要额外的 Info.plist 配置，但必须确保主 App 和 Mac App 使用相同的 App Group。
 
 #### 通知功能必须实现清单
 
@@ -2343,94 +2706,176 @@ class IAPManager: NSObject, SKPaymentTransactionObserver {
 
 #### App Store Connect 配置
 
-1. 签署 **付费应用协议**（Agreement）
-2. 创建 **内购产品**（产品 ID 格式：`com.ggsheng.{AppName}.{product}`）
-3. 测试：**沙盒测试账号** 必须准备
-4. 提交审核时选择正确的 **内购审核截图**
+> ⚠️ **内购必须先在 App Store Connect 后台配置完成，App 才能正确处理购买。请按以下步骤操作。**
 
-#### 订阅型内购 App Store Connect 填写指南（§8.7.1）
+##### 步骤 1：签署协议与填写税务信息
 
-> ⚠️ **如果 App 包含自动续费订阅（如 StretchGoGo $0.99/月 Premium），除了常规填写外，还必须完成以下配置**
+> 👨 **Human 操作**（必须在 App Store Connect 网页执行）
 
-##### 第一步：签署付费应用协议 + 配置银行 + 税务
+| 操作项 | 位置 | 说明 |
+|-------|------|------|
+| **签署付费应用协议** | App Store Connect → 协议 → 付费应用协议 | 完成签名后才能创建内购产品 |
+| **银行信息** | App Store Connect → 协议 → 税务与银行 | 填写收款银行账户 |
+| **税务信息** | App Store Connect → 协议 → 税务与银行 | 填写美国/各国税务表单 |
 
-| 操作 | 位置 | 说明 |
-|------|------|------|
-| 签署协议 | App Store Connect → 协议、税务和银行 → 付费应用 | 必签，否则无法创建内购 |
-| 配置银行 | 同上 → 添加银行账户 | 收款用，验证可能需要1-2天 |
-| 配置税务 | 同上 → 税务 | 美国填 W-8BEN/W-9，其他国家按提示 |
+##### 步骤 2：创建内购产品
 
-##### 第二步：创建订阅产品
+> 👨 **Human 操作**（Agent 提供产品 ID 和定价建议）
 
-1. App Store Connect → 我的 App → 选择 App
-2. 左侧菜单点击 **内购**（In-App Purchases）
-3. 点击 **"+"** → 选择 **自动续费订阅**
+| 内购类型 | 适用场景 | 定价模式 |
+|---------|---------|---------|
+| **消耗型** (Consumable) | 虚拟货币、单次解锁内容 | 固定价格，可重复购买 |
+| **非消耗型** (Non-Consumable) | 永久解锁功能、去广告 | 一次性付费，支持恢复购买 |
+| **自动续期订阅** (Auto-Renewable Subscription) | 会员、高级功能、云存储 | 按周期扣费（周/月/季/年） |
+| **非续期订阅** (Non-Renewing Subscription) | 限时权限（如7天高级版） | 一次性购买，到期手动续费 |
 
-| 字段 | 填写内容 |
-|------|---------|
-| 产品 ID | `com.ggsheng.{AppName}.PremiumMonthly` |
-| 参考名称 | `{AppName} Premium Monthly` |
-| 订阅时长 | 1 个月 |
-| 价格 | $0.99 USD（或当地等价）|
-| 订阅类型 | 非公开订阅 |
+**产品 ID 格式**：
+```
+com.ggsheng.{AppName}.{product_id}
+# 示例：com.ggsheng.FocusTimer.premium_monthly
+```
 
-本地化（多语言）：
+**填写字段**：
+- **参考名称**：仅供你管理用（如 "Premium Monthly"）
+- **产品 ID**：代码中使用，必须完全一致
+- **价格**：选择价格等级（如 Tier 1 = $0.99）
+- **语言**：添加英文，填写显示名称和描述
+- **审核截图**：上传显示内购界面的截图（可复用 App 截图）
 
-| 语言 | 本地化名称 | 描述 |
-|------|-----------|------|
-| English | Premium Monthly | Unlock all sessions, advanced stats, voice guidance, iCloud sync. |
-| Chinese (Simplified) | 高级会员月卡 | 解锁全部课程、高级统计、语音指导、iCloud同步。 |
+##### 步骤 3：配置自动续期订阅（如适用）
 
-##### 第三步：订阅 App Store Connect 页面配置
+> ⚠️ **自动续期订阅有额外配置要求，不能跳过**
 
-| 字段 | 值 |
-|------|-----|
-| 类别 | Health & Fitness |
-| 价格 | Free（内购变现）|
-| 隐私政策 URL | `https://lauer3912.github.io/ios-{AppName}/docs/PrivacyPolicy.html` |
+| 配置项 | 位置 | 说明 |
+|-------|------|------|
+| **订阅组** (Subscription Group) | App Store Connect → 内购 → 订阅组 | 同一组内的订阅不能同时持有（如基础版/高级版放一组）|
+| **订阅时长** | 创建订阅产品时选择 | Available：1周/1月/2月/3月/半年/1年 |
+| ** Introductory Offers** | 产品详情页 → Introductory Offers | 免费试用（Free Trial）/ 折扣价（Pay as You Go/ Pay Up Front）|
+| **Promotional Offers** | 产品详情页 → Promotional Offers | 针对已过期用户重新吸引订阅 |
+| **本地化** (Localization) | 产品详情页 → 本地化 | 必须添加英文显示名称和描述 |
 
-##### 第四步：App 隐私配置
+**Introductory Offer 配置建议**：
 
-在 App Store Connect → App 隐私：
+| App 类型 | 推荐方案 | 说明 |
+|---------|---------|------|
+| 效率/工具类 | 3天免费试用 | 足够了，太长时间反而降低转化 |
+| 健康/健身类 | 7天免费试用 | 用户需要时间体验效果 |
+| 内容/订阅类 | 1个月免费试用 | 内容类需要更长时间展示价值 |
 
-| 数据类型 | 选择 |
-|---------|------|
-| 从 App 购买（Purchase History）| **是** |
+##### 步骤 4：创建沙盒测试账号
 
-> ⚠️ **隐私政策必须包含内购和订阅条款**，参考格式：
-> ```html
-> <h2>In-App Purchases and Subscriptions</h2>
-> <p>{AppName} offers auto-renewing subscriptions. Premium Monthly: $0.99/month. 
-> Subscriptions auto-renew unless cancelled 24h before period end. 
-> Manage via iOS Settings > Apple ID > Subscriptions.</p>
-> ```
+> 👨 **Human 操作**
 
-##### 第五步：内购审核截图
+1. 前往 **App Store Connect → 用户与访问 → 沙盒测试员**
+2. 点击 **"+"** 创建测试账号
+3. 填写邮箱（任意邮箱，无需真实）+ 密码 + 姓名
 
-提交含内购的 App **必须提供内购界面截图**：
+| 字段 | 示例 |
+|------|------|
+| 邮箱 | `sandbox_test@example.com` |
+| 密码 | `Test123456` | 不含特殊字符 |
+| 地区 | 选择 **United States**（测试美国定价）|
 
-| 类型 | 尺寸 | 说明 |
-|------|------|------|
-| 内购截图 | 与 App 截图尺寸相同 | 显示订阅墙、价格、功能列表 |
+**测试流程**：
+1. 在 TestFlight/开发版 App 中打开内购界面
+2. **App Store 账号必须登出**（设置 → iMessage & App Store → 退出真实账号）
+3. 点击购买 → 弹出登录提示 → **用沙盒测试账号登录**
+4. 验证购买流程正常、订阅状态正确、恢复购买功能正常
 
-##### 第六步：提交审核
+##### 步骤 5：提交审核时包含内购
 
-1. Xcode → Archive → Distribute → App Store Connect → Sign and Upload
-2. App Store Connect → 版本 → 选择刚上传的版本
-3. 确认内购产品已添加（"内购"标签页）
-4. 上传内购截图
-5. **提交审核**
+> ⚠️ **内购必须随 App 一同提交，否则 App 通过后内购仍需单独审核**
 
-> ⚠️ **协议生效前无法提交内购 App**。协议状态可在"协议、税务和银行"页面查看。
+| 操作 | 说明 |
+|------|------|
+| 在 App Store Connect 左侧菜单点击 **"内购"** | 确认所有内购产品状态为 **"准备提交"** |
+| 提交 App 审核时 | 内购产品会自动随 App 一同提交 |
+| 内购审核截图 | 必须为每款内购产品上传至少1张截图（购买界面截图）|
+| 不可单独提交内购 | 内购审核必须关联到 App 版本提交 |
 
-##### 常见被拒原因
+##### 内购产品配置模板（嵌入 `AppStore/Listing.md` 使用）
 
-| 被拒原因 | 解决方案 |
+> 🤖 **Agent 操作**：将以下模板中的占位符替换为具体值，写入 `AppStore/Listing.md` → 内购产品配置 章节
+
+```markdown
+# {AppName} IAP 产品配置清单
+> 由 Agent 生成，Human 对照此文件在 App Store Connect 创建内购产品
+
+---
+
+## 一、协议准备（必须先完成）
+> 操作路径：App Store Connect → 协议、税务与银行
+
+- [ ] 签署**付费应用协议**（Paid Applications Agreement）
+- [ ] 填写**银行信息**（收款账户）
+- [ ] 填写**税务信息**（美国 W-9 或 W-8BEN 表单）
+- [ ] 以上三者全部 `有效` 后才能创建内购产品
+
+---
+
+## 二、消耗型产品（Consumable）
+> 适用于：{App 中哪些功能使用消耗型内购}
+
+| 参考名称 | 产品 ID | 价格等级 | 显示名称(EN) | 描述(EN) | 审核截图 |
+|---------|--------|---------|-------------|---------|---------|
+| {管理用名} | {AppName}.{product_id} | Tier {N} | {用户可见名} | {描述文字} | {需要/不需要} |
+
+---
+
+## 三、自动续期订阅（Auto-Renewable Subscription）
+> 适用于：{App 中哪些功能使用订阅}
+
+### 订阅组配置
+| 订阅组名称 | 组内包含的产品 |
+|-----------|--------------|
+| {GroupName}（如 PremiumGroup）| {Product1}、{Product2} |
+
+### 订阅产品列表
+| 参考名称 | 产品 ID | 价格等级 | 显示名称(EN) | 描述(EN) | 时长 | 所属组 | 审核截图 |
+|---------|--------|---------|-------------|---------|------|-------|---------|
+| {管理名} | {AppName}.premium_monthly | Tier 6 | Premium Monthly | Unlock all premium features | 1 Month | PremiumGroup | 需要 |
+| {管理名} | {AppName}.premium_yearly | Tier 60 | Premium Yearly | Best value: unlock all features | 1 Year | PremiumGroup | 需要 |
+
+### Introductory Offers（试用/折扣）
+| 产品 ID | 优惠类型 | 时长 | 价格 | 说明 |
+|--------|---------|------|------|------|
+| {AppName}.premium_yearly | Free Trial | 7 Days | Free | 7天免费试用，吸引用户长期订阅 |
+| {AppName}.premium_monthly | Free Trial | 3 Days | Free | 3天免费试用 |
+
+---
+
+## 四、沙盒测试账号
+> 操作路径：App Store Connect → 用户与访问 → 沙盒测试员
+
+| 邮箱 | 密码 | 地区 |
+|-----|------|------|
+| sandbox_test@example.com | Test123456 | United States |
+
+### 测试流程
+1. 在 TestFlight/开发版 App 中打开内购界面
+2. 设置 → 退出真实 App Store 账号
+3. 点击购买 → 用沙盒账号登录
+4. 验证：购买成功/订阅状态恢复/恢复购买功能正常
+
+---
+
+## 五、提交审核前确认
+- [ ] 所有内购产品状态为 **"准备提交"**
+- [ ] 每款产品已上传**审核截图**（显示购买界面的截图）
+- [ ] 订阅已正确配置**订阅组**
+- [ ] 沙盒测试已验证购买流程
+```
+
+#### 常见被拒原因
+
+| 拒绝原因 | 解决方案 |
 |---------|---------|
-| "IAP not implemented correctly" | 必须实现完整的 StoreKit 购买+恢复逻辑 |
+| "IAP not implemented correctly" | 必须实现完整的交易监听和恢复购买 |
 | "Cannot restore purchases" | 必须提供恢复购买按钮 |
 | "Product ID mismatch" | 产品 ID 必须与 App Store Connect 完全一致 |
-| "App crashes on purchase" | 使用沙盒账号完整测试购买流程 |
+| "Subscription group not configured" | 自动续期订阅必须在 App Store Connect 创建订阅组 |
+| "No introductory offer description" | 在 App 描述中明确说明免费试用/折扣的条款 |
+| "IAP screenshots missing" | 每款内购产品至少上传 1 张审核截图 |
 
 ---
 
@@ -3015,11 +3460,10 @@ entitlements:
         <string>com.ggsheng.AppName</string>
         <key>CFBundleURLSchemes</key>
         <array>
-            <string>appname</string>
-        </array>
-    </dict>
-</array>
-```
+            <string>{AppNameLower}</string>
+            </array>
+        </dict>
+    </array>
 
 #### 处理 URL Scheme
 
@@ -3219,6 +3663,23 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 
 ---
 
+### 📋 App Store 审核 Guideline 速查表
+
+| Guideline | 常见触发场景 | 预防措施 |
+|:---------|------------|---------|
+| **2.3.0** 元数据不准确 | 截图与 App 实际 UI 不符，截图经过过度美化 | 截图必须是 App 真实运行截图，不可修图 |
+| **2.3.1** 隐藏功能 | Info.plist 权限描述与 App 实际行为不符 | 权限描述必须准确说明用途 |
+| **2.5.4** 仅依赖硬编码 URL/API | App 无网络时完全不可用 | 做好离线支持（Offline First）|
+| **3.1.1** 内购绕过 | 使用第三方支付购买数字商品/服务 | 数字商品必须走 StoreKit IAP |
+| **3.2.1** 功能单薄 | App 只有一个简单功能（如纯计时器） | 确保功能数量 ≥60 个 |
+| **4.0** 设计抄袭/模板化 | App 与已有 App 界面高度相似 | 自定义设计，遵循 Apple HIG |
+| **5.1.1** 数据收集未声明 | App 收集健康/位置等数据但隐私政策未说明 | 隐私政策完整覆盖所有数据类型 |
+| **5.1.2** 权限要求不匹配 | 请求了相机权限但 App 不需要拍照 | 按实际功能配置权限描述 |
+| **4.2** 最低功能标准 | App 有崩溃、Bug 或功能未实现 | 必须通过 Claude Code 审查 + 修复 |
+| **4.6** 替代支付方式 | App 展示引导用户使用非 IAP 支付方式的文字 | 删除所有非 IAP 支付引导文字 |
+
+---
+
 ## 代码质量常见错误（SF Symbols / SwiftUI 图标渲染）
 
 ### 问题描述
@@ -3381,7 +3842,7 @@ App Store 名称未被占用？
 
 ---
 
-## 第九阶段：App Store Connect 填写与提交审核
+## Stage 9：App Store Connect 填写与提交审核
 
 ### 9.1 提交审核前的准备工作
 
@@ -3436,6 +3897,8 @@ App Store 名称未被占用？
 
 ### 9.2 App Store Connect 填写清单
 
+> ⚠️ **所有必填数据已由 Agent 在 Stage 1.8 写入 `AppStore/Listing.md`**。以下各步骤中，👨 Human 应打开该文件，按章节对照填写，无需从 SOP 模板中手动替换变量。
+
 > 以中文版 App Store Connect 为例
 
 #### 第四步：创建 App（或选择已有）
@@ -3469,9 +3932,7 @@ App Store 名称未被占用？
 
 #### 第五步：App 隐私（左菜单）
 
-> ⚠️ **根据 App 实际功能配置，不是全部选"否"**
-
-**配置方法**：根据 §8.3 的配置表，选择"是"或"否"
+> ⚠️ **根据 App 实际功能配置，不是全部选"否"。参照 `AppStore/Listing.md` → 第五步 逐项填写**
 
 | 问题 | 答案（示例）|
 |------|------------|
@@ -3495,16 +3956,30 @@ App Store 名称未被占用？
 
 #### 第六步：定价与范围（左菜单）
 
+> ⚠️ **参照 `AppStore/Listing.md` → 第六步 填写价格模式**
+
 | 字段 | 内容 |
 |------|------|
-| 价格 | 选具体金额（如 $9.99）或 Free |
+| 价格 | 选具体金额（如 $9.99）或 **Free**（免费下载+内购模式） |
 | 可用性 | **全部地区** |
+
+> ⚠️ **关于定价模式**：
+> - **Free（免费下载）**：App 免费下载，通过内购/订阅盈利 → 选择 Free，内购价格在 §8.7 配置
+> - **付费下载**（如 $9.99）：用户需要先付费才能下载 → 选择具体金额
+> - **两者不能同时选**：如果选择付费下载，则不能再有内购
 
 ⚠️ **必须点"存储"按钮**
 
 #### 第七步：App Store 信息（左菜单）
 
-逐项填写：
+> ⚠️ **App Store 元数据源文件已由 Agent 在 Stage 1.8 生成到 `AppStore/Listing.md`**。
+>
+> **操作流程**：
+> 1. 👨 Human **打开 `AppStore/Listing.md`** 查看已填好的具体内容
+> 2. 👨 Human **逐项复制到 App Store Connect 网页**（对照文件中的内容填写）
+> 3. 如果需要修改内容，通知 🤖 Agent 更新 `AppStore/Listing.md` 文件
+>
+> **下方模板仅为格式参考**，实际内容以 `AppStore/Listing.md` 为准。
 
 **1. 名称**
 ```
@@ -3518,21 +3993,51 @@ App Store 名称未被占用？
 
 **3. 隐私政策网址**（已填，跳过）
 
-**4. 描述**（description，最多）
+**4. 技术支持网址**（Support URL，必填）
 ```
-100+ features -- the most complete focus app ever made.
+https://lauer3912.github.io/ios-{AppName}/
+```
+> ⚠️ **必须填写**，Apple 审核需要的支持联系渠道。如果 App 无独立网站，使用 GitHub Pages 地址。
 
-{AppName} takes the classic focus technique to a whole new level. AI-adaptive smarts, immersive ambient sounds, detailed progress tracking, and a design you'll actually love -- all to help you rebuild your focus.
+**5. 营销网址**（Marketing URL，可选，留空）
+
+**6. 版本**（Version，必填）
+```
+{AppStoreVersion}
+```
+> ⚠️ **必须与 project.yml 中的 `MARKETING_VERSION`（如 `1.0.0`）完全一致**
+
+**7. 新版本内容**（What's New，必填）
+
+> ⚠️ **首次提交也需要填写**，简要描述 App 的核心功能亮点，使用英文
+
+```
+Initial release of {AppName}.
+
+- {Feature1}
+- {Feature2}
+- {Feature3}
+```
+
+**8. 描述**（Description，最多4000字符）
+
+> ⚠️ **以下为占位模板，必须根据实际 App 功能替换内容，禁止直接复制使用**
+
+```
+{Number}+ features -- the most complete {AppCategory} app ever made.
+
+{AppName} provides {core_value_proposition} -- all to help you {user_goal}.
 
 Core Features
 
-- AI-Adaptive Focus -- Smart work/rest duration adjustment that optimizes in real-time.
-- 12 Immersive Ambient Sounds -- Rain, forest, ocean waves, coffee shop, white noise -- all synthesized locally.
-- 100+ Achievement Badges -- From "First Focus" to "100-Hour Master."
-- Focus Streak Calendar -- Monthly calendar showing your daily focus journey.
-- Deep Data Insights -- Daily/weekly/monthly focus reports.
-- Rolling Focus Mode -- Continuous focus mode with seamless work sessions.
-- Daily Challenges -- A unique micro focus challenge every day.
+- {Feature1} -- {Feature1 Description}
+- {Feature2} -- {Feature2 Description}
+- {Feature3} -- {Feature3 Description}
+- {Feature4} -- {Feature4 Description}
+- {Feature5} -- {Feature5 Description}
+- {Feature6} -- {Feature6 Description}
+- {Feature7} -- {Feature7 Description}
+- {Feature8} -- {Feature8 Description}
 
 Why {AppName}?
 
@@ -3540,33 +4045,61 @@ Why {AppName}?
 - Offline First -- No network required. All features run locally.
 - Ad-Free -- No annoying ads ever.
 
-${price} one-time purchase -- lifetime access, no subscription
+{Price} one-time purchase -- lifetime access, no subscription
 
-Start rebuilding your focus today.
+Start {action} today.
 ```
 
-**5. 关键词** (最多100个字符)
+**9. 关键词** (最多100个字符)
 ```
-focus timer, productivity, focus, concentration, study, work
-```
-
-**6. 促销文本**（可选，不填也可，最多170个字符）
-```
-{AppName} -- AI-adaptive focus timer with ambient sounds, streak tracking & insights. ${price} one-time. Try today.
+{keyword1}, {keyword2}, {keyword3}, {keyword4}, {keyword5}
 ```
 
-**7. 营销网址**（可选，留空）
+**10. 促销文本**（可选，不填也可，最多170个字符）
+```
+{AppName} -- {AppName}. {price} one-time. Try today.
+```
 
-**8. 年龄分级**
+**11. App Store 图标**（App Icon，必填）
+
+> ⚠️ **上传 §4.6 生成的 1024×1024 图标文件**（即 `Icon-1024@1x.png`）
+>
+> 操作：点击"+"按钮上传 PNG 文件，**不要 resize 或压缩**
+
+**12. 版权**（Copyright，必填）
+```
+© {Year} {AppName} - {DeveloperName}
+```
+> ⚠️ **格式必须正确**：© + 年份 + 开发者名称，如示例 `© 2026 Better - ZhiFeng Sun`
+
+**13. 内容权利**（Content Rights，条件必填）
+```
+{App 是否包含或展示第三方内容？}
+```
+> - **否**：所有内容均为原创或获授权 → 选 **No**
+> - **是**：包含第三方内容（如音乐、视频、图片素材库）→ 选 **Yes**，需说明授权方式
+
+**14. 年龄分级**（Age Rating）
 - 点 **"设置年龄分级"** → 选择 **"4+"**
+- 如果 App 包含健康建议/竞技比赛等内容，选择对应分级
 
-**9. 类别**
+**15. 类别**（Category）
 - 主类别：**根据 App 类型选择（参考 §8.2 类别选择指南）**
 - 次类别：（不选）
+
+**16. 广告标识符**（Advertising Identifier，IDFA，条件填写）
+> ⚠️ **仅当 App 使用了广告 SDK 或追踪框架时才需要启用**
+
+| 选项 | 选择条件 |
+|------|---------|
+| **是，此 App 使用 Advertising Identifier** | App 集成了 AdMob/Facebook Ads 等广告 SDK |
+| **否，此 App 不使用 Advertising Identifier** | App 无任何广告 SDK（**大多数 App 选此项**）|
 
 ⚠️ **必须点"存储"按钮**
 
 #### 第八步：App Store 截图（左菜单）
+
+> ⚠️ **截图文件清单参照 `AppStore/Listing.md` → 第八步。截图文件位于 `AppStore/Screenshots/` 目录下**
 
 **必需尺寸（2 个上传区域，每个最少 3 张截图）：**
 
@@ -3607,9 +4140,13 @@ grep -rn "[぀-ゟ゠-ヿ]" ios-{AppName}/ --include="*.swift"  # 日文
 
 #### 第九步：Build（左菜单）
 
+> ⚠️ **参照 `AppStore/Listing.md` → 第九步 确认 Build 版本号**
+
 选择最新上传的 Build（通常在最上面）
 
 #### 第十步：审核信息（左菜单）
+
+> ⚠️ **测试账号和审核备注参照 `AppStore/Listing.md` → 第十步**
 
 | 字段 | 填写内容 |
 |------|---------|
@@ -3653,6 +4190,8 @@ if UserDefaults.standard.array(forKey: "habits")?.isEmpty ?? true {
 ```
 
 #### 第十一步：出口合规（左菜单）
+
+> ⚠️ **参照 `AppStore/Listing.md` → 第十一步。通常选"否"**
 
 > ⚠️ **【强制】必须预先配置出口合规，避免每次提交都被问到加密问题**
 
@@ -3730,5 +4269,46 @@ if UserDefaults.standard.array(forKey: "habits")?.isEmpty ?? true {
 - 期间可在 App Store Connect 查看状态变化
 - 审核被拒：邮件通知具体原因，按原因修改后重新提交
 
-> **实际案例参考（JustZenGo）：** App Store 名称 JustZenGo / Bundle ID com.ggsheng.JustZenGo / 定价 $9.99 / 隐私政策 https://lauer3912.github.io/ios-JustZenGo/docs/PrivacyPolicy.html / 类别 Productivity / 年龄分级 4+ / 出口合规已预配置 / 登录信息否 / 审核信息如需登录则提供测试账号+Demo数据 / 禁用 Pomodoro、heatmap、emoji / 版权 Copyright © 2026 JustZenGo ZhiFeng Sun / 界面设计风格 参照 §4.5 / 功能数量 ≥60
-| 截图 | iPhone 6.9"(1320×2868)x3 + iPhone 6.5"(1284×2778)x3 + iPhone 6.3"(1206×2622)x3 + iPad 13"(2048×2732)x3 + iPad 11"(1668×2388)x3 |
+> **实际案例参考（JustZenGo）**：`SOP-Example-JustZenGo.md`（独立文件，见项目根目录）
+>
+> 案例内容：App Store 名称 JustZenGo / Bundle ID com.ggsheng.JustZenGo / 定价 $9.99 / 隐私政策 https://lauer3912.github.io/ios-JustZenGo/docs/PrivacyPolicy.html / 类别 Productivity / 年龄分级 4+ / 出口合规已预配置 / 登录信息否 / 审核信息如需登录则提供测试账号+Demo数据 / 禁用 Pomodoro、heatmap、emoji / 版权 Copyright © 2026 JustZenGo ZhiFeng Sun / 界面设计风格 参照 §4.5 / 功能数量 ≥60 | 截图 | iPhone 6.9"(1320×2868)x3 + iPad 13"(2048×2732)x3（2个设备）|
+
+---
+
+## Stage 10：审核被拒处理流程
+
+> ⚠️ **App Store 审核被拒是常见情况，不要慌张。按以下流程分类处理即可。**
+
+### 10.1 分类处理流程
+
+| 拒绝类型 | 特征 | 处理方式 | 负责人 |
+|---------|------|---------|-------|
+| **元数据问题** | 截图与 App 不符、描述有问题、类别选择错误 | 修改元数据后直接重新提交 | 👨 Human |
+| **功能缺陷** | Guideline 2.1 - App 崩溃、功能未实现 | Agent 修复代码 → 重新 Archive → 重新提交 | 🤖 Agent + 👨 Human |
+| **设计问题** | Guideline 4.0 - 设计不符合 HIG | 修改 UI 设计后重新提交 | 🤖 Agent |
+| **隐私问题** | Guideline 5.1 - 数据收集未声明 | 更新隐私政策 → 重新提交 | 🤖 Agent |
+| **内购问题** | Guideline 3.1 - IAP 未正确实现 | 修复 IAP 代码 → 重新 Archive → 重新提交 | 🤖 Agent + 👨 Human |
+| **AI 相关** | 未说明 AI 数据处理方式 | 更新隐私政策 AI 条款 → 重新提交 | 🤖 Agent |
+
+### 10.2 重新提交步骤
+
+1. **分析拒绝原因**：阅读 Apple 发送的拒绝邮件，记录 Guideline 编号和具体描述
+2. **确定修改方案**：参照上表确定处理方式和负责人
+3. **执行修改**：
+   - Agent：修改代码/隐私政策/配置文件
+   - Human：修改 App Store Connect 元数据
+4. **Claude Code 审查 + 修复**：所有代码变更必须经过审查
+5. **重新 Archive + Upload**：通过 VNC 桌面操作
+6. **在 App Store Connect 回复审核备注**：说明修改内容（Human 操作）
+7. **点击"重新提交审核"**
+
+### 10.3 常见拒绝原因及修改示例
+
+| 拒绝原因 | 修改示例 |
+|---------|---------|
+| "您的 App 包含隐藏功能" | 检查 Info.plist 中所有权限描述是否与实际功能匹配，删除不需要的权限 |
+| "截图与 App 实际 UI 不符" | 使用实机/模拟器重新截图，确保截图内容与 App 提交版本一致 |
+| "App 功能过于简单" | 在 FeatureList.md 中检查功能数量，确保 ≥60 个，增加功能后重新提交 |
+| "未提供测试账号" | 在审核信息中提供测试账号和 Demo 数据 |
+| "IAP 产品 ID 不匹配" | 检查代码中的 product ID 是否与 App Store Connect 完全一致 |
+| "隐私政策未提供" | 检查 GitHub Pages 隐私政策 URL 是否正确，内容是否完整 |
