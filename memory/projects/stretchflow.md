@@ -12,8 +12,36 @@
 - 最后活跃: 2026-05-08
 
 ## 当前状态
-<!-- 0=概念, 1=开发, 2=测试, 3=截图, 4=提交审核, 5=上架 -->
-状态阶段: 3（内购配置中）
+
+| 类型 | 状态 | 说明 |
+|------|------|------|
+| 代码 | ✅ 完成 | PremiumManager + PremiumPaywallView + 恢复购买 |
+| App Store 截图 | ✅ 完成 | iPhone 6.9" x5 + iPad 13" x5（真实 XCUITest 捕获）|
+| 内购审核截图 | ✅ 完成 | 3张（购买界面 + 订阅按钮 + 恢复购买）|
+| 隐私政策 | ✅ 完成 | 包含订阅条款 |
+| Listing.md | ✅ 完成 | SOP §1.8 标准格式 |
+
+## 截图文件
+
+```
+AppStore/Screenshots/
+├── iPhone_69_1320x2868/
+│   ├── 01_Home.png
+│   ├── 02_Library.png
+│   ├── 03_SessionDetail.png
+│   ├── 04_Stats.png
+│   └── 05_Profile.png
+├── iPad_13_2048x2732/
+│   ├── 01_Home.png
+│   ├── 02_Library.png
+│   ├── 03_SessionDetail.png
+│   ├── 04_Stats.png
+│   └── 05_Profile.png
+└── InAppPurchase/
+    ├── IAP_com.ggsheng.StretchGoGo.PremiumMonthly_购买界面_iPhone69.png
+    ├── IAP_com.ggsheng.StretchGoGo.PremiumMonthly_订阅按钮_iPhone69.png
+    └── IAP_com.ggsheng.StretchGoGo.PremiumMonthly_恢复购买_iPhone69.png
+```
 
 ## 重要文档
 - **内购提交指南**: `memory/projects/stretchflow-iap-guide.md`
