@@ -54,8 +54,6 @@
 > - Base URL：`https://api.minimaxi.com/v1`
 > - API Key：`sk-cp-JrsXMfjYj9mexu5NAr9Eevedk7IBFoCZFi4azaPEColz-bU0LH0NPA-Z-gxMlM505CKP1Cq-zaAP0OF2bQ0k6y44J1TP0XNodYCxY9oiQAmeGb0RPIivl6A`
 >
-> Claude Code 的职责是"审查 + 修复"，不是"编写"
-
 > ⚠️ **【重要】Claude Code 的职责是"审查 + 修复"，不是"编写"**：
 > - **审查**：分析代码发现问题（bug、风格、安全等）
 > - **修复**：根据审查结果修复问题
@@ -76,7 +74,7 @@
 | **功能完整性审查** | **每次代码变更后 Agent 必须自动执行至少 3 次**，发现问题立即修复，**确保整个 App 功能完备正常**，**主动执行，不需要询问人类** |
 | **出口合规预先配置** | **必须预先在 Info.plist 配置 `ITSAppUsesNonExemptEncryption = NO`**，避免每次提交被问到加密问题 |
 | **Git 默认分支必须为 main** | **所有项目必须以 `main` 作为默认分支**。如果项目中存在 `master` 或 `github-actions` 等非 main 分支，必须由 **👨 Human 审核迁移方案** 后，Agent 才能执行合并。**禁止在非 main 分支上进行开发或提交** |
-| **禁止 GitHub Actions 单独分支** | **禁止创建 `github-actions` 等单独分支存放 CI/CD 配置**。`.github/workflows/` 必须放在 main 分支，作为源码的一部分管理。GitHub Actions 通过 trigger 条件（push/PR/tag）控制何时运行，不需要单独分支 |
+| **GitHub Actions 用途** | **构建 (Build)、测试 (Test)、上传 (Upload)**。通过 `.github/workflows/` 配置 CI/CD 流程，放在 main 分支管理，通过 trigger 条件（push/PR/tag）控制何时运行 |
 | **App 项目目录必须以 `ios-` 开头** | 所有 iOS 项目文件夹名称**必须以 `ios-` 为前缀**（如 `ios-FocusTimer`、`ios-HabitGo`），禁止使用其他前缀或无前缀 |
 
 ---
@@ -124,6 +122,7 @@
 | | 5.2 验证生成结果 | 检查文件是否完整 |
 | | 5.3 Git 提交 + 同步到 MacinCloud | git push + SSH 到 MacinCloud 执行 |
 | **Stage 6** | 6.2 编写 + 审查截图代码 | 生成 `ScreenshotTests.swift`，Claude Code 审查 + 修复 |
+| | 6.1.1 截取内购审核截图 | **Apple 要求**：每款内购产品必须上传至少 1 张审核截图，显示购买界面 |
 | | 6.3 添加 Tab identifier + 审查 | 修改 App 源码添加 identifier，Claude Code 审查 + 修复 |
 | | 6.5 下载截图到本地 | scp 下载 |
 | | 6.6 验证截图尺寸 + 肉眼检查 | MD5 + sips 命令，人类确认每张截图不同页面 |
@@ -135,7 +134,7 @@
 | **Stage 7** | 7.1 配置 App Groups | 修改 entitlements |
 | | 7.4 修复 Bug | 根据反馈修改代码 |
 | **Stage 8** | 8.4 创建隐私政策 HTML | 生成 `PrivacyPolicy.html` |
-| | 8.5 部署隐私政策到 GitHub Pages | git push 后自动部署 |
+| | 8.5 部署隐私政策到 GitHub Pages | 放入 `docs/` 目录，GitHub Pages 自动提供服务 |
 | | 8.6 写隐私政策 AI 相关条款 | 生成 AI 相关隐私政策条款 |
 | **Stage 9** | 9.1 提交前最终检查 + Capabilities 复查 | 输出检查清单 + Capabilities 最终复查，给出上架前指导意见 |
 | **操作地点** | 同步代码到 MacinCloud | SSH 到 MacinCloud 执行 `git pull origin main` |
@@ -197,6 +196,8 @@
 | 1.2 | 确定三层命名方案 | 🤖 AI Agent | 根据名称查询结果确定（**Agent 直接执行**）|
 | 1.3 | 确认功能清单（≥60 个）| 🤖 AI Agent | 输出 `Docs/FeatureList.md`（包含 **Identifier Capabilities 推荐**）（**Agent 直接执行**）|
 | 1.4 | 审核功能清单 + Capabilities | 👨 Human | 确认功能数量达标 **同时确认 Capabilities 推荐方案（供 Agent 后续通过 Xcode 配置）** |
+| 1.5 | 界面设计规范输出 | 🤖 AI Agent | 根据功能清单输出界面设计规范/布局说明（**Agent 直接执行**）|
+| 1.6 | 确定 App 隐私分类 | 🤖 AI Agent | 根据功能清单确定 App 隐私分类并写入 `AppStore/Listing.md`（**Agent 直接执行**）|
 | 1.8 | 生成 App Store 元数据文件 | 🤖 AI Agent | 写入 `AppStore/Listing.md`（所有字段含内购产品配置），替换所有占位符为当前 App 具体值（**Agent 直接执行**）|
 
 #### Stage 2：创建项目目录结构
@@ -238,6 +239,7 @@
 | 步骤 | 任务 | 执行主体 | 说明 |
 |------|------|---------|------|
 | 6.1 | 截图尺寸要求 | 🤖 AI Agent | 见 §6.0 工作流概述（**Agent 直接执行**）|
+| 6.1.1 | **截取内购审核截图** | 🤖 AI Agent | **Apple 强制要求**：每款内购产品必须上传至少 1 张审核截图，显示购买界面（**Agent 直接执行**）|
 | 6.2 | 编写截图代码 | 🤖 AI Agent | 生成 `ScreenshotTests.swift`（**Agent 直接执行，不需要询问人类**）|
 | 6.3 | 添加 Tab identifier | 🤖 AI Agent | 修改 App 源码添加 identifier（**Agent 直接执行**）|
 | 6.4 | 文件名规范 | 🤖 AI Agent | 格式：`序号_页面名称.png`（**Agent 直接执行**）|
@@ -273,7 +275,7 @@
 | 8.2 | 填写 App Store Connect 信息 | 👨 Human | 人类在网页上填写 |
 | 8.3 | 配置 App 隐私 | 👨 Human | 根据 App 实际功能选择"是"或"否"（参考 §8.3 配置表）|
 | 8.4 | 创建隐私政策 HTML | 🤖 AI Agent | 生成 `PrivacyPolicy.html`（**Agent 直接执行**）|
-| 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | git push 后自动部署（**Agent 直接执行**）|
+| 8.5 | 部署隐私政策到 GitHub Pages | 🤖 AI Agent | 放入 `docs/` 目录，GitHub Pages 自动提供服务（**Agent 直接执行**）|
 | 8.6 | 写隐私政策 AI 相关条款 | 🤖 AI Agent | 生成 AI 相关隐私政策条款（**Agent 直接执行**）|
 | 8.7 | 审核隐私政策 | 👨 Human | 人类审核 AI 写的隐私政策条款 |
 
@@ -337,7 +339,7 @@
 | **git push** | 🤖 AI Agent 服务器 | 推送到 GitHub |
 | **同步代码到 MacinCloud** | 🤖 AI Agent 服务器 | SSH 到 MacinCloud 执行 `git pull origin main`（**不需要询问人类，直接执行**）|
 
-> ⚠️ **【强制】Agent 每次 SSH 到 MacinCloud 前必须先 git pull**，确保 MacinCloud 本地是最新代码，避免覆盖或冲突 |
+> ⚠️ **【强制】Agent 每次 SSH 到 MacinCloud 前必须先 git pull**，确保 MacinCloud 本地是最新代码，避免覆盖或冲突
 | **XcodeGen 生成** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 `~/tools/xcodegen/bin/xcodegen generate`（**Agent 直接执行**）|
 | **xcodebuild build/test** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行（**Agent 直接执行，不需要询问人类**）|
 | **截图（XCUITest）** | MacinCloud | 🤖 AI Agent **SSH 到 MacinCloud** 执行 xcodebuild test（**Agent 直接执行，不需要询问人类**）|
@@ -1134,7 +1136,7 @@ settings:
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>AppStoreName</string>         <!-- App Store 显示名 -->
+    <string>{AppStoreName}</string>         <!-- App Store 显示名 -->
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -1582,9 +1584,42 @@ grep 'PRODUCT_BUNDLE_IDENTIFIER' {AppName}.xcodeproj/project.pbxproj
 
 > ⚠️ **每个上传区域最少 3 张截图。**
 >
-> ⚠️ **严禁 resize / upscale / 拉伸 截图。** 截图必须从对应尺寸的模拟器或真机实截。
+> ⚠️ **严禁 resize / upscale / 拉伸 截图。** 截图必须从对应尺寸的模拟器实截。
 >
 > 提交前以 App Store Connect 页面上显示的要求尺寸为准。
+
+### 6.1.1 内购审核截图要求（Apple 强制要求）
+
+> ⚠️ **【强制】Apple 要求内购审核截图必须通过真实的 XCUITest 从模拟器截取，必须是真实的购买界面截图，符合 Apple 审核规范**
+
+**规则**：
+- 每款内购产品必须上传至少 **1 张审核截图**
+- 截图必须是**真实的模拟器截图**，**禁止使用设计稿、Mockup 或人工制作的假截图**
+- 截图必须**显示真实的购买界面**（如 StoreKit 内购弹窗、产品订阅列表页面）
+- 截图必须**包含内购产品信息**（产品名称、价格、订阅周期等）
+- 截图尺寸要求与 App Store 截图相同（6.9" 和 13" 两个上传区域）
+- 截图由 **🤖 AI Agent 通过 XCUITest 从模拟器截取**，保存到 `AppStore/Screenshots/IAP/` 目录
+
+**Apple 审核合规要求**：
+- 截图必须来自**真实运行中的 App**，不能是设计稿或合成图
+- 截图中的 UI 元素（价格、产品名、按钮）必须与 App Store Connect 中配置的完全一致
+- 如果 App 支持多种内购类型，每种类型至少提供 1 张截图
+- 截图清晰可读，不能模糊、裁剪或拉伸
+
+**内购截图命名规范**：
+```
+{IAP产品ID}_购买界面_{设备}.png
+```
+示例：
+- `com.app.premium_monthly_购买界面_iPhone69.png`
+- `com.app.premium_yearly_购买界面_iPad13.png`
+
+**XCUITest 代码要求**：
+- 必须能触发内购界面（如点击购买按钮、打开订阅页面）
+- 等待内购弹窗完全加载后再截图
+- 截图保存后验证内容（确认包含内购产品信息）
+
+🤖 **Agent 操作**：编写 XCUITest 代码截取内购界面 → SSH 到 MacinCloud 执行 → scp 下载截图 → 提交到 Git
 
 ### 6.2 XCUITest 截图完整流程
 
@@ -2353,12 +2388,16 @@ let data = sharedDefaults?.data(forKey: "habits")
 👨 **Human 操作**：
 
 **提交审核前必须进行 Beta 测试**：
+
+👨 **Human 操作**：
 1. Archive 打包后，通过 Xcode Organizer 上传 TestFlight
 2. 邀请内部测试员（至少 1 名）进行功能验证
-4. Beta 测试通过后才能提交 App Store 审核
 
 🤖 **AI Agent 操作**：
 3. 修复 Beta 测试发现的 Bug
+
+👨 **Human 操作**：
+4. Beta 测试通过后才能提交 App Store 审核
 
 **TestFlight 要求**：
 - 必须有至少 1 名内部测试员
@@ -2740,7 +2779,7 @@ com.ggsheng.{AppName}.{product_id}
 - **产品 ID**：代码中使用，必须完全一致
 - **价格**：选择价格等级（如 Tier 1 = $0.99）
 - **语言**：添加英文，填写显示名称和描述
-- **审核截图**：上传显示内购界面的截图（可复用 App 截图）
+- **审核截图**：必须上传**真实的内购界面截图**（由 Agent 通过 XCUITest 截取），显示产品名称、价格和购买按钮
 
 ##### 步骤 3：配置自动续期订阅（如适用）
 
@@ -3720,7 +3759,7 @@ Image(systemName: achievement.icon) // ✅ 正确渲染 SF Symbol
    ```
    如果有任何输出，说明存在错误写法。
 
-2. **真机/模拟器预览：** 预览时图标显示为字面字符串（如 `"flame.fill"`）或方块，证明使用了 `Text()`。
+2. **模拟器预览：** 预览时图标显示为字面字符串（如 `"flame.fill"`）或方块，证明使用了 `Text()`。
 
 ### 修复后必须操作
 
